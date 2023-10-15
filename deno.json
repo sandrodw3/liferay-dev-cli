@@ -6,6 +6,7 @@
 		"std/walk" : "https://deno.land/std@0.210.0/fs/walk.ts",
 
 		"git": "./src/shared/git/index.ts",
+		"liferay": "./src/shared/liferay/index.ts",
 		"tools": "./src/shared/tools/index.ts",
 		"types": "./src/types/index.ts"
 	}
