@@ -6,6 +6,8 @@
 		"spinners": "https://deno.land/x/spinners@v1.1.2/mod.ts",
 		"std/colors": "https://deno.land/std@0.224.0/fmt/colors.ts", 
 		"std/exists": "https://deno.land/std@0.224.0/fs/exists.ts",
-		"std/walk" : "https://deno.land/std@0.224.0/fs/walk.ts"
+		"std/walk" : "https://deno.land/std@0.224.0/fs/walk.ts",
+
+		"exceptions": "./src/shared/exceptions.ts"
 	}
 }
