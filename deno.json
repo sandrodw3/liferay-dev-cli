@@ -1,5 +1,8 @@
 {
 	"imports": {
-		"std/exists": "https://deno.land/std@0.210.0/fs/exists.ts"
+		"spinners": "https://deno.land/x/spinners@v1.1.2/mod.ts",
+		"std/exists": "https://deno.land/std@0.210.0/fs/exists.ts",
+
+		"types": "./src/types/index.ts"
 	}
 }
