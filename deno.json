@@ -1,6 +1,7 @@
 {
 	"imports": {
 		"spinners": "https://deno.land/x/spinners@v1.1.2/mod.ts",
+		"std/colors": "https://deno.land/std@0.210.0/fmt/colors.ts",
 		"std/exists": "https://deno.land/std@0.210.0/fs/exists.ts",
 
 		"git": "./src/shared/git/index.ts",
