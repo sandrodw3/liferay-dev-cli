@@ -10,6 +10,7 @@
 
 		"exceptions": "./src/shared/tools/exceptions.ts",
 		"git": "./src/shared/git/index.ts",
+		"liferay": "./src/shared/liferay/index.ts",
 		"tools": "./src/shared/tools/index.ts"
 	}
 }
