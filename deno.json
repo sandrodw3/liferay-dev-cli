@@ -3,6 +3,7 @@
 		"spinners": "https://deno.land/x/spinners@v1.1.2/mod.ts",
 		"std/exists": "https://deno.land/std@0.210.0/fs/exists.ts",
 
+		"tools": "./src/shared/tools/index.ts",
 		"types": "./src/types/index.ts"
 	}
 }
