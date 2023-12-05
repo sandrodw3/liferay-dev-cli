@@ -7,6 +7,7 @@
 		"std/exists": "https://deno.land/std@0.210.0/fs/exists.ts",
 		"std/walk" : "https://deno.land/std@0.210.0/fs/walk.ts",
 
+		"commands": "./src/commands/index.ts",
 		"git": "./src/shared/git/index.ts",
 		"liferay": "./src/shared/liferay/index.ts",
 		"tools": "./src/shared/tools/index.ts",
