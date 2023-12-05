@@ -9,6 +9,7 @@
 		"std/unstable-spinner" : "jsr:@std/cli@1.0.13/unstable-spinner",
 		"std/walk" : "jsr:@std/fs@1.0.13/walk",
 
+		"commands": "./src/commands/index.ts",
 		"config": "./src/shared/config/index.ts",
 		"exceptions": "./src/shared/exceptions.ts",
 		"git": "./src/shared/git/index.ts",
