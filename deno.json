@@ -9,6 +9,7 @@
 		"std/walk" : "https://deno.land/std@0.224.0/fs/walk.ts",
 
 		"exceptions": "./src/shared/tools/exceptions.ts",
+		"git": "./src/shared/git/index.ts",
 		"tools": "./src/shared/tools/index.ts"
 	}
 }
