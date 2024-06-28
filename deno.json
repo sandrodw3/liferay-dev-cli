@@ -8,6 +8,7 @@
 		"std/exists": "https://deno.land/std@0.224.0/fs/exists.ts",
 		"std/walk" : "https://deno.land/std@0.224.0/fs/walk.ts",
 
+		"config": "./src/shared/config/index.ts",
 		"exceptions": "./src/shared/exceptions.ts",
 		"tools": "./src/shared/tools/index.ts"
 	}
