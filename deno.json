@@ -11,6 +11,7 @@
 
 		"config": "./src/shared/config/index.ts",
 		"exceptions": "./src/shared/exceptions.ts",
-		"tools": "./src/shared/tools/index.ts"
+		"tools": "./src/shared/tools/index.ts",
+		"version": "./src/shared/version/index.ts"
 	}
 }
