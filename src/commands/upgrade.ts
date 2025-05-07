@@ -35,7 +35,7 @@ export async function upgrade(current: string) {
 
 	// Upgrade to latest version
 
-	log(`Found latest version ${bold(cyan(current))}\n`)
+	log(`Found latest version ${bold(cyan(latest))}\n`)
 
 	log(dim(`Installing it...\n`))
 
