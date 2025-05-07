@@ -70,8 +70,7 @@ async function runTestsInSelectedFile(ui: Props['ui']) {
 		name: file.name,
 	}))
 
-	const formatPreview =
-		'echo "{}" | sed "s|.*/\\([^/]*\\)/\\([^/]*\\) .*|\\1/\\2|"'
+	const formatPreview = `echo "{}" | sed 's|.*/tests/||; s| .*||'`
 
 	log(
 		`Please ${bold(white('select a file'))} and press ${bold(
