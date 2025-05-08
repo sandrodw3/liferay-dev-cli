@@ -1,15 +1,14 @@
-import { getConfigEntry } from 'config'
+import { getBundlesPath } from 'liferay'
 import { bold, yellow } from 'std/colors'
 import { walkSync } from 'std/walk'
-import { folderExists, goUp, join, log } from 'tools'
+import { folderExists, log } from 'tools'
 
 /**
  * Return the path of the latest tomcat
  */
 
 export async function getLatestTomcatPath(): Promise<string> {
-	const portalPath = await getConfigEntry('portal.path')
-	const bundlesPath = join(goUp(portalPath), 'bundles')
+	const bundlesPath = await getBundlesPath()
 
 	// Get all tomcat folders
 

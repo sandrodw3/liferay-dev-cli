@@ -2,12 +2,11 @@ import { Client, configLogger } from 'mysql'
 import { blue, bold, dim, magenta, red, white, yellow } from 'std/colors'
 
 import { getConfigEntry, setConfigValues } from 'config'
-import { getLatestTomcatPath } from 'liferay'
+import { getBundlesPath, getLatestTomcatPath } from 'liferay'
 import {
 	checkDbExists,
 	folderExists,
 	getBaseName,
-	goUp,
 	join,
 	log,
 	runAsyncFunction,
@@ -27,7 +26,7 @@ export async function start({ clean }: Props) {
 
 	const portalPath = await getConfigEntry('portal.path')
 	const portalName = getBaseName(portalPath)
-	const bundlesPath = join(goUp(portalPath), 'bundles')
+	const bundlesPath = await getBundlesPath()
 	const tomcatPath = await getLatestTomcatPath()
 
 	if (!folderExists(bundlesPath)) {

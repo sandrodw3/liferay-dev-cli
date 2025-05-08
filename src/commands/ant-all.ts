@@ -1,7 +1,7 @@
 import { blue, bold, dim, red, white } from 'std/colors'
 
 import { getConfigEntry } from 'config'
-import { Profile } from 'liferay'
+import { getBundlesPath, Profile } from 'liferay'
 import {
 	folderExists,
 	getBaseName,
@@ -141,11 +141,9 @@ export async function antAll({ clean, defaultOutput, profile }: Props) {
  */
 
 async function cleanBundles() {
-	const portalPath = await getConfigEntry('portal.path')
-
 	// Check bundles path exists
 
-	const bundlesPath = join(goUp(portalPath), 'bundles')
+	const bundlesPath = await getBundlesPath()
 
 	if (!folderExists(bundlesPath)) {
 		return
@@ -153,7 +151,8 @@ async function cleanBundles() {
 
 	// Copy properties files to new bundles folder
 
-	const newBundlesPath = join(goUp(portalPath), Date.now().toString())
+	const newBundlesPath = join(goUp(bundlesPath), Date.now().toString())
+
 	await Deno.mkdir(newBundlesPath)
 
 	for await (const entry of Deno.readDir(bundlesPath)) {
