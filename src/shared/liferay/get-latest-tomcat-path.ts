@@ -4,7 +4,7 @@ import { walkSync } from 'std/walk'
 import { folderExists, goUp, join, log } from 'tools'
 
 /**
- * Return type of the given module
+ * Return the path of the latest tomcat
  */
 
 export async function getLatestTomcatPath(): Promise<string> {
