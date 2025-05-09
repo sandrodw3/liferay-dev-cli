@@ -41,6 +41,8 @@ curl -fsSL https://raw.githubusercontent.com/sandrodw3/liferay-dev-cli/main/inst
 ## 💡 Usage
 Just run `lfr [command]` with any desired options. All commands include a `-h` option to display help. You can also run just `lfr` to see the full CLI help.
 
+Most commands can be executed from anywhere, without needing to move to the portal directory. The portal path is configured the first time `lfr` is executed and remains saved (unless we change it again using `lfr config`).
+
 By default, `lfr` uses a minimalist and compact output for its commands. Most of them have a `-d` option available to display the traditional output of each one.
 
 There's also available an `lfr upgrade` command to update the CLI to its latest version and an `lfr config` one to set the necessary configuration for the CLI to work.
@@ -65,7 +67,7 @@ Explanation and description of how each of the commands and their available opti
 
 ### `ant-all`
 
-Run ant all in the current Liferay portal project.
+Run ant all in the current Liferay portal project. `-c` option can be passed to remove `bundles` folder (except properties files) before doing it. `bundles` folder path is taken from `app.server.parent.dir` variable of `app.server.[username].properties` file, or in the default `app.server.properties` if the first one is not present.
 
 ```
 lfr ant-all <options>
@@ -196,7 +198,7 @@ lfr poshi [test]
 
 ### `start`
 
-Start portal with the latest Tomcat version. MySQL configuration needs to be set to be able to use `-c` option to start with a clean database.
+Start portal with the latest Tomcat version. MySQL configuration needs to be set to be able to use `-c` option to start with a clean database. `bundles` folder path is taken from `app.server.parent.dir` variable of `app.server.[username].properties` file, or in the default `app.server.properties` if the first one is not present.
 
 ```
 lfr start <options>
