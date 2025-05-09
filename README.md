@@ -65,7 +65,7 @@ Explanation and description of how each of the commands and their available opti
 
 ### `ant-all`
 
-Run ant all in the current Liferay portal project.
+Run ant all in the current Liferay portal project. `-c` option can be passed to remove `bundles` folder (except properties files) before doing it. `bundles` folder path is taken from `app.server.parent.dir` variable of `app.server.[username].properties` file, or in the default `app.server.properties` if the first one is not present.
 
 ```
 lfr ant-all <options>
@@ -196,7 +196,7 @@ lfr poshi [test]
 
 ### `start`
 
-Start portal with the latest Tomcat version. MySQL configuration needs to be set to be able to use `-c` option to start with a clean database.
+Start portal with the latest Tomcat version. MySQL configuration needs to be set to be able to use `-c` option to start with a clean database. `bundles` folder path is taken from `app.server.parent.dir` variable of `app.server.[username].properties` file, or in the default `app.server.properties` if the first one is not present.
 
 ```
 lfr start <options>
