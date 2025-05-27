@@ -70,12 +70,6 @@ async function deployCurrentModule(options: Options) {
 		return
 	}
 
-	if (moduleType !== 'standard-module') {
-		log(`${bold(blue(moduleName))} is ${bold(yellow(`not deployable`))}`)
-
-		return
-	}
-
 	await deployModule({ module, options })
 }
 
