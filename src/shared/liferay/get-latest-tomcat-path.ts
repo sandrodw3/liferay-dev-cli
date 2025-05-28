@@ -23,10 +23,23 @@ export async function getLatestTomcatPath(): Promise<string> {
 	const paths = [...folders]
 		.map((folder) => folder.path)
 		.sort((a, b) => {
-			const versionA = Number(a.slice(a.lastIndexOf('.') + 1))
-			const versionB = Number(b.slice(b.lastIndexOf('.') + 1))
+			const versionA = a
+				.slice(a.lastIndexOf('-') + 1)
+				.split('.')
+				.map(Number)
 
-			return versionA - versionB
+			const versionB = b
+				.slice(b.lastIndexOf('-') + 1)
+				.split('.')
+				.map(Number)
+
+			for (let i = 0; i < versionA.length; i++) {
+				if (versionA[i] !== versionB[i]) {
+					return versionA[i] - versionB[i]
+				}
+			}
+
+			return 0
 		})
 
 	const latest = paths.pop()
