@@ -176,13 +176,7 @@ async function deploySelectedModule(options: Options) {
 	)
 
 	const module = await selectModule({
-		exclude: [
-			'playwright',
-			'parent-module',
-			'test-module',
-			'root-module',
-			'root',
-		],
+		exclude: ['playwright', 'parent-module', 'test-module', 'root'],
 	})
 
 	if (!module) {
@@ -228,6 +222,10 @@ async function deployModule({
 
 		if (skipDependencies) {
 			description += bold(white(' without rebuilding dependencies'))
+		}
+
+		if (moduleType === 'root-module') {
+			description = `Deploying ${bold(blue(moduleName))}`
 		}
 
 		log(`${description}\n`)
