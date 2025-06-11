@@ -142,7 +142,7 @@ lfr format <options>
 
 | Option                 | Description                                                                                                      |
 | ---------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `-b, --current-branch` | Format the current branch (`ant format-source-current-branch` and `npx node-scripts check:tsc --current-branch`) |
+| `-b, --current-branch` | Format the current branch (`ant format-source-current-branch`, `npx node-scripts check:tsc --current-branch` and `npx node-scripts check:ci --current-branch`)                                                                                                                          |
 | `-d, --default-output` | Log the default output                                                                                           |
 | `-m, --module`         | Allow selecting a specific module to format (`gradlew formatSource`)                                             |
 
