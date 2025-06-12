@@ -62,6 +62,15 @@ async function deployCurrentModule(options: Options) {
 	const moduleName = getBaseName(module)
 	const moduleType = await getModuleType(module)
 
+	if (
+		!moduleType ||
+		['playwright', 'test-module', 'root'].includes(moduleType)
+	) {
+		log(`${bold(blue(moduleName))} is ${bold(yellow('not deployable'))}`)
+
+		return
+	}
+
 	if (moduleType === 'parent-module') {
 		log(
 			`${bold(blue(moduleName))} contains several modules, please move to one of them to deploy it`
