@@ -89,7 +89,7 @@ lfr build-lang
 
 ### `config`
 
-Allow setting user configuration, that is stored in `.lfr/config.json` file in user's folder. This configuration is needed for the app to work correclty. MySQL config is optional, it's only used to start the portal with a clean database.
+Allow setting user configuration, that is stored in `.lfr/config.json` file in user's folder. This configuration is needed for the app to work correctly.
 
 ```
 lfr config [entry] [value] <options>
@@ -99,9 +99,7 @@ lfr config [entry] [value] <options>
 |---------------|----------------------------------------------------------------------------------------------------|
 | `portal.path` | Liferay portal path                                                                                |
 | `base.branch` | Base branch to be used for example to compare and get the modified modules of a branch             |
-| `mysql.user`  | MySQL user                                                                                         |
-| `mysql.pw`    | MySQL password                                                                                     |
-| `mysql.db`    | Name of Liferay Portal MySQL database                                                              |
+
 
 | Option         | Description                                               |
 | -------------- | --------------------------------------------------------- |
@@ -198,15 +196,15 @@ lfr poshi [test]
 
 ### `start`
 
-Start portal with the latest Tomcat version. MySQL configuration needs to be set to be able to use `-c` option to start with a clean database. `bundles` folder path is taken from `app.server.parent.dir` variable of `app.server.[username].properties` file, or in the default `app.server.properties` if the first one is not present.
+Start portal with the latest Tomcat version. Database configuration is taken from `portal-ext.properties` file in `bundles` folder. `bundles` folder path is taken from `app.server.parent.dir` variable of `app.server.[username].properties` file, or in the default `app.server.properties` if the first one is not present.
 
 ```
 lfr start <options>
 ```
 
-| Option        | Description                                                                   |
-| ------------- | ----------------------------------------------------------------------------- |
-| `-c, --clean` | Clean database before starting (this option requires `mysql` to be installed) |
+| Option        | Description                                                                                 |
+| ------------- | ------------------------------------------------------------------------------------------- |
+| `-c, --clean` | Clean database before starting (this option requires `mysql` or `postgres` to be installed) |
 
 ### `stop`
 
