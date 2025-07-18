@@ -1,29 +1,26 @@
 import { blue, bold, white } from 'std/colors'
 
-import { log, runCommand } from 'tools'
+import { getPortalProcessPid } from 'liferay'
+import { log } from 'tools'
 
 /**
  * Stop portal instance that is currently running
  */
 
 export async function stop() {
-	// Get Liferay portal process
+	// Get Liferay portal process pid
 
-	const processes = (await runCommand('ps aux')).split('\n')
+	const pid = await getPortalProcessPid()
 
-	const process = processes.find((proc) => proc.includes('catalina'))
+	// Exit if not found
 
-	// Exit if process is not found
-
-	if (!process) {
+	if (!pid) {
 		log(`There is no any ${bold(blue('Liferay'))} portal process running`)
 
 		return
 	}
 
-	// Find process pid and kill it
-
-	const [_, pid] = process.split(' ').filter(Boolean)
+	// Kill the process
 
 	Deno.kill(Number(pid), 'SIGKILL')
 
