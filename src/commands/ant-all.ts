@@ -1,7 +1,7 @@
-import { blue, bold, dim, red, white } from 'std/colors'
+import { blue, bold, dim, red, white, yellow } from 'std/colors'
 
 import { getConfigEntry } from 'config'
-import { getBundlesPath, Profile } from 'liferay'
+import { getBundlesPath, getPortalProcessPid, Profile } from 'liferay'
 import {
 	folderExists,
 	getBaseName,
@@ -23,6 +23,16 @@ type Props = {
  */
 
 export async function antAll({ clean, defaultOutput, profile }: Props) {
+	const pid = await getPortalProcessPid()
+
+	if (pid) {
+		log(
+			`A ${bold(blue('Liferay'))} portal process is running, please ${bold(yellow('stop'))} it and try again`
+		)
+
+		return
+	}
+
 	const portalPath = await getConfigEntry('portal.path')
 	const portalName = getBaseName(portalPath)
 
