@@ -4,10 +4,10 @@
 
 		"cliffy/command": "jsr:@cliffy/command@1.0.0-rc.7",
 		"cliffy/prompt": "jsr:@cliffy/prompt@1.0.0-rc.7",
-		"std/colors": "jsr:@std/fmt@1.0.5/colors", 
+		"std/colors": "jsr:@std/fmt@1.0.5/colors",
 		"std/exists": "jsr:@std/fs@1.0.13/exists",
-		"std/unstable-spinner" : "jsr:@std/cli@1.0.13/unstable-spinner",
-		"std/walk" : "jsr:@std/fs@1.0.13/walk",
+		"std/unstable-spinner": "jsr:@std/cli@1.0.13/unstable-spinner",
+		"std/walk": "jsr:@std/fs@1.0.13/walk",
 
 		"commands": "./src/commands/index.ts",
 		"config": "./src/shared/config/index.ts",
