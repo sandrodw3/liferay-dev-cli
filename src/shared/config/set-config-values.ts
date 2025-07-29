@@ -49,11 +49,11 @@ export async function setConfigValues(entries?: ConfigEntry[]) {
 			validate: (value) => {
 				// Check it's actually a Liferay project
 
-				if (existsSync(join(value, 'portal-web', 'portal-web.iml'))) {
-					return true
+				if (!existsSync(join(value, 'portal-web', 'portal-web.iml'))) {
+					return 'This is not a valid portal path'
 				}
 
-				return 'This is not a valid portal path'
+				return true
 			},
 		},
 		{
