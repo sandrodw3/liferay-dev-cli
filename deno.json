@@ -4,6 +4,7 @@
 
 		"cliffy/command": "jsr:@cliffy/command@1.0.0-rc.7",
 		"cliffy/prompt": "jsr:@cliffy/prompt@1.0.0-rc.7",
+		"postgres": "jsr:@db/postgres@0.19.5",
 		"std/colors": "jsr:@std/fmt@1.0.5/colors",
 		"std/exists": "jsr:@std/fs@1.0.13/exists",
 		"std/unstable-spinner": "jsr:@std/cli@1.0.13/unstable-spinner",
