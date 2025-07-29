@@ -2,8 +2,8 @@ import { Client as MySQLCLient, configLogger } from 'mysql'
 import { Client as PostgreSQLClient } from 'postgres'
 
 import { DBData } from 'liferay'
-import { bold, magenta, red, white } from 'std/colors'
-import { log } from 'tools'
+import { bold, red, white } from 'std/colors'
+import { log, processDbError } from 'tools'
 
 /**
  * Check if the given database exists and
@@ -27,15 +27,13 @@ export async function checkDbExists({
 			})
 		}
 	} catch (error) {
-		const { message } = error as Error
+		const dbError = processDbError(error as Error)
 
-		if (message.includes('Access denied')) {
+		if (dbError === 'access-denied') {
 			log(
-				`Your ${bold(white('Database credentials'))} are ${bold(
+				`${bold(white('Database credentials'))} in your ${bold(white('portal-ext.properties'))} are ${bold(
 					red('incorrect')
-				)}, please set correct ones with ${bold(
-					magenta('lfr config')
-				)} and try again`
+				)}, please set correct ones and try again`
 			)
 
 			Deno.exit(1)
