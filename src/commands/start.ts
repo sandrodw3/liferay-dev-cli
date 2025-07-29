@@ -1,10 +1,12 @@
-import { Client, configLogger } from 'mysql'
-import { blue, bold, dim, magenta, red, white, yellow } from 'std/colors'
+import { blue, bold, dim, white, yellow } from 'std/colors'
 
-import { getConfigEntry, setConfigValues } from 'config'
-import { getBundlesPath, getLatestTomcatPath } from 'liferay'
+import { Confirm } from 'cliffy/prompt'
+import { getConfigEntry } from 'config'
+import { DBData, getBundlesPath, getDBData, getLatestTomcatPath } from 'liferay'
 import {
 	checkDbExists,
+	cleanDb,
+	createDb,
 	folderExists,
 	getBaseName,
 	join,
@@ -28,6 +30,7 @@ export async function start({ clean }: Props) {
 	const portalName = getBaseName(portalPath)
 	const bundlesPath = await getBundlesPath()
 	const tomcatPath = await getLatestTomcatPath()
+	const dbData = await getDBData()
 
 	if (!folderExists(bundlesPath)) {
 		log(
@@ -38,6 +41,45 @@ export async function start({ clean }: Props) {
 
 		Deno.exit(1)
 	}
+
+	// Check correct data is set in portal-ext.properties
+
+	const { database, username, password, type } = dbData
+
+	if (!username || !password || !database || !type) {
+		log(
+			`To start portal you need to ${bold(yellow('set correct database data'))} in your ${bold(
+				white('portal-ext.properties')
+			)} file inside ${bold(white('bundles'))}`
+		)
+
+		Deno.exit(1)
+	}
+
+	// Create database if it does not exist
+
+	const dbExists = await checkDbExists(dbData)
+
+	if (!dbExists) {
+		if (
+			await Confirm.prompt(
+				`The database specified in your ${bold(white('portal-ext.properties'))} (${dbData.database}) ${bold(yellow('does not exist'))}, do you want to create it?`
+			)
+		) {
+			log('')
+
+			await runAsyncFunction({
+				fn: async () => await createDb(dbData),
+				text: `${portalName} ${dim('Create database')}`,
+			})
+
+			log('')
+		} else {
+			Deno.exit(1)
+		}
+	}
+
+	// Show description
 
 	let description = `${bold(white('Starting'))} ${bold(
 		blue(portalName)
@@ -52,33 +94,7 @@ export async function start({ clean }: Props) {
 	// Clean database if specified
 
 	if (clean) {
-		let username = await getConfigEntry('mysql.user')
-		let password = await getConfigEntry('mysql.pw')
-		let database = await getConfigEntry('mysql.db')
-
-		if (!username || !password || !database) {
-			log(
-				`To clean database, first save your ${bold(white('MySQL credentials'))}\n`
-			)
-
-			const config = await setConfigValues([
-				'mysql.user',
-				'mysql.pw',
-				'mysql.db',
-			])
-
-			if (!config) {
-				return
-			}
-
-			username = config['mysql.user']!
-			password = config['mysql.pw']!
-			database = config['mysql.db']!
-
-			log('')
-		}
-
-		await cleanLiferayDb(username, password, database)
+		await cleanLiferayDb({ username, password, database, type })
 
 		log('')
 	}
@@ -94,65 +110,12 @@ export async function start({ clean }: Props) {
  * Clean a Liferay db
  */
 
-async function cleanLiferayDb(
-	username: string,
-	password: string,
-	database: string
-) {
+async function cleanLiferayDb(dbData: DBData) {
 	const portalPath = await getConfigEntry('portal.path')
 	const portalName = getBaseName(portalPath)
 
-	const dbExists = await checkDbExists({ username, password, database })
-
-	if (!dbExists) {
-		log(`Introduce your Liferay portal ${bold(white('database name'))}\n`)
-
-		await setConfigValues(['mysql.db'])
-
-		log('')
-	}
-
 	await runAsyncFunction({
-		fn: async () => {
-			try {
-				// Connect, drop database and recreate it
-
-				const client = await new Client().connect({
-					username,
-					password,
-				})
-
-				configLogger({ enable: false })
-
-				await client.execute(`DROP DATABASE ${database}`)
-
-				await client.execute(
-					`CREATE DATABASE ${database} CHARACTER SET utf8 COLLATE utf8_general_ci`
-				)
-			} catch (error) {
-				const { message } = error as Error
-
-				if (message.includes('Access denied')) {
-					throw new Error(
-						`(${bold(
-							red('access denied')
-						)}, please set correct MySQL credentials with ${bold(
-							magenta('lfr config')
-						)} and try again)`
-					)
-				} else if (message.includes('Unknown database')) {
-					throw new Error(
-						`(${bold(
-							red('unknown database')
-						)}, set correct one with ${bold(
-							magenta('lfr config')
-						)} and try again)`
-					)
-				}
-
-				throw new Error()
-			}
-		},
+		fn: async () => await cleanDb(dbData),
 		text: `${portalName} ${dim('Clean database')}`,
 	})
 }
