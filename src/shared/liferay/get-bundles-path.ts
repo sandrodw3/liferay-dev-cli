@@ -1,4 +1,5 @@
 import { getConfigEntry } from 'config'
+import { findProperty } from 'liferay'
 import { folderExists, goUp, join, runCommand } from 'tools'
 
 /**
@@ -40,21 +41,10 @@ export async function getBundlesPath(): Promise<string> {
 async function findBundlesPath(fileName: string) {
 	const portalPath = await getConfigEntry('portal.path')
 
-	try {
-		const properties = await Deno.readTextFile(join(portalPath, fileName))
+	const path = await findProperty(
+		join(portalPath, fileName),
+		'app.server.parent.dir'
+	)
 
-		const line = properties
-			.split('\n')
-			.find((line) => line.includes('app.server.parent.dir='))
-
-		if (!line) {
-			return ''
-		}
-
-		const [, property] = line.split('=')
-
-		return property.replace('${project.dir}', portalPath)
-	} catch {
-		return ''
-	}
+	return path.replace('${project.dir}', portalPath)
 }
