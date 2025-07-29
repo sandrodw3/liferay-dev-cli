@@ -4,13 +4,7 @@ import { existsSync } from 'std/exists'
 import { readConfig, writeConfig } from 'config'
 import { join, log } from 'tools'
 
-export const CONFIG_ENTRY_KEYS = [
-	'portal.path',
-	'base.branch',
-	'mysql.user',
-	'mysql.pw',
-	'mysql.db',
-] as const
+export const CONFIG_ENTRY_KEYS = ['portal.path', 'base.branch'] as const
 
 export type ConfigEntry = (typeof CONFIG_ENTRY_KEYS)[number]
 
