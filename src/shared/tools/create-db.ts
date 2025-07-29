@@ -1,32 +1,27 @@
-import { Client, configLogger } from 'mysql'
+import { Client as MySQLClient, configLogger } from 'mysql'
+import { Client as PostgreSQLClient } from 'postgres'
 import { bold, magenta, red, white } from 'std/colors'
+
+import { DBData } from 'liferay'
 import { log } from 'tools'
 
-type Props = {
-	username: string
-	password: string
-	database: string
-}
-
 /**
- * Creates a MySQL database with the given name
+ * Creates a database with the given name
  */
 
-export async function createDb({ username, password, database }: Props) {
+export async function createDb({ username, password, database, type }: DBData) {
 	try {
-		const client = await new Client().connect({ username, password })
-
-		configLogger({ enable: false })
-
-		await client.execute(
-			`CREATE DATABASE ${database} CHARACTER SET utf8 COLLATE utf8_general_ci`
-		)
+		if (type === 'mysql') {
+			await createMySQLDb({ username, password, database })
+		} else if (type === 'postgresql') {
+			await createPostgreSQLDb({ username, password, database })
+		}
 	} catch (error) {
 		const { message } = error as Error
 
 		if (message.includes('Access denied')) {
 			log(
-				`Your ${bold(white('MySQL credentials'))} are ${bold(
+				`Your ${bold(white('Database credentials'))} are ${bold(
 					red('incorrect')
 				)}, please set correct ones with ${bold(
 					magenta('lfr config')
@@ -42,4 +37,46 @@ export async function createDb({ username, password, database }: Props) {
 
 		Deno.exit(1)
 	}
+}
+
+/**
+ * Create a PostgreSQL database
+ */
+
+async function createMySQLDb({
+	database,
+	password,
+	username,
+}: Partial<DBData>) {
+	const client = await new MySQLClient().connect({ username, password })
+
+	configLogger({ enable: false })
+
+	await client.execute(
+		`CREATE DATABASE ${database} CHARACTER SET utf8 COLLATE utf8_general_ci`
+	)
+}
+
+/**
+ * Create a PostgreSQL database
+ */
+
+async function createPostgreSQLDb({
+	database,
+	password,
+	username,
+}: Partial<DBData>) {
+	const client = new PostgreSQLClient({
+		hostname: 'localhost',
+		user: username,
+		database: 'postgres',
+		password,
+		tls: { enabled: false },
+	})
+
+	await client.connect()
+
+	await client.queryArray(`CREATE DATABASE ${database}`)
+
+	await client.end()
 }
