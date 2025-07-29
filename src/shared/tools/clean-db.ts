@@ -1,8 +1,9 @@
 import { Client as MySQLClient, configLogger } from 'mysql'
 import { Client as PostgreSQLClient } from 'postgres'
-import { bold, magenta, red } from 'std/colors'
+import { bold, red, white } from 'std/colors'
 
 import { DBData } from 'liferay'
+import { processDbError } from 'tools'
 
 /**
  * Clean (delete and create) the given database
@@ -20,20 +21,20 @@ export async function cleanDb({ username, password, database, type }: DBData) {
 			})
 		}
 	} catch (error) {
-		const { message } = error as Error
+		const dbError = processDbError(error as Error)
 
-		if (message.includes('Access denied')) {
+		if (dbError === 'access-denied') {
 			throw new Error(
 				`(${bold(
 					red('access denied')
-				)}, please set correct Database credentials with ${bold(
-					magenta('lfr config')
+				)}, please set correct database credentials in your ${bold(
+					white('portal-ext.properties')
 				)} and try again)`
 			)
-		} else if (message.includes('Unknown database')) {
+		} else if (dbError === 'unknown-database') {
 			throw new Error(
-				`(${bold(red('unknown database'))}, set correct one with ${bold(
-					magenta('lfr config')
+				`(${bold(red('unknown database'))}, set correct one in your ${bold(
+					white('portal-ext.properties')
 				)} and try again)`
 			)
 		}

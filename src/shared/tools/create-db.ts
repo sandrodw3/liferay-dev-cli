@@ -1,9 +1,9 @@
 import { Client as MySQLClient, configLogger } from 'mysql'
 import { Client as PostgreSQLClient } from 'postgres'
-import { bold, magenta, red, white } from 'std/colors'
+import { bold, red, white } from 'std/colors'
 
 import { DBData } from 'liferay'
-import { log } from 'tools'
+import { log, processDbError } from 'tools'
 
 /**
  * Creates a database with the given name
@@ -17,23 +17,19 @@ export async function createDb({ username, password, database, type }: DBData) {
 			await createPostgreSQLDb({ username, password, database })
 		}
 	} catch (error) {
-		const { message } = error as Error
+		const dbError = processDbError(error as Error)
 
-		if (message.includes('Access denied')) {
+		if (dbError === 'access-denied') {
 			log(
-				`Your ${bold(white('Database credentials'))} are ${bold(
+				`${bold(white('Database credentials'))} in your ${bold(white('portal-ext.properties'))} are ${bold(
 					red('incorrect')
-				)}, please set correct ones with ${bold(
-					magenta('lfr config')
-				)} and try again`
+				)}, please set correct ones and try again`
 			)
-
-			Deno.exit(1)
+		} else {
+			log(
+				`\nAn ${bold(red('error'))} occurred while ${bold(white('creating the database'))}, please try again later`
+			)
 		}
-
-		log(
-			`\nAn ${bold(red('error'))} occurred while ${bold(white('creating the database'))}, please try again later`
-		)
 
 		Deno.exit(1)
 	}
