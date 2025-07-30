@@ -67,7 +67,7 @@ Explanation and description of how each of the commands and their available opti
 
 ### `ant-all`
 
-Run ant all in the current Liferay portal project. `-c` option can be passed to remove `bundles` folder (except properties files) before doing it. `bundles` folder path is taken from `app.server.parent.dir` variable of `app.server.[username].properties` file, or in the default `app.server.properties` if the first one is not present.
+Run ant all in the Liferay portal project. `-c` option can be passed to remove `bundles` folder (except properties files) before doing it. `bundles` folder path is taken from `app.server.parent.dir` variable of `app.server.[username].properties` file, or in the default `app.server.properties` if the first one is not present.
 
 ```
 lfr ant-all <options>
@@ -96,7 +96,7 @@ lfr config [entry] [value] <options>
 ```
 
 | Entry         | Description                                                                                        |
-|---------------|----------------------------------------------------------------------------------------------------|
+|---------------|--------------------------------------------------------------------------------------------------- |
 | `portal.path` | Liferay portal path                                                                                |
 | `base.branch` | Base branch to be used for example to compare and get the modified modules of a branch             |
 
@@ -202,9 +202,9 @@ Start portal with the latest Tomcat version. Database configuration is taken fro
 lfr start <options>
 ```
 
-| Option        | Description                                                                                 |
-| ------------- | ------------------------------------------------------------------------------------------- |
-| `-c, --clean` | Clean database before starting (this option requires `mysql` or `postgres` to be installed) |
+| Option        | Description                                                                                                    |
+| ------------- | -------------------------------------------------------------------------------------------------------------- |
+| `-c, --clean` | Clean database before starting (this option requires the user to be using `MySQL` or `PostgreSQL` as database) |
 
 ### `stop`
 
