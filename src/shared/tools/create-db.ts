@@ -49,7 +49,7 @@ async function createMySQLDb({
 	configLogger({ enable: false })
 
 	await client.execute(
-		`CREATE DATABASE ${database} CHARACTER SET utf8 COLLATE utf8_general_ci`
+		`CREATE DATABASE \`${database}\` CHARACTER SET utf8 COLLATE utf8_general_ci`
 	)
 }
 
@@ -72,7 +72,7 @@ async function createPostgreSQLDb({
 
 	await client.connect()
 
-	await client.queryArray(`CREATE DATABASE ${database}`)
+	await client.queryArray(`CREATE DATABASE "${database}"`)
 
 	await client.end()
 }
