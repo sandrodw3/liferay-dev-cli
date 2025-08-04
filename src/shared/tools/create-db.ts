@@ -27,7 +27,7 @@ export async function createDb({ username, password, database, type }: DBData) {
 			)
 		} else {
 			log(
-				`\nAn ${bold(red('error'))} occurred while ${bold(white('creating the database'))}, please try again later`
+				`An ${bold(red('error'))} occurred while ${bold(white('creating the database'))}, please try again later`
 			)
 		}
 
