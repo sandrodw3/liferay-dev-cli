@@ -39,7 +39,7 @@ export async function cleanDb({ username, password, database, type }: DBData) {
 			)
 		}
 
-		throw new Error()
+		throw new Error((error as Error).message)
 	}
 }
 
