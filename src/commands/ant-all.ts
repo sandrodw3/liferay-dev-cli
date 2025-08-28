@@ -70,7 +70,7 @@ export async function antAll({ clean, defaultOutput, profile }: Props) {
 			'git clean -fdx -e .classpath -e .idea -e .project -e *.eml -e *.iml -e *.properties'
 
 		if (defaultOutput) {
-			log(`Clean ${bold(blue('bundles'))} folder and untracked files\n`)
+			log(`\nClean ${bold(blue('bundles'))} folder and untracked files\n`)
 
 			await runCommand(cleanCmd, { spawn: true })
 		} else {
@@ -92,7 +92,7 @@ export async function antAll({ clean, defaultOutput, profile }: Props) {
 				: 'ant setup-profile-portal'
 
 		if (defaultOutput) {
-			log(`Set ${bold(white(profile))} profile\n`)
+			log(`\nSet ${bold(white(profile))} profile\n`)
 
 			await runCommand(cmd, { spawn: true })
 		} else {
@@ -111,7 +111,7 @@ export async function antAll({ clean, defaultOutput, profile }: Props) {
 
 	if (defaultOutput) {
 		if (clean || profile) {
-			log(`Running ${bold(white('ant all'))}\n`)
+			log(`\nRun ${bold(white('ant all'))}\n`)
 		}
 
 		await runCommand('ant all', { spawn: true })
