@@ -68,14 +68,14 @@ Explanation and description of how each of the commands and their available opti
 Run ant all in the Liferay portal project. `-c` option can be passed to remove `bundles` folder (except properties files) before doing it. `bundles` folder path is taken from `app.server.parent.dir` variable of `app.server.[username].properties` file, or in the default `app.server.properties` if the first one is not present.
 
 ```
-lfr ant-all <options>
+lfr ant-all [options...]
 ```
 
-| Option                 | Description                                                                                |
-| ---------------------- | ------------------------------------------------------------------------------------------ |
-| `-c, --clean`          | Remove bundles folder (except properties files) and untracked files before running ant all |
-| `-d, --default-output` | Log the default output                                                                     |
-| `-p, --profile`        | Set the given profile (valid values are **dxp** and **portal**)                            |
+| Option                    | Description                                                                                |
+| ------------------------- | ------------------------------------------------------------------------------------------ |
+| `-c, --clean`             | Remove bundles folder (except properties files) and untracked files before running ant all |
+| `-d, --default-output`    | Log the default output                                                                     |
+| `-p, --profile <profile>` | Set the given profile (valid values are **dxp** and **portal**)                            |
 
 ### `build-lang`
 
@@ -87,10 +87,10 @@ lfr build-lang
 
 ### `config`
 
-Allow setting user configuration, that is stored in `.lfr/config.json` file in user's folder. This configuration is needed for the app to work correctly.
+Allow setting user configuration, that is stored in `.lfr/config.json` file in user's folder. This configuration is needed for the app to work correctly. `entry` and `value` are mandatory if no option is specified.
 
 ```
-lfr config [entry] [value] <options>
+lfr config [entry] [value] [options...]
 ```
 
 | Entry         | Description                                                                                        |
@@ -109,7 +109,7 @@ lfr config [entry] [value] <options>
 Deploy a module or a bunch of them, depending on options. If no passing `-m` or `-b` options, deploy the current module.
 
 ```
-lfr deploy <options>
+lfr deploy [options...]
 ```
 
 | Option                    | Description                                                                  |
@@ -133,7 +133,7 @@ lfr find
 Format a module or a branch, depending on options. If no passing options, format the current module with `gradlew formatSource`.
 
 ```
-lfr format <options>
+lfr format [options...]
 ```
 
 | Option                 | Description                                                                                                      |
@@ -147,7 +147,7 @@ lfr format <options>
 Run `node-scripts` commands globally or in current module.
 
 ```
-lfr node-scripts [command] <options>
+lfr node-scripts <command> [options...]
 ```
 
 | Option                 | Description                                                   |
@@ -162,7 +162,7 @@ lfr node-scripts [command] <options>
 Run Jest tests in a module or multiple modules.
 
 ```
-lfr jest <options>
+lfr jest [options...]
 ```
 
 | Option                 | Description                                                                  |
@@ -176,7 +176,7 @@ lfr jest <options>
 Run Playwright tests in a file or module.
 
 ```
-lfr playwright <options>
+lfr playwright [options...]
 ```
 
 | Option         | Description                    |
@@ -186,10 +186,10 @@ lfr playwright <options>
 
 ### `poshi`
 
-Run the given Poshi test. The `[test]` argument should be specified as `File#TestName` (e.g., `PortalSmoke#Smoke`).
+Run the given Poshi test. The `<test>` argument should be specified as `File#TestName` (e.g., `PortalSmoke#Smoke`).
 
 ```
-lfr poshi [test]
+lfr poshi <test>
 ```
 
 ### `start`
@@ -197,7 +197,7 @@ lfr poshi [test]
 Start portal with the latest Tomcat version. Database configuration is taken from `portal-ext.properties` file in `bundles` folder. `bundles` folder path is taken from `app.server.parent.dir` variable of `app.server.[username].properties` file, or in the default `app.server.properties` if the first one is not present.
 
 ```
-lfr start <options>
+lfr start [...options]
 ```
 
 | Option        | Description                                                                                                    |
