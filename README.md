@@ -1,6 +1,6 @@
 <div align="center">
 
-<img width="150px" alt="Liferay Dev CLI logo" src="https://raw.githubusercontent.com/sandrodw3/liferay-dev-cli/refs/heads/main/images/logo.png">
+<img width="150px" alt="Liferay Dev CLI logo" src="images/logo.png">
 
 <a name="readme-top"></a>
 
@@ -15,13 +15,13 @@
 
 ## 🪄 Examples
 
-![Example of running `lfr deploy -b`](https://raw.githubusercontent.com/sandrodw3/liferay-dev-cli/refs/heads/main/images/deploy-b.png)
+![Example of running `lfr deploy -b`](images/deploy-b.png)
 
-![Example of running `lfr deploy -m`](https://raw.githubusercontent.com/sandrodw3/liferay-dev-cli/refs/heads/main/images/deploy-m.png)
+![Example of running `lfr deploy -m`](images/deploy-m.png)
 
-![Example of running `lfr start -c`](https://raw.githubusercontent.com/sandrodw3/liferay-dev-cli/refs/heads/main/images/start-c.png)
+![Example of running `lfr start -c`](images/start-c.png)
 
-![Example of running `lfr ant-all -c`](https://raw.githubusercontent.com/sandrodw3/liferay-dev-cli/refs/heads/main/images/ant-all-c.png)
+![Example of running `lfr ant-all -c`](images/ant-all-c.png)
 
 ## ⚡️ Installation
 
