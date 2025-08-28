@@ -192,14 +192,8 @@ const command = new Command()
 		'-l, --local-changes',
 		'Executes the command considering only the uncommited changes'
 	)
-	.arguments('[command:string]')
+	.arguments('<command:string>')
 	.action(({ all, currentBranch, global, localChanges }, command) => {
-		if (!command) {
-			throw new ValidationError(
-				'Please specify a valid node-scripts command'
-			)
-		}
-
 		nodeScripts({
 			all,
 			currentBranch,
@@ -249,15 +243,11 @@ const command = new Command()
 	.command(
 		'poshi',
 		`Allow running the given poshi test\n${bold(
-			white('[test]')
+			white('<test>')
 		)} should be specified like ${bold(white('File#TestName'))} (for example ${bold(white('PortalSmoke#Smoke'))})`
 	)
-	.arguments('[test:string]')
+	.arguments('<test:string>')
 	.action((_, test) => {
-		if (!test) {
-			throw new ValidationError('Please specify a valid poshi test')
-		}
-
 		poshi({ test })
 	})
 
