@@ -1,6 +1,7 @@
 import { blue, bold, dim, magenta, red, white, yellow } from 'std/colors'
 
 import { getConfigEntry } from 'config'
+import { Failure } from 'exceptions'
 import { getChangedFiles, getCurrentBranch } from 'git'
 import { getModuleType, selectModule } from 'liferay'
 import {
@@ -126,10 +127,13 @@ async function formatCurrentBranch(defaultOutput: Props['defaultOutput']) {
 
 			try {
 				await runCommand('ant format-source-current-branch')
-			} catch {
-				throw new Error(
-					`(found ${bold(red('errors'))}, please fix them)`
-				)
+			} catch (error) {
+				if (error instanceof Error) {
+					throw new Failure({
+						message: `(found ${bold(red('errors'))})`,
+						trace: error.message,
+					})
+				}
 			}
 
 			const diff = await runCommand('git diff')
@@ -156,10 +160,18 @@ async function formatCurrentBranch(defaultOutput: Props['defaultOutput']) {
 				)
 
 				if (output.includes('error')) {
-					throw new Error(`(found ${bold(red('errors'))})`)
+					throw new Failure({
+						message: `(found ${bold(red('errors'))})`,
+						trace: output,
+					})
 				}
-			} catch {
-				throw new Error(`(found ${bold(red('errors'))})`)
+			} catch (error) {
+				if (error instanceof Error) {
+					throw new Failure({
+						message: `(found ${bold(red('errors'))})`,
+						trace: error.message,
+					})
+				}
 			}
 		},
 		onError: () => {
@@ -176,10 +188,18 @@ async function formatCurrentBranch(defaultOutput: Props['defaultOutput']) {
 				)
 
 				if (output.includes('error')) {
-					throw new Error(`(found ${bold(red('errors'))})`)
+					throw new Failure({
+						message: `(found ${bold(red('errors'))})`,
+						trace: output,
+					})
 				}
-			} catch {
-				throw new Error(`(found ${bold(red('errors'))})`)
+			} catch (error) {
+				if (error instanceof Error) {
+					throw new Failure({
+						message: `(found ${bold(red('errors'))})`,
+						trace: error.message,
+					})
+				}
 			}
 		},
 		onError: () => {
@@ -273,8 +293,13 @@ async function formatModule(
 
 			try {
 				await runCommand(`${gradlePath} formatSource`)
-			} catch {
-				throw new Error(`(found ${bold(red('errors'))})`)
+			} catch (error) {
+				if (error instanceof Error) {
+					throw new Failure({
+						message: `(found ${bold(red('errors'))})`,
+						trace: error.message,
+					})
+				}
 			}
 
 			const diff = await runCommand('git diff')
@@ -296,7 +321,10 @@ async function formatModule(
 			const output = await runCommand('npx node-scripts check:tsc')
 
 			if (output) {
-				throw new Error(`(found ${bold(red('errors'))})`)
+				throw new Failure({
+					message: `(found ${bold(red('errors'))})`,
+					trace: output,
+				})
 			}
 		},
 		onError: () => {
