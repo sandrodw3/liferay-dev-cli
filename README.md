@@ -53,6 +53,7 @@ Explanation and description of how each of the commands and their available opti
 
 - [`ant-all`](#ant-all)
 - [`build-lang`](#build-lang)
+- [`code`](#code)
 - [`config`](#config)
 - [`deploy`](#deploy)
 - [`find`](#find)
@@ -86,6 +87,18 @@ Execute `buildLang` in `portal-language-lang` module.
 ```
 lfr build-lang
 ```
+
+### `code`
+
+Open the selected module with VS Code if it is installed.
+
+```
+lfr code [options...]
+```
+
+| Option                 | Description                                                   |
+| ---------------------- | ------------------------------------------------------------- |
+| `-n, --new-window`     | Open module in a new VS Code window                           |
 
 ### `config`
 
@@ -124,7 +137,7 @@ lfr deploy [options...]
 
 ### `find`
 
-Allow finding a module and getting its path. Requires [fzf](https://github.com/junegunn/fzf) to be used. This command is useful to use the result for another thing. For example, you could do a bash script like `module=$(lfr find); code module`, and it would allow you to select a module and open it with VS Code.
+Allow finding a module and getting its path. Requires [fzf](https://github.com/junegunn/fzf) to be used. This command is useful to use the result for another thing. For example, you could do a bash script like `module=$(lfr find); cd module`, and it would allow you to select a module and then change to its directory.
 
 ```
 lfr find
