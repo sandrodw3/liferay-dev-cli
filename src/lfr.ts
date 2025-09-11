@@ -4,6 +4,7 @@ import { blue, bold, cyan, green, red, white } from 'std/colors'
 import {
 	antAll,
 	buildLang,
+	code,
 	config,
 	deploy,
 	find,
@@ -78,6 +79,11 @@ const command = new Command()
 	// Build Lang command
 	.command('build-lang', 'Execute buildLang in portal-language-lang module')
 	.action(() => buildLang())
+
+	// Open the selected resource with VS Code
+	.command('code', 'Open a specific module with VS Code if it is installed')
+	.option('-n, --new-window', 'Open module in a new window')
+	.action(({ newWindow }) => code({ newWindow }))
 
 	// Config command
 	.command(
