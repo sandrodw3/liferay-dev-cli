@@ -1,4 +1,4 @@
-import { blue, bold, dim, red, white, yellow } from 'std/colors'
+import { blue, bold, dim, green, red, white, yellow } from 'std/colors'
 
 import { Confirm } from 'cliffy/prompt'
 import { getConfigEntry } from 'config'
@@ -150,14 +150,20 @@ async function deployBranchModules(options: Options) {
 
 	// Deploy changed modules
 
-	let error = false
+	const result: Array<{ module: string; status: 'failed' | 'passed' }> = []
 
 	for (const [i, module] of modules.entries()) {
+		if (result.some(({ status }) => status === 'failed')) {
+			log('')
+		}
+
+		let failed = false
+
 		await deployModule({
 			module,
 			options,
 			onError: () => {
-				error = true
+				failed = true
 			},
 			showDescription: !!options.defaultOutput,
 		})
@@ -165,9 +171,25 @@ async function deployBranchModules(options: Options) {
 		if (options.defaultOutput && i < modules.length - 1) {
 			log('')
 		}
+
+		result.push({ module, status: failed ? 'failed' : 'passed' })
 	}
 
-	if (error) {
+	if (result.some(({ status }) => status === 'failed')) {
+		log(bold(white('\nSummary:\n')))
+
+		for (const { module, status } of result) {
+			if (status === 'passed') {
+				log(
+					`${bold(green('√'))} ${getBaseName(module)}: deployed ${bold(green('successfully'))}`
+				)
+			} else if (status === 'failed') {
+				log(
+					`${bold(red('X'))} ${getBaseName(module)}: ${bold(red('failed'))} to deploy`
+				)
+			}
+		}
+
 		Deno.exit(1)
 	}
 }
