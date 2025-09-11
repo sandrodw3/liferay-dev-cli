@@ -1,6 +1,7 @@
 import { blue, bold, dim, red, white, yellow } from 'std/colors'
 
 import { getConfigEntry } from 'config'
+import { Failure } from 'exceptions'
 import { getBundlesPath, getPortalProcessPid, Profile } from 'liferay'
 import {
 	folderExists,
@@ -124,11 +125,10 @@ export async function antAll({ clean, defaultOutput, profile }: Props) {
 					await runCommand('ant all')
 				} catch (error) {
 					if (error instanceof Error) {
-						throw new Error(
-							`(build ${bold(red('failed'))})\n\n ${processError(error)}`
-						)
-					} else {
-						throw error
+						throw new Failure({
+							message: `(build ${bold(red('failed'))})`,
+							trace: processError(error),
+						})
 					}
 				}
 			},

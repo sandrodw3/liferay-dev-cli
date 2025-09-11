@@ -1,7 +1,7 @@
 import { blue, bold, green, red, white, yellow } from 'std/colors'
 import { Spinner } from 'std/unstable-spinner'
 
-import { Info, Warning } from 'exceptions'
+import { Failure, Info, Warning } from 'exceptions'
 import { log } from 'tools'
 
 type Props = {
@@ -45,6 +45,16 @@ export async function runAsyncFunction({
 			info(`${text} ${exception.message}`)
 		} else if (exception instanceof Warning) {
 			warn(`${text} ${exception.message}`)
+		} else if (exception instanceof Failure) {
+			const { message, trace } = exception
+
+			fail(`${text} ${message || `(${bold(red('error'))} occurred)`}`)
+
+			if (trace) {
+				log(`\nError ${white(bold('trace'))}:\n\n${trace}`)
+			}
+
+			onError()
 		} else if (exception instanceof Error) {
 			const message =
 				exception.message || `(${bold(red('error'))} occurred)`

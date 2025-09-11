@@ -2,6 +2,7 @@ import { blue, bold, dim, red, white, yellow } from 'std/colors'
 
 import { Confirm } from 'cliffy/prompt'
 import { getConfigEntry } from 'config'
+import { Failure } from 'exceptions'
 import { getCurrentBranch } from 'git'
 import { getChangedModules, getModuleType, selectModule } from 'liferay'
 import {
@@ -265,7 +266,10 @@ async function deployModule({
 				const { message } = error as Error
 
 				if (message.includes('FAILED')) {
-					throw new Error(`(${bold(red('failed'))} to deploy)`)
+					throw new Failure({
+						message: `(${bold(red('failed'))} to deploy)`,
+						trace: message,
+					})
 				}
 			}
 		},
