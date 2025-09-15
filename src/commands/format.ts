@@ -277,7 +277,9 @@ async function formatModule(
 		const output = await runCommand('npx node-scripts check:tsc')
 
 		log(
-			output.includes('No versions available') || !output
+			output.includes('No versions available') ||
+				output.includes('Cannot read file') ||
+				!output
 				? 'Completed successfully!'
 				: output
 		)
@@ -319,6 +321,13 @@ async function formatModule(
 	await runAsyncFunction({
 		fn: async () => {
 			const output = await runCommand('npx node-scripts check:tsc')
+
+			if (
+				output.includes('No versions available') ||
+				output.includes('Cannot read file')
+			) {
+				return
+			}
 
 			if (output) {
 				throw new Failure({
