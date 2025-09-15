@@ -26,11 +26,14 @@ export async function getModuleType(
 		return 'root-module'
 	} else if (module.endsWith('test/playwright')) {
 		return 'playwright'
-	} else if (existsSync(join(module, 'bnd.bnd')) && module.endsWith('test')) {
+	} else if (
+		existsSync(join(module, 'build.gradle')) &&
+		module.endsWith('test')
+	) {
 		return 'test-module'
 	} else if (isParentModule(module)) {
 		return 'parent-module'
-	} else if (existsSync(join(module, 'bnd.bnd'))) {
+	} else if (existsSync(join(module, 'build.gradle'))) {
 		return 'standard-module'
 	}
 
