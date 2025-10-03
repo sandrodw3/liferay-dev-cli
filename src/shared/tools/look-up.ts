@@ -12,6 +12,12 @@ export function lookUp(subpath: string, start = Deno.cwd()): string | null {
 	let path = start
 
 	while (true) {
+		// Return null if can't go any higher
+
+		if (!path) {
+			return null
+		}
+
 		// If it's a file, go up and try again
 
 		if (existsSync(path, { isFile: true })) {
@@ -28,10 +34,6 @@ export function lookUp(subpath: string, start = Deno.cwd()): string | null {
 			// Return this path if candidate exists
 
 			return path
-		} else if (!path) {
-			// Return null if can't go any higher
-
-			return null
 		} else {
 			// Go up and try again
 
