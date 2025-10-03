@@ -153,7 +153,7 @@ async function deployBranchModules(options: Options) {
 	const result: Array<{ module: string; status: 'failed' | 'passed' }> = []
 
 	for (const [i, module] of modules.entries()) {
-		if (result.some(({ status }) => status === 'failed')) {
+		if (i > 0 && result[i - 1].status === 'failed') {
 			log('')
 		}
 
