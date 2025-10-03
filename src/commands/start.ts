@@ -1,6 +1,7 @@
-import { blue, bold, dim, white, yellow } from 'std/colors'
-
 import { Confirm } from 'cliffy/prompt'
+import { blue, bold, dim, white, yellow } from 'std/colors'
+import { existsSync } from 'std/exists'
+
 import { getConfigEntry } from 'config'
 import { DBData, getBundlesPath, getDBData, getLatestTomcatPath } from 'liferay'
 import {
@@ -86,7 +87,9 @@ export async function start({ clean }: Props) {
 	)} with latest tomcat version (${bold(white(getBaseName(tomcatPath)))})`
 
 	description = description.concat(
-		clean ? ` and ${bold(white('cleaning database\n'))}` : '\n'
+		clean
+			? ` and ${bold(white('cleaning database and data folders\n'))}`
+			: '\n'
 	)
 
 	log(description)
@@ -95,6 +98,10 @@ export async function start({ clean }: Props) {
 
 	if (clean) {
 		await cleanLiferayDb({ username, password, database, type })
+
+		log('')
+
+		await cleanDataFolders()
 
 		log('')
 	}
@@ -117,5 +124,51 @@ async function cleanLiferayDb(dbData: DBData) {
 	await runAsyncFunction({
 		fn: async () => await cleanDb(dbData),
 		text: `${portalName} ${dim('Clean database')}`,
+	})
+}
+
+/**
+ * Clean folders with temp data
+ */
+
+async function cleanDataFolders() {
+	const portalPath = await getConfigEntry('portal.path')
+	const portalName = getBaseName(portalPath)
+
+	const bundlesPath = await getBundlesPath()
+	const tomcatPath = await getLatestTomcatPath()
+	const tomcatName = getBaseName(tomcatPath)
+
+	const removeIfExists = async (path: string) => {
+		if (!existsSync(path)) {
+			return
+		}
+
+		await Deno.remove(path, { recursive: true })
+	}
+
+	await runAsyncFunction({
+		fn: async () => await removeIfExists(join(bundlesPath, 'data')),
+		text: `${portalName} ${dim('Remove bundles/data')}`,
+	})
+
+	await runAsyncFunction({
+		fn: async () => await removeIfExists(join(bundlesPath, 'work')),
+		text: `${portalName} ${dim('Remove bundles/work')}`,
+	})
+
+	await runAsyncFunction({
+		fn: async () => await removeIfExists(join(bundlesPath, 'osgi/state')),
+		text: `${portalName} ${dim('Remove bundles/osgi/state')}`,
+	})
+
+	await runAsyncFunction({
+		fn: async () => await removeIfExists(join(tomcatPath, 'temp')),
+		text: `${portalName} ${dim(`Remove bundles/${tomcatName}/temp`)}`,
+	})
+
+	await runAsyncFunction({
+		fn: async () => await removeIfExists(join(tomcatPath, 'work')),
+		text: `${portalName} ${dim(`Remove bundles/${tomcatName}/work`)}`,
 	})
 }
