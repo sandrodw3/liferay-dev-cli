@@ -215,9 +215,9 @@ Start portal with the latest Tomcat version. Database configuration is taken fro
 lfr start [...options]
 ```
 
-| Option        | Description                                                                                                    |
-| ------------- | -------------------------------------------------------------------------------------------------------------- |
-| `-c, --clean` | Clean database before starting (this option requires the user to be using `MySQL` or `PostgreSQL` as database) |
+| Option        | Description                                                                                                                         |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `-c, --clean` | Clean database and data folders before starting (to clean database, the user needs to be using `MySQL` or `PostgreSQL` as database) |
 
 ### `stop`
 
