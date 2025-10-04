@@ -16,7 +16,7 @@ async function runCommand(
 	command: string,
 	options?: { ignoreError?: boolean; spawn?: boolean }
 ): Promise<string | undefined> {
-	const [cmd, ...args] = command.split(' ')
+	const { cmd, args } = processCommand(command)
 
 	const process = new Deno.Command(cmd, {
 		args,
@@ -44,6 +44,54 @@ async function runCommand(
 			return output
 		}
 	}
+}
+
+/**
+ * Process a full command and return the main cmd and the args
+ */
+
+function processCommand(command: string) {
+	const [cmd, ...rest] = command.split(' ')
+
+	const args = []
+
+	let currentArg = ''
+
+	for (const fragment of rest) {
+		// We are building an arg with "
+
+		if (currentArg.length) {
+			currentArg += ` ${fragment}`
+
+			// If it's the end of the arg, push it in the list and clean temp variable
+
+			if (fragment.endsWith('"')) {
+				args.push(currentArg.replaceAll('"', ''))
+
+				currentArg = ''
+			}
+
+			continue
+		}
+
+		// It's the start of a new arg with "
+
+		if (fragment.startsWith('"')) {
+			currentArg = fragment
+
+			continue
+		}
+
+		// It's not an arg with "
+
+		if (!fragment.includes('"')) {
+			args.push(fragment)
+
+			continue
+		}
+	}
+
+	return { cmd, args }
 }
 
 export { runCommand }
