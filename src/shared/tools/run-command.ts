@@ -4,22 +4,31 @@
 
 async function runCommand(
 	command: string,
-	options: { spawn: true }
+	options: { env?: Record<string, string>; spawn: true }
 ): Promise<undefined>
 
 async function runCommand(
 	command: string,
-	options?: { ignoreError?: boolean; spawn?: false }
+	options?: {
+		env?: Record<string, string>
+		ignoreError?: boolean
+		spawn?: false
+	}
 ): Promise<string>
 
 async function runCommand(
 	command: string,
-	options?: { ignoreError?: boolean; spawn?: boolean }
+	options?: {
+		env?: Record<string, string>
+		ignoreError?: boolean
+		spawn?: boolean
+	}
 ): Promise<string | undefined> {
 	const { cmd, args } = processCommand(command)
 
 	const process = new Deno.Command(cmd, {
 		args,
+		env: options?.env,
 	})
 
 	// If spawn is true, just spawn the command
