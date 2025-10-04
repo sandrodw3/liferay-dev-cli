@@ -56,6 +56,7 @@ Explanation and description of how each of the commands and their available opti
 - [`deploy`](#deploy)
 - [`find`](#find)
 - [`format`](#format)
+- [`language-keys`](#language-keys)
 - [`node-scripts`](#node-scripts)
 - [`jest`](#jest)
 - [`playwright`](#playwright)
@@ -154,6 +155,20 @@ lfr format [options...]
 | `-b, --current-branch` | Format the current branch (`ant format-source-current-branch`, `npx node-scripts check:tsc --current-branch` and `npx node-scripts check:ci --current-branch`)                                                                                                                          |
 | `-d, --default-output` | Log the default output                                                                                           |
 | `-m, --module`         | Allow selecting a specific module to format (`gradlew formatSource`)                                             |
+
+### `language-keys`
+
+Ask user to introduce phrases, generate language keys and then add them to `Language.properties` file. Phrases will be skipped if they already exist. `-b` can be passed to execute `buildLang` after adding keys. If passing `-c`, generated changes will be committed at the end. If there are existing commits for adding language keys or doing `buildLang`, these commits will be amended with the changes.
+
+```
+lfr language-keys [options...]
+```
+
+| Option                 | Description                                                                                                                    |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `-b, --build-lang`     | Execute `buildLang` after adding keys                                                                                          |
+| `-c, --commit-changes` | Commit generated changes (one commit for the keys and another one for the `buildLang`). Use existing commits if they are found |     
+
 
 ### `node-scripts`
 
