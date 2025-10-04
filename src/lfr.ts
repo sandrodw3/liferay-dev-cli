@@ -10,6 +10,7 @@ import {
 	find,
 	format,
 	jest,
+	languageKeys,
 	nodeScripts,
 	playwright,
 	poshi,
@@ -176,6 +177,20 @@ const command = new Command()
 	)
 	.action(({ currentBranch, defaultOutput, module }) =>
 		format({ currentBranch, defaultOutput, module })
+	)
+
+	// Language Keys command
+	.command(
+		'language-keys',
+		'Ask user to introduce phrases, generate language keys and then add them to Language.properties file'
+	)
+	.option('-b, --build-lang', 'Execute buildLang after adding the keys')
+	.option(
+		'-c, --commit-changes',
+		'Commit generated changes (one commit for the keys and another one for the buildLang). Amend existing commits if they are found'
+	)
+	.action(({ buildLang, commitChanges }) =>
+		languageKeys({ buildLang, commitChanges })
 	)
 
 	// Node Scripts command
