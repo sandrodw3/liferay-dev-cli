@@ -79,6 +79,8 @@ lfr ant-all [options...]
 | `-d, --default-output`    | Log the default output                                                                     |
 | `-p, --profile <profile>` | Set the given profile (valid values are **dxp** and **portal**)                            |
 
+---
+
 ### `build-lang`
 
 Execute `buildLang` in `portal-language-lang` module.
@@ -86,6 +88,8 @@ Execute `buildLang` in `portal-language-lang` module.
 ```
 lfr build-lang
 ```
+
+---
 
 ### `code`
 
@@ -98,6 +102,8 @@ lfr code [options...]
 | Option                 | Description                                                   |
 | ---------------------- | ------------------------------------------------------------- |
 | `-n, --new-window`     | Open module in a new VS Code window                           |
+
+---
 
 ### `config`
 
@@ -118,6 +124,8 @@ lfr config [entry] [value] [options...]
 | `-m, --modify` | Allow modifying current config values                     |
 | `-s, --show`   | Show current configuration                                |
 
+---
+
 ### `deploy`
 
 Deploy a module or a bunch of them, depending on options. If no passing `-m` or `-b` options, deploy the current module.
@@ -134,6 +142,8 @@ lfr deploy [options...]
 | `-d, --default-output`    | Log the default gradle output                                                |
 | `-m, --module`            | Allow selecting a specific module to deploy                                  |
 
+---
+
 ### `find`
 
 Allow finding a module and getting its path. Requires [fzf](https://github.com/junegunn/fzf) to be used. This command is useful to use the result for another thing. For example, you could do a bash script like `module=$(lfr find); cd module`, and it would allow you to select a module and then change to its directory.
@@ -141,6 +151,8 @@ Allow finding a module and getting its path. Requires [fzf](https://github.com/j
 ```
 lfr find
 ```
+
+---
 
 ### `format`
 
@@ -156,6 +168,8 @@ lfr format [options...]
 | `-d, --default-output` | Log the default output                                                                                           |
 | `-m, --module`         | Allow selecting a specific module to format (`gradlew formatSource`)                                             |
 
+---
+
 ### `language-keys`
 
 Ask user to introduce phrases, generate language keys and then add them to `Language.properties` file. Phrases will be skipped if they already exist. `-b` can be passed to execute `buildLang` after adding keys. If passing `-c`, generated changes will be committed at the end. If there are existing commits for adding language keys or doing `buildLang`, these commits will be amended with the changes.
@@ -169,6 +183,7 @@ lfr language-keys [options...]
 | `-b, --build-lang`     | Execute `buildLang` after adding keys                                                                                          |
 | `-c, --commit-changes` | Commit generated changes (one commit for the keys and another one for the `buildLang`). Use existing commits if they are found |     
 
+---
 
 ### `node-scripts`
 
@@ -185,6 +200,8 @@ lfr node-scripts <command> [options...]
 | `-g, --global`         | Run the command globally                                      |
 | `-l, --local-changes`  | Execute the command considering only uncommitted changes      |
 
+---
+
 ### `jest`
 
 Run Jest tests in a module or multiple modules.
@@ -199,6 +216,8 @@ lfr jest [options...]
 | `-d, --default-output` | Log the default output                                                       |
 | `-m, --module`         | Allow selecting a specific module to run tests                               |
 
+---
+
 ### `playwright`
 
 Run Playwright tests in a file or module.
@@ -212,6 +231,8 @@ lfr playwright [options...]
 | `--ui`         | Run tests in UI mode           |
 | `-m, --module` | Run tests in a specific module |
 
+---
+
 ### `poshi`
 
 Run the given Poshi test. The `<test>` argument should be specified as `File#TestName` (e.g., `PortalSmoke#Smoke`).
@@ -219,6 +240,8 @@ Run the given Poshi test. The `<test>` argument should be specified as `File#Tes
 ```
 lfr poshi <test>
 ```
+
+---
 
 ### `start`
 
@@ -232,6 +255,8 @@ lfr start [...options]
 | ------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | `-c, --clean` | Clean database and data folders before starting (to clean database, the user needs to be using `MySQL` or `PostgreSQL` as database) |
 
+---
+
 ### `stop`
 
 Stop the currently running portal instance.
@@ -239,6 +264,8 @@ Stop the currently running portal instance.
 ```
 lfr stop
 ```
+
+---
 
 ### `upgrade`
 
