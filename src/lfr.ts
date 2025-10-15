@@ -4,6 +4,7 @@ import { blue, bold, cyan, green, red, white } from 'std/colors'
 import {
 	antAll,
 	buildLang,
+	buildService,
 	code,
 	config,
 	deploy,
@@ -80,6 +81,34 @@ const command = new Command()
 	// Build Lang command
 	.command('build-lang', 'Execute buildLang in portal-language-lang module')
 	.action(() => buildLang())
+
+	// Build Service command
+	.command(
+		'build-service',
+		'Run buildService on a module or a bunch of them, depending on options. If no passing options, run it on current module'
+	)
+	.option(
+		'-b, --current-branch',
+		'Run buildService on all modules modified in current branch',
+		{
+			conflicts: ['module'],
+		}
+	)
+	.option('-d, --default-output', 'Log the default gradle output')
+	.option(
+		'-m, --module',
+		'Allow selecting a specific module to run buildService on it',
+		{
+			conflicts: ['current-branch'],
+		}
+	)
+	.action(({ currentBranch, defaultOutput, module }) =>
+		buildService({
+			currentBranch,
+			defaultOutput,
+			module,
+		})
+	)
 
 	// Open the selected resource with VS Code
 	.command('code', 'Open a specific module with VS Code if it is installed')
