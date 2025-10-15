@@ -2,9 +2,7 @@ import { getChangedFiles } from 'git'
 import { getModuleType, ModuleType } from 'liferay'
 import { lookUp } from 'tools'
 
-type Props = {
-	exclude: ModuleType[]
-}
+type Props = { exclude?: ModuleType[]; include?: ModuleType[] }
 
 /**
  * Return a list with the full path of the modules that have been
@@ -12,14 +10,41 @@ type Props = {
  * also uncommited changes
  */
 
-export async function getChangedModules(
-	{ exclude }: Props = {
-		exclude: [],
-	}
-): Promise<string[]> {
+export async function getChangedModules(): Promise<string[]>
+
+export async function getChangedModules(props: {
+	exclude: ModuleType[]
+	include?: never
+}): Promise<string[]>
+
+export async function getChangedModules(props: {
+	include: ModuleType[]
+	exclude?: never
+}): Promise<string[]>
+
+export async function getChangedModules({
+	exclude,
+	include,
+}: Props = {}): Promise<string[]> {
 	const files = await getChangedFiles({ includeUncommited: true })
 
 	const modules: string[] = []
+
+	const isIncluded = (type: ModuleType | null) => {
+		if (!type) {
+			return false
+		}
+
+		if (include) {
+			return include.includes(type)
+		}
+
+		if (exclude) {
+			return !exclude.includes(type)
+		}
+
+		return true
+	}
 
 	for (const file of files) {
 		const module = lookUp('build.gradle', file)
@@ -30,11 +55,7 @@ export async function getChangedModules(
 
 		const moduleType = await getModuleType(module)
 
-		if (!moduleType) {
-			continue
-		}
-
-		if (!exclude.includes(moduleType) && !modules.includes(module)) {
+		if (isIncluded(moduleType) && !modules.includes(module)) {
 			modules.push(module)
 		}
 	}
