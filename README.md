@@ -93,6 +93,22 @@ lfr build-lang
 
 ---
 
+### `build-service`
+
+Execute `buildService` on a module or a bunch of them, depending on options. If no passing `-m` or `-b` options, run it on the current module.
+
+```
+lfr build-service [options...]
+```
+
+| Option                    | Description                                                                  |
+| ------------------------- | ---------------------------------------------------------------------------- |
+| `-b, --current-branch`    | Run `buildService` on all modules modified in current branch                 |
+| `-d, --default-output`    | Log the default gradle output                                                |
+| `-m, --module`            | Allow selecting a specific module to run `buildService`                      |
+
+---
+
 ### `code`
 
 Open the selected module with VS Code if it is installed.
