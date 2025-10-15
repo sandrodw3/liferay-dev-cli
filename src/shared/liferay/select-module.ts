@@ -10,7 +10,8 @@ const WALK_OPTIONS = {
 }
 
 type Props = {
-	exclude: ModuleType[]
+	exclude?: ModuleType[]
+	include?: ModuleType[]
 }
 
 /**
@@ -18,26 +19,52 @@ type Props = {
  * Module types can be excluded from the list
  */
 
-export async function selectModule(
-	{ exclude }: Props = {
-		exclude: [],
-	}
-): Promise<string | null> {
+export async function selectModule(): Promise<string | null>
+
+export async function selectModule(props: {
+	exclude: ModuleType[]
+	include?: never
+}): Promise<string | null>
+
+export async function selectModule(props: {
+	include: ModuleType[]
+	exclude?: never
+}): Promise<string | null>
+
+export async function selectModule({ exclude, include }: Props = {}): Promise<
+	string | null
+> {
 	const portalPath = await getConfigEntry('portal.path')
 
 	// Add needed modules and sort the list
 
 	const modules = []
 
-	if (!exclude.includes('root')) {
+	const isIncluded = (type: ModuleType | null) => {
+		if (!type) {
+			return false
+		}
+
+		if (include) {
+			return include.includes(type)
+		}
+
+		if (exclude) {
+			return !exclude.includes(type)
+		}
+
+		return true
+	}
+
+	if (isIncluded('root')) {
 		modules.push(portalPath)
 	}
 
-	if (!exclude.includes('playwright')) {
+	if (isIncluded('playwright')) {
 		modules.push(join(portalPath, 'modules/test/playwright'))
 	}
 
-	if (!exclude.includes('root-module')) {
+	if (isIncluded('root-module')) {
 		modules.push(...ROOT_MODULES.map((module) => join(portalPath, module)))
 	}
 
@@ -48,11 +75,7 @@ export async function selectModule(
 	for (const module of [...apps, ...dxpApps, ...utils]) {
 		const type = await getModuleType(module.path)
 
-		if (
-			(type === 'test-module' && !exclude.includes('test-module')) ||
-			(type === 'parent-module' && !exclude.includes('parent-module')) ||
-			(type === 'standard-module' && !exclude.includes('standard-module'))
-		) {
+		if (isIncluded(type) && !modules.includes(module.path)) {
 			modules.push(module.path)
 		}
 	}
