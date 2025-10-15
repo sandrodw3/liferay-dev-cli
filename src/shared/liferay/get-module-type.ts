@@ -7,6 +7,7 @@ export type ModuleType =
 	| 'standard-module'
 	| 'parent-module'
 	| 'test-module'
+	| 'service-module'
 	| 'root'
 	| 'root-module'
 	| 'playwright'
@@ -31,6 +32,11 @@ export async function getModuleType(
 		module.endsWith('test')
 	) {
 		return 'test-module'
+	} else if (
+		existsSync(join(module, 'service.xml')) &&
+		module.endsWith('service')
+	) {
+		return 'service-module'
 	} else if (isParentModule(module)) {
 		return 'parent-module'
 	} else if (existsSync(join(module, 'build.gradle'))) {
