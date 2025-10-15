@@ -146,6 +146,8 @@ async function formatCurrentBranch(defaultOutput: Props['defaultOutput']) {
 		},
 		onError: () => {
 			error = true
+
+			log('')
 		},
 		text: `portal-impl ${dim('ant format-source-current-branch')}`,
 	})
@@ -160,10 +162,7 @@ async function formatCurrentBranch(defaultOutput: Props['defaultOutput']) {
 				)
 
 				if (output.includes('error')) {
-					throw new Failure({
-						message: `(found ${bold(red('errors'))})`,
-						trace: output,
-					})
+					throw new Error(output)
 				}
 			} catch (error) {
 				if (error instanceof Error) {
@@ -176,6 +175,8 @@ async function formatCurrentBranch(defaultOutput: Props['defaultOutput']) {
 		},
 		onError: () => {
 			error = true
+
+			log('')
 		},
 		text: `modules ${dim('npx node-scripts check:tsc --current-branch')}`,
 	})
@@ -188,10 +189,7 @@ async function formatCurrentBranch(defaultOutput: Props['defaultOutput']) {
 				)
 
 				if (output.includes('error')) {
-					throw new Failure({
-						message: `(found ${bold(red('errors'))})`,
-						trace: output,
-					})
+					throw new Error(output)
 				}
 			} catch (error) {
 				if (error instanceof Error) {
