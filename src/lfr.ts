@@ -26,7 +26,7 @@ import { checkUpdate, getLastCheckDate } from 'version'
 
 // Create command
 
-const VERSION = 'v1.3.0'
+const VERSION = 'v1.4.0'
 
 const command = new Command()
 	.name('lfr')
