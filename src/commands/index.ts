@@ -1,5 +1,6 @@
 export { antAll } from './ant-all.ts'
 export { buildLang } from './build-lang.ts'
+export { buildService } from './build-service.ts'
 export { code } from './code.ts'
 export { config } from './config.ts'
 export { deploy } from './deploy.ts'
