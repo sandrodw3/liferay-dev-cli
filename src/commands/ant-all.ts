@@ -24,6 +24,18 @@ type Props = {
  */
 
 export async function antAll({ clean, defaultOutput, profile }: Props) {
+	const output = await runCommand('which ant')
+
+	if (!output) {
+		log(
+			`${bold(white('ant'))} is not installed, please ${bold(
+				yellow('install it')
+			)} to use this command`
+		)
+
+		Deno.exit(1)
+	}
+
 	const pid = await getPortalProcessPid()
 
 	if (pid) {
