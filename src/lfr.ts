@@ -225,7 +225,7 @@ const command = new Command()
 	// Node Scripts command
 	.command(
 		'node-scripts',
-		`Allow running node-scripts commands globally or in current module.\nRun ${bold(
+		`Allow running node-scripts commands globally or in current module. Run ${bold(
 			white('lfr node-scripts help')
 		)} to see available commands`
 	)
