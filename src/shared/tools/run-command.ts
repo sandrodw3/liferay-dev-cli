@@ -67,6 +67,14 @@ function processCommand(command: string) {
 	let currentArg = ''
 
 	for (const fragment of rest) {
+		// If fragment starts and ends with ", just push it
+
+		if (fragment.startsWith('"') && fragment.endsWith('"')) {
+			args.push(fragment.replaceAll('"', ''))
+
+			continue
+		}
+
 		// We are building an arg with "
 
 		if (currentArg.length) {
