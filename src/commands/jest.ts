@@ -206,16 +206,10 @@ async function runTests({
 		fn: async () => {
 			let result = ''
 
-			try {
-				result = await runCommand('npx node-scripts test')
-			} catch (error) {
-				const { message } = error as Error
+			result = await runCommand('npx node-scripts test')
 
-				// Tests fail
-
-				if (message.includes('failed')) {
-					throw new Error(`(${bold(red('failed'))})`)
-				}
+			if (result.includes('failed')) {
+				throw new Error(`(${bold(red('failed'))})`)
 			}
 
 			// No tests in module
