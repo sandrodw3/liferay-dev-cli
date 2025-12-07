@@ -38,19 +38,19 @@ async function runCommand(
 
 		await spawn.output()
 	}
-	// Otherwise, gets its output and returns it
+	// Otherwise, get its output and return it
 	else {
-		const { stdout, stderr } = await process.output()
+		const result = await process.output()
 
 		const decoder = new TextDecoder()
 
-		const output = decoder.decode(stdout).trim()
-		const error = decoder.decode(stderr).trim()
+		const sdout = decoder.decode(result.stdout).trim()
+		const stderr = decoder.decode(result.stderr).trim()
 
-		if (error && !options?.ignoreError) {
-			throw new Error(error)
+		if (result.code !== 0 && !options?.ignoreError) {
+			throw new Error(stderr)
 		} else {
-			return output
+			return [sdout, stderr].filter(Boolean).join('\n')
 		}
 	}
 }
