@@ -43,7 +43,7 @@ export async function antAll({ clean, defaultOutput, profile }: Props) {
 			`A ${bold(blue('Liferay'))} portal process is running, please ${bold(yellow('stop'))} it and try again`
 		)
 
-		return
+		Deno.exit(1)
 	}
 
 	const portalPath = await getConfigEntry('portal.path')

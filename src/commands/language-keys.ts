@@ -29,7 +29,7 @@ export async function languageKeys(props: Props) {
 	})
 
 	if (!first) {
-		return
+		Deno.exit(0)
 	}
 
 	await saveEntry(first, entries)
@@ -57,7 +57,7 @@ export async function languageKeys(props: Props) {
 	if (!entries.length) {
 		log(`\n${bold(white('No new phrases'))} were added`)
 
-		return
+		Deno.exit(0)
 	}
 
 	log('')

@@ -69,7 +69,7 @@ async function deployCurrentModule(options: Options) {
 	) {
 		log(`${bold(blue(moduleName))} is ${bold(yellow('not deployable'))}`)
 
-		return
+		Deno.exit(1)
 	}
 
 	if (moduleType === 'parent-module') {
@@ -77,7 +77,7 @@ async function deployCurrentModule(options: Options) {
 			`${bold(blue(moduleName))} contains several modules, please move to one of them to deploy it`
 		)
 
-		return
+		Deno.exit(1)
 	}
 
 	await deployModule({ module, options })
@@ -110,7 +110,7 @@ async function deployBranchModules(options: Options) {
 				prefix: `${yellow('→')} `,
 			}))
 		) {
-			return
+			Deno.exit(0)
 		}
 
 		log('')
@@ -125,7 +125,7 @@ async function deployBranchModules(options: Options) {
 			)} in any deployable module in this branch`
 		)
 
-		return
+		Deno.exit(0)
 	}
 
 	const branch = await getCurrentBranch()
@@ -213,7 +213,7 @@ async function deploySelectedModule(options: Options) {
 	})
 
 	if (!module) {
-		return
+		Deno.exit(0)
 	}
 
 	log('')
