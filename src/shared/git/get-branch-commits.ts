@@ -10,12 +10,18 @@ type Commit = {
  * Return a list of the commits in the current branch comparing with base branch
  */
 
-export async function getBranchCommits(): Promise<Commit[]> {
+export async function getBranchCommits(
+	{ order }: { order: 'ascending' | 'descending' } = { order: 'ascending' }
+): Promise<Commit[]> {
 	const baseBranch = await getConfigEntry('base.branch')
 
-	const output = await runCommand(
-		`git log ${baseBranch}..HEAD "--pretty=format:%H %s"`
-	)
+	let cmd = `git log ${baseBranch}..HEAD "--pretty=format:%H %s"`
+
+	if (order === 'ascending') {
+		cmd += ' --reverse'
+	}
+
+	const output = await runCommand(cmd)
 
 	const commits: Commit[] = output
 		.split('\n')
@@ -30,7 +36,6 @@ export async function getBranchCommits(): Promise<Commit[]> {
 				content,
 			}
 		})
-		.reverse()
 
 	return commits
 }
