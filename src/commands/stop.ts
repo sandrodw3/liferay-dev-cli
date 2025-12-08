@@ -17,7 +17,7 @@ export async function stop() {
 	if (!pid) {
 		log(`There is no any ${bold(blue('Liferay'))} portal process running`)
 
-		return
+		Deno.exit(0)
 	}
 
 	// Kill the process

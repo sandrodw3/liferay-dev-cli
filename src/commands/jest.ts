@@ -44,7 +44,7 @@ async function runTestsInCurrentModule(defaultOutput: Props['defaultOutput']) {
 			`There are ${bold(yellow('no jest tests'))} in ${bold(blue(moduleName))}`
 		)
 
-		return
+		Deno.exit(0)
 	}
 
 	await runTests({ module, defaultOutput })
@@ -83,7 +83,7 @@ async function runTestsInBranch(defaultOutput: Props['defaultOutput']) {
 				prefix: `${yellow('→')} `,
 			}))
 		) {
-			return
+			Deno.exit(0)
 		}
 
 		log('')
@@ -98,7 +98,7 @@ async function runTestsInBranch(defaultOutput: Props['defaultOutput']) {
 			)} in any testable module in this branch`
 		)
 
-		return
+		Deno.exit(0)
 	}
 
 	// Log description
@@ -160,7 +160,7 @@ async function runTestsInSelectedModule(defaultOutput: Props['defaultOutput']) {
 	})
 
 	if (!module) {
-		return
+		Deno.exit(0)
 	}
 
 	log('')

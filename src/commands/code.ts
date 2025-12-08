@@ -23,7 +23,7 @@ export async function code({ newWindow }: { newWindow?: boolean }) {
 	const module = await selectModule()
 
 	if (!module) {
-		return
+		Deno.exit(0)
 	}
 
 	await runCommand(`code ${module} ${newWindow ? '' : '-r'}`)

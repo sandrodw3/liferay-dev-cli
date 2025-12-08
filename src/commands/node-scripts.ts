@@ -38,7 +38,7 @@ export async function nodeScripts({
 			`You must either move to a ${bold(white('Liferay module'))} or run the command with ${bold(white('--global'))}`
 		)
 
-		return
+		Deno.exit(1)
 	}
 
 	if (isGlobalCommand) {

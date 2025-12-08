@@ -77,7 +77,7 @@ export async function start({ clean }: Props) {
 
 			log('')
 		} else {
-			Deno.exit(1)
+			Deno.exit(0)
 		}
 	}
 

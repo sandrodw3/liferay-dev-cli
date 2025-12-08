@@ -9,7 +9,7 @@ export async function find() {
 	const module = await selectModule()
 
 	if (!module) {
-		return
+		Deno.exit(0)
 	}
 
 	log(module)

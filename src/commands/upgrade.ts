@@ -21,7 +21,7 @@ export async function upgrade(current: string) {
 			`An ${bold(red('error'))} occurred while ${bold(white('checking updates'))}, please try again later`
 		)
 
-		return
+		Deno.exit(1)
 	}
 
 	if (latest === current) {
@@ -29,7 +29,7 @@ export async function upgrade(current: string) {
 			`Installed lfr version ${bold(cyan(current))} is the latest version`
 		)
 
-		return
+		Deno.exit(0)
 	}
 
 	// Upgrade to latest version

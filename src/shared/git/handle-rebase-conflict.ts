@@ -36,7 +36,7 @@ export async function handleRebaseConflict({
 
 		log(`\nOperation was ${bold(yellow('aborted'))}`)
 
-		Deno.exit()
+		Deno.exit(0)
 	} else if (selection === 'continue') {
 		try {
 			await runCommand('git rebase --continue')

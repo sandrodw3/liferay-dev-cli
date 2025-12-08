@@ -56,7 +56,7 @@ async function formatCurrentBranch(defaultOutput: Props['defaultOutput']) {
 			)}, please move to another branch`
 		)
 
-		return
+		Deno.exit(1)
 	}
 
 	// Check there are actually changes
@@ -66,7 +66,7 @@ async function formatCurrentBranch(defaultOutput: Props['defaultOutput']) {
 	if (!files.length) {
 		log(`You have ${bold(yellow('no changes'))} in this branch`)
 
-		return
+		Deno.exit(0)
 	}
 
 	// Check format in the whole branch
@@ -229,7 +229,7 @@ async function formatSelectedModule(defaultOutput: Props['defaultOutput']) {
 	})
 
 	if (!module) {
-		return
+		Deno.exit(0)
 	}
 
 	log('')
@@ -255,7 +255,7 @@ async function formatModule(
 			)} to format the whole branch`
 		)
 
-		return
+		Deno.exit(1)
 	}
 
 	log(`Checking ${bold(white('format'))} in ${bold(blue(moduleName))}\n`)

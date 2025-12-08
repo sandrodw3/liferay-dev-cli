@@ -58,7 +58,7 @@ async function buildServiceCurrentModule(defaultOutput?: boolean) {
 			`${bold(blue(moduleName))} is ${bold(yellow('not a service module'))}`
 		)
 
-		return
+		Deno.exit(1)
 	}
 
 	await buildServiceModule({ module, defaultOutput })
@@ -91,7 +91,7 @@ async function buildServiceBranchModules(defaultOutput?: boolean) {
 				prefix: `${yellow('→')} `,
 			}))
 		) {
-			return
+			Deno.exit(0)
 		}
 
 		log('')
@@ -106,7 +106,7 @@ async function buildServiceBranchModules(defaultOutput?: boolean) {
 			)} in any service module in this branch`
 		)
 
-		return
+		Deno.exit(0)
 	}
 
 	const branch = await getCurrentBranch()
@@ -184,7 +184,7 @@ async function buildServiceSelectedModule(defaultOutput?: boolean) {
 	})
 
 	if (!module) {
-		return
+		Deno.exit(0)
 	}
 
 	log('')
