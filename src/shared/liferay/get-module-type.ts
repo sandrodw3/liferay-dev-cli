@@ -1,6 +1,7 @@
+import { existsSync } from 'std/exists'
+
 import { getConfigEntry } from 'config'
 import { ROOT_MODULES } from 'liferay'
-import { existsSync } from 'std/exists'
 import { getBaseName, join } from 'tools'
 
 export type ModuleType =

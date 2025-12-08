@@ -1,8 +1,7 @@
 import { bold, cyan, dim, red, white } from 'std/colors'
 
-import { log } from 'tools'
+import { log, runCommand } from 'tools'
 import { getLatestVersion } from 'version'
-import { runCommand } from '../shared/tools/run-command.ts'
 
 /**
  * Upgrade lfr to latest version
