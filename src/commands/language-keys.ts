@@ -1,9 +1,9 @@
 import { Input, Toggle } from 'cliffy/prompt'
-import { blue, bold, dim, italic, red, white } from 'std/colors'
+import { blue, bold, dim, italic, red, white, yellow } from 'std/colors'
 
 import { getConfigEntry } from 'config'
-import { Failure } from 'exceptions'
-import { getBranchCommits, getCurrentBranch } from 'git'
+import { Failure, Warning } from 'exceptions'
+import { getBranchCommits, getCurrentBranch, handleRebaseConflict } from 'git'
 import { join, log, runAsyncFunction, runCommand } from 'tools'
 
 type Entry = {
@@ -57,25 +57,106 @@ export async function languageKeys(props: Props) {
 
 	log('')
 
+	// Get current changes
+
+	const changes = await runCommand('git status --porcelain')
+
 	// Write entries in Language.properties file
 
-	await writeEntries(entries)
+	const portalPath = await getConfigEntry('portal.path')
+
+	const modulePath = join(
+		portalPath,
+		'modules/apps/portal-language/portal-language-lang'
+	)
+
+	const filePath = join(
+		modulePath,
+		'src/main/resources/content/Language.properties'
+	)
+
+	await runAsyncFunction({
+		fn: async () => {
+			// Save local changes if needed
+
+			if (changes) {
+				await runCommand('git add -A')
+				await runCommand('git commit -m "WIP"')
+			}
+
+			// Write entries
+
+			for (const { key, phrase } of entries) {
+				await Deno.writeTextFile(filePath, `\n${key}=${phrase}`, {
+					append: true,
+				})
+			}
+		},
+		text: `portal-language-lang ${dim('Add keys to Language.properties')}`,
+	})
+
+	// Prepare cleanup logic
+
+	const cleanup = async () => {
+		// Delete fixup commits if they exist
+
+		const commits = await getBranchCommits({ order: 'descending' })
+
+		let count = 0
+
+		for (const commit of commits) {
+			if (commit.content?.startsWith('fixup!')) {
+				count++
+			} else {
+				break
+			}
+		}
+
+		if (count > 0) {
+			await runCommand(`git reset --hard HEAD~${count}`)
+		}
+
+		// Restore local changes if needed
+
+		if (changes) {
+			const commits = await getBranchCommits({ order: 'descending' })
+
+			if (commits[0].content === 'WIP') {
+				await runCommand('git reset HEAD~1')
+			}
+		}
+	}
 
 	// Run buildLang if specified, otherwise sort Language.properties by running formatSource
 
 	if (props.buildLang) {
 		await buildLang()
 	} else {
-		await sortFile()
+		await sortFile({ onFail: cleanup })
 	}
 
 	// Commit changes if specified
 
+	let conflict = false
+
 	if (props.commitChanges) {
 		log('')
 
-		await commitChanges(props.buildLang)
+		await commitChanges({
+			buildLang: props.buildLang,
+			onConflict: () => {
+				conflict = true
+			},
+		})
 	}
+
+	if (conflict) {
+		await handleRebaseConflict({ onAbort: cleanup })
+	}
+
+	// Perform cleanup
+
+	await cleanup()
 }
 
 /**
@@ -104,7 +185,13 @@ async function buildLang() {
 /**
  * Commit changes
  */
-async function commitChanges(buildLang?: boolean) {
+async function commitChanges({
+	buildLang,
+	onConflict,
+}: {
+	buildLang?: boolean
+	onConflict?: () => void
+}) {
 	const LPD = await findLPD()
 
 	if (!LPD) {
@@ -190,15 +277,15 @@ async function commitChanges(buildLang?: boolean) {
 					)
 				}
 			} catch (error) {
-				if (error instanceof Error) {
-					throw new Failure({
-						message: error.message,
-					})
+				const { message } = error as Error
+
+				if (message.includes('could not apply') && onConflict) {
+					onConflict()
+
+					throw new Warning(`(found ${bold(yellow('conflict'))})`)
 				}
 
-				throw new Failure({
-					message: `(something was ${bold(red('wrong'))})`,
-				})
+				throw error
 			}
 		},
 		text: `${branchName} ${dim('Commit changes')}`,
@@ -351,7 +438,7 @@ function shortenPhrase(phrase: string) {
  * Sort Language.properties file by running formatSource in portal-language-lang
  */
 
-async function sortFile() {
+async function sortFile({ onFail }: { onFail?: () => Promise<void> } = {}) {
 	const portalPath = await getConfigEntry('portal.path')
 	const gradlePath = join(portalPath, 'gradlew')
 
@@ -362,21 +449,35 @@ async function sortFile() {
 
 	Deno.chdir(modulePath)
 
+	let fail = false
+
 	await runAsyncFunction({
 		fn: async () => {
 			try {
 				await runCommand(`${gradlePath} formatSource`)
-			} catch (error) {
-				if (error instanceof Error) {
-					throw new Failure({
-						message: `(found ${bold(red('errors'))})`,
-						trace: error.message,
-					})
-				}
+			} catch {
+				throw new Failure({
+					message: `(found ${bold(red('errors'))})`,
+				})
 			}
+		},
+		onError: () => {
+			fail = true
 		},
 		text: `portal-language-lang ${dim('Run formatSource to sort Language.properties')}`,
 	})
+
+	if (fail) {
+		if (onFail) {
+			await onFail()
+		}
+
+		log(
+			`\nOperation was ${bold(yellow('aborted'))} due to ${bold(red('format errors'))}`
+		)
+
+		Deno.exit(1)
+	}
 }
 
 /**
@@ -407,33 +508,4 @@ function toEntry(phrase: string, shorten: boolean): Entry {
 	}
 
 	return entry
-}
-
-/**
- * Write the given entries at the end of Language.properties file
- */
-
-async function writeEntries(entries: Entry[]) {
-	const portalPath = await getConfigEntry('portal.path')
-
-	const modulePath = join(
-		portalPath,
-		'modules/apps/portal-language/portal-language-lang'
-	)
-
-	const filePath = join(
-		modulePath,
-		'src/main/resources/content/Language.properties'
-	)
-
-	await runAsyncFunction({
-		fn: async () => {
-			for (const { key, phrase } of entries) {
-				await Deno.writeTextFile(filePath, `\n${key}=${phrase}`, {
-					append: true,
-				})
-			}
-		},
-		text: `portal-language-lang ${dim('Add keys to Language.properties')}`,
-	})
 }
