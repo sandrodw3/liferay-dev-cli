@@ -1,5 +1,5 @@
 import { Input, prompt } from 'cliffy/prompt'
-import { bold, red, white } from 'std/colors'
+import { bold, red, white, yellow } from 'std/colors'
 import { existsSync } from 'std/exists'
 
 import { CONFIG_PATH, ConfigEntry, readConfig, writeConfig } from 'config'
@@ -38,6 +38,7 @@ export async function setConfigValues(entries?: ConfigEntry[]) {
 			default: config?.['portal.path'],
 			name: 'portal.path',
 			message: 'Liferay portal path',
+			prefix: `${yellow('→')} `,
 			type: Input,
 			validate: (value) => {
 				// Check it's actually a Liferay project
@@ -60,6 +61,7 @@ export async function setConfigValues(entries?: ConfigEntry[]) {
 			default: config?.['base.branch'] || 'master',
 			name: 'base.branch',
 			message: 'Base branch',
+			prefix: `${yellow('→')} `,
 			type: Input,
 		},
 	])

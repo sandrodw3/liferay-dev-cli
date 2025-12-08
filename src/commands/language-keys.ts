@@ -23,7 +23,10 @@ type Props = {
 export async function languageKeys(props: Props) {
 	const entries: Entry[] = []
 
-	const first: string = await Input.prompt('Introduce a phrase')
+	const first: string = await Input.prompt({
+		message: 'Introduce a phrase',
+		prefix: `${yellow('→')} `,
+	})
 
 	if (!first) {
 		return
@@ -33,18 +36,20 @@ export async function languageKeys(props: Props) {
 
 	log('')
 
-	let next: string = await Input.prompt(
-		`Introduce another phrase ${dim(`(or press Enter if finished)`)}`
-	)
+	let next: string = await Input.prompt({
+		message: `Introduce another phrase ${dim(`(or press Enter if finished)`)}`,
+		prefix: `${yellow('→')} `,
+	})
 
 	while (next) {
 		await saveEntry(next, entries)
 
 		log('')
 
-		next = await Input.prompt(
-			`Introduce another phrase ${dim(`(or press Enter if finished)`)}`
-		)
+		next = await Input.prompt({
+			message: `Introduce another phrase ${dim(`(or press Enter if finished)`)}`,
+			prefix: `${yellow('→')} `,
+		})
 	}
 
 	// Exit if no new phrases are added
@@ -407,7 +412,7 @@ async function saveEntry(phrase: string, entries: Entry[]) {
 		!hasPlaceholderAfterDot(phrase)
 	) {
 		shorten = await Toggle.prompt({
-			prefix: blue('i '),
+			prefix: `${yellow('→')} `,
 			default: true,
 			message: `This phrase is long, do you want to use only the first part for the key? In this case: "${italic(blue(shortenPhrase(phrase)))}". Translation will include the whole text.`,
 		})
