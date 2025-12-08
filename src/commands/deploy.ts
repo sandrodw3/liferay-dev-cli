@@ -1,6 +1,6 @@
+import { Confirm } from 'cliffy/prompt'
 import { blue, bold, dim, green, red, white, yellow } from 'std/colors'
 
-import { Confirm } from 'cliffy/prompt'
 import { getConfigEntry } from 'config'
 import { Failure } from 'exceptions'
 import { getCurrentBranch } from 'git'

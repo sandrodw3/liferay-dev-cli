@@ -1,5 +1,6 @@
-import { selectModule } from 'liferay'
 import { blue, bold, yellow } from 'std/colors'
+
+import { selectModule } from 'liferay'
 import { log, runCommand } from 'tools'
 
 /**

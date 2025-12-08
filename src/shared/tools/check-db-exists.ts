@@ -1,8 +1,8 @@
 import { Client as MySQLCLient, configLogger } from 'mysql'
 import { Client as PostgreSQLClient } from 'postgres'
+import { bold, red, white } from 'std/colors'
 
 import { DBData } from 'liferay'
-import { bold, red, white } from 'std/colors'
 import { log, processDbError } from 'tools'
 
 /**

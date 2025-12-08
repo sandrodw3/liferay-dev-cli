@@ -1,12 +1,13 @@
+import { bold, white } from 'std/colors'
+
 import {
+	CONFIG_PATH,
 	ConfigEntry,
 	readConfig,
 	setConfigEntry,
 	setConfigValues,
 } from 'config'
-import { bold, white } from 'std/colors'
 import { log } from 'tools'
-import { CONFIG_PATH } from '../shared/config/config.ts'
 
 type Props = {
 	entry?: ConfigEntry

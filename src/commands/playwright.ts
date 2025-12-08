@@ -1,6 +1,7 @@
-import { getConfigEntry } from 'config'
 import { blue, bold, white, yellow } from 'std/colors'
 import { walkSync } from 'std/walk'
+
+import { getConfigEntry } from 'config'
 import {
 	checkFzf,
 	folderExists,
