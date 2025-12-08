@@ -63,9 +63,10 @@ export async function start({ clean }: Props) {
 
 	if (!dbExists) {
 		if (
-			await Confirm.prompt(
-				`The database specified in your ${bold(white('portal-ext.properties'))} (${dbData.database}) ${bold(yellow('does not exist'))}, do you want to create it?`
-			)
+			await Confirm.prompt({
+				message: `The database specified in your ${bold(white('portal-ext.properties'))} (${dbData.database}) ${bold(yellow('does not exist'))}, do you want to create it?`,
+				prefix: `${yellow('→')} `,
+			})
 		) {
 			log('')
 

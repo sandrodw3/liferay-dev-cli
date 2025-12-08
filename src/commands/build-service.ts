@@ -86,9 +86,10 @@ async function buildServiceBranchModules(defaultOutput?: boolean) {
 
 	if (modules.length > 10) {
 		if (
-			!(await Confirm.prompt(
-				`You are about to run buildService on ${modules.length} modules, do you want to continue?`
-			))
+			!(await Confirm.prompt({
+				message: `You are about to run buildService on ${modules.length} modules, do you want to continue?`,
+				prefix: `${yellow('→')} `,
+			}))
 		) {
 			return
 		}

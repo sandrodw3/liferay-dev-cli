@@ -78,9 +78,10 @@ async function runTestsInBranch(defaultOutput: Props['defaultOutput']) {
 
 	if (modules.length > 10) {
 		if (
-			!(await Confirm.prompt(
-				`You are about to run tests in ${modules.length} modules, do you want to continue?`
-			))
+			!(await Confirm.prompt({
+				message: `You are about to run tests in ${modules.length} modules, do you want to continue?`,
+				prefix: `${yellow('→')} `,
+			}))
 		) {
 			return
 		}
