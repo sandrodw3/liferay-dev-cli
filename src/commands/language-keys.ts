@@ -32,6 +32,10 @@ export async function languageKeys(props: Props) {
 		Deno.exit(0)
 	}
 
+	const portalPath = await getConfigEntry('portal.path')
+
+	Deno.chdir(portalPath)
+
 	await saveEntry(first, entries)
 
 	log('')
@@ -67,8 +71,6 @@ export async function languageKeys(props: Props) {
 	const changes = await runCommand('git status --porcelain')
 
 	// Write entries in Language.properties file
-
-	const portalPath = await getConfigEntry('portal.path')
 
 	const modulePath = join(
 		portalPath,
