@@ -425,7 +425,8 @@
       "jsr:@std/assert@1.0.12",
       "jsr:@std/cli@1.0.13",
       "jsr:@std/fmt@1.0.8",
-      "jsr:@std/fs@1.0.13"
+      "jsr:@std/fs@1.0.13",
+      "jsr:@std/semver@1.0.7"
     ]
   }
 }
