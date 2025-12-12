@@ -8,6 +8,7 @@
 		"std/assert": "jsr:@std/assert@1.0.12",
 		"std/colors": "jsr:@std/fmt@1.0.8/colors",
 		"std/exists": "jsr:@std/fs@1.0.13/exists",
+		"std/semver": "jsr:@std/semver@1.0.7",
 		"std/unstable-spinner": "jsr:@std/cli@1.0.13/unstable-spinner",
 		"std/walk": "jsr:@std/fs@1.0.13/walk",
 
