@@ -1,4 +1,5 @@
 import { bold, cyan, green, magenta } from 'std/colors'
+import { greaterThan, parse } from 'std/semver'
 
 import { log } from 'tools'
 import { getLatestVersion, setLastCheckDate } from 'version'
@@ -14,7 +15,7 @@ export async function checkUpdate(current: string) {
 		return
 	}
 
-	if (current !== latest) {
+	if (greaterThan(parse(latest), parse(current))) {
 		log(
 			`A ${green('new version')} of lfr is available (${bold(cyan(current))} → ${bold(cyan(latest))}), run ${bold(magenta('lfr upgrade'))} to install it\n`
 		)
