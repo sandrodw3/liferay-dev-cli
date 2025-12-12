@@ -27,12 +27,12 @@
 
 `lfr` is available for **Linux** and **MacOS**.
 
-### Install prerequisites
+### 1) Install prerequisites
 
 - [`deno`][deno_installation_url] (**v2.2.8** or higher required)
 - [`fzf`][fzf_installation_url]
 
-### Install Liferay Dev CLI
+### 2) Install Liferay Dev CLI
 
 ```
 curl -fsSL https://raw.githubusercontent.com/sandrodw3/liferay-dev-cli/main/install.sh | sh
