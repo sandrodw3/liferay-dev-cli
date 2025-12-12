@@ -154,9 +154,9 @@ lfr deploy [options...]
 
 | Option                    | Description                                                                  |
 | ------------------------- | ---------------------------------------------------------------------------- |
-| `-a, --skip-dependencies` | Do not rebuild project dependencies (equivalent to `gradlew deploy -a`)      |
+| `-a, --skip-dependencies` | Do not rebuild project dependencies (`gradlew deploy -a`)      |
 | `-b, --current-branch`    | Deploy all modules modified in current branch                                |
-| `-c, --clean`             | Clean everything from previous builds (equivalent to `gradlew clean deploy`) |
+| `-c, --clean`             | Clean everything from previous builds (`gradlew clean deploy`) |
 | `-d, --default-output`    | Log the default gradle output                                                |
 | `-m, --module`            | Allow selecting a specific module to deploy                                  |
 
