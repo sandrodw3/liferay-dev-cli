@@ -85,8 +85,7 @@ export async function languageKeys(props: Props) {
 			// Save local changes if needed
 
 			if (changes) {
-				await runCommand('git add -A')
-				await runCommand('git commit -m "WIP"')
+				await runCommand('git stash --include-untracked')
 			}
 
 			// Write entries
@@ -124,11 +123,7 @@ export async function languageKeys(props: Props) {
 		// Restore local changes if needed
 
 		if (changes) {
-			const commits = await getBranchCommits({ order: 'descending' })
-
-			if (commits[0].content === 'WIP') {
-				await runCommand('git reset HEAD~1')
-			}
+			await runCommand('git stash pop')
 		}
 	}
 
