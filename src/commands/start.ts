@@ -3,7 +3,13 @@ import { blue, bold, dim, white, yellow } from 'std/colors'
 import { existsSync } from 'std/exists'
 
 import { getConfigEntry } from 'config'
-import { DBData, getBundlesPath, getDBData, getLatestTomcatPath } from 'liferay'
+import {
+	DBData,
+	getBundlesPath,
+	getDBData,
+	getLatestTomcatPath,
+	getPortalProcessPid,
+} from 'liferay'
 import {
 	checkDbExists,
 	cleanDb,
@@ -25,6 +31,16 @@ type Props = {
  */
 
 export async function start({ clean }: Props) {
+	const pid = await getPortalProcessPid()
+
+	if (pid) {
+		log(
+			`A ${bold(blue('Liferay'))} portal process is running, please ${bold(yellow('stop'))} it and try again`
+		)
+
+		Deno.exit(1)
+	}
+
 	// Check bundles folder exists
 
 	const portalPath = await getConfigEntry('portal.path')
