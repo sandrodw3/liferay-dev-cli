@@ -1,5 +1,6 @@
 export { checkDbExists } from './check-db-exists.ts'
 export { cleanDb } from './clean-db.ts'
+export { count } from './count.ts'
 export { createDb } from './create-db.ts'
 export { folderExists } from './folder-exists.ts'
 export { checkFzf, fuzzySearch } from './fuzzy-search.ts'
