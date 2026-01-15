@@ -4,7 +4,7 @@ import { blue, bold, dim, italic, red, white, yellow } from 'std/colors'
 import { getConfigEntry } from 'config'
 import { Failure, Warning } from 'exceptions'
 import { getBranchCommits, getCurrentBranch, handleRebaseConflict } from 'git'
-import { join, log, runAsyncFunction, runCommand } from 'tools'
+import { count, join, log, runAsyncFunction, runCommand } from 'tools'
 
 type Entry = {
 	key: string
@@ -406,6 +406,7 @@ async function saveEntry(phrase: string, entries: Entry[]) {
 	if (
 		phrase.length > 100 &&
 		phrase.includes('.') &&
+		count(phrase, '.') > 1 &&
 		!hasPlaceholderAfterDot(phrase)
 	) {
 		shorten = await Toggle.prompt({
