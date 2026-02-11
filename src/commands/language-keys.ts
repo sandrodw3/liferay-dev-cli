@@ -307,9 +307,19 @@ async function commitChanges({
  */
 
 async function findLPD() {
-	const commits = await getBranchCommits()
+	// Try to extract LPD from branch name
 
-	// If there's only one LPD, return it
+	const branchName = await getCurrentBranch()
+
+	const match = branchName.match(/LPD-\d+/)
+
+	if (match) {
+		return match[0]
+	}
+
+	// If there's only one LPD in commits, return it
+
+	const commits = await getBranchCommits()
 
 	const LPDs = [
 		...new Set(
@@ -355,13 +365,9 @@ async function findLPD() {
 		return LPDs.at(-1)
 	}
 
-	// Try to extract LPD from branch name, otherwise return null
+	// Return null as no LPD was found
 
-	const branchName = await getCurrentBranch()
-
-	const match = branchName.match(/LPD-\d+/)
-
-	return match ? match[0] : null
+	return null
 }
 
 /**
