@@ -159,6 +159,14 @@ export async function languageKeys(props: Props) {
 	// Perform cleanup
 
 	await cleanup()
+
+	// Show a summary of added language keys
+
+	log(`\n${bold(white('Summary'))} of added language keys:\n`)
+
+	for (const entry of entries) {
+		log(`${bold(white('•'))} ${entry.key}`)
+	}
 }
 
 /**
