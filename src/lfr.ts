@@ -280,14 +280,24 @@ const command = new Command()
 	// Playwright command
 	.command(
 		'playwright',
-		'Allow running Playwright tests in a file or module depending on options'
+		'Allow running Playwright tests in a file, module, or project depending on options'
 	)
 	.option('--ui', 'Run tests in UI mode')
 	.option(
 		'-m, --module',
-		'Allow selecting a specific module to run its tests'
+		'Allow selecting a specific module to run its tests',
+		{
+			conflicts: ['project'],
+		}
 	)
-	.action(({ module, ui }) => playwright({ module, ui }))
+	.option(
+		'-p, --project',
+		'Allow selecting a specific project to run its tests',
+		{
+			conflicts: ['module'],
+		}
+	)
+	.action(({ module, project, ui }) => playwright({ module, project, ui }))
 
 	// Poshi command
 	.command(
