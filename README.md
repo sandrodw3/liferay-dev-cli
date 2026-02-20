@@ -53,6 +53,7 @@ Explanation and description of how each of the commands and their available opti
 
 - [`ant-all`](#ant-all)
 - [`build-lang`](#build-lang)
+- [`build-service`](#build-service)
 - [`code`](#code)
 - [`config`](#config)
 - [`deploy`](#deploy)
@@ -238,7 +239,7 @@ lfr jest [options...]
 
 ### `playwright`
 
-Run Playwright tests in a file or module.
+Run Playwright tests in a file, module, or project.
 
 ```
 lfr playwright [options...]
@@ -248,6 +249,7 @@ lfr playwright [options...]
 | -------------- | ------------------------------ |
 | `--ui`         | Run tests in UI mode           |
 | `-m, --module` | Run tests in a specific module |
+| `-p, --project` | Run tests in a specific Playwright project (incompatible with `--module`) |
 
 ---
 
