@@ -1,4 +1,4 @@
-import { join } from 'tools'
+import { join } from '@tools'
 
 /**
  * Go up from the given path by removing the last item and

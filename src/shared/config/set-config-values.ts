@@ -2,8 +2,8 @@ import { Input, prompt } from 'cliffy/prompt'
 import { bold, red, white, yellow } from 'std/colors'
 import { existsSync } from 'std/exists'
 
-import { CONFIG_PATH, ConfigEntry, readConfig, writeConfig } from 'config'
-import { join, log } from 'tools'
+import { CONFIG_PATH, ConfigEntry, readConfig, writeConfig } from '@config'
+import { join, log } from '@tools'
 
 /**
  * Ask user for config and store it in .lfr/config file

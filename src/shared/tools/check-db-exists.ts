@@ -2,8 +2,8 @@ import { Client as MySQLCLient, configLogger } from 'mysql'
 import { Client as PostgreSQLClient } from 'postgres'
 import { bold, red, white } from 'std/colors'
 
-import { DBData } from 'liferay'
-import { log, processDbError } from 'tools'
+import { DBData } from '@liferay'
+import { log, processDbError } from '@tools'
 
 /**
  * Check if the given database exists and

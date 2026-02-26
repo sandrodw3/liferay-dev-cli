@@ -2,7 +2,7 @@
  * Execute a bash command and return a promise with the result
  */
 
-import { processCommand } from 'tools'
+import { processCommand } from '@tools'
 
 async function runCommand(
 	command: string,

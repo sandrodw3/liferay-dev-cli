@@ -1,6 +1,6 @@
 import { bold, white, yellow } from 'std/colors'
 
-import { log, runCommand } from 'tools'
+import { log, runCommand } from '@tools'
 
 const ACCENT_COLOR = '#3B919B'
 

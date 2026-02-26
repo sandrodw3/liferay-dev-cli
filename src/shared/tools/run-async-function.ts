@@ -1,8 +1,8 @@
 import { blue, bold, green, red, white, yellow } from 'std/colors'
 import { Spinner } from 'std/unstable-spinner'
 
-import { Failure, Info, Warning } from 'exceptions'
-import { log } from 'tools'
+import { Failure, Info, Warning } from '@exceptions'
+import { log } from '@tools'
 
 type Props = {
 	fn: () => Promise<void> | void

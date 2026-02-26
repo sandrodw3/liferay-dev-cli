@@ -1,6 +1,6 @@
-import { getChangedFiles } from 'git'
-import { getModuleType, ModuleType } from 'liferay'
-import { lookUp } from 'tools'
+import { getChangedFiles } from '@git'
+import { getModuleType, ModuleType } from '@liferay'
+import { lookUp } from '@tools'
 
 type Props = { exclude?: ModuleType[]; include?: ModuleType[] }
 

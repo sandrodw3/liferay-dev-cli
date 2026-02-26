@@ -6,8 +6,8 @@ import {
 	readConfig,
 	setConfigEntry,
 	setConfigValues,
-} from 'config'
-import { log } from 'tools'
+} from '@config'
+import { log } from '@tools'
 
 type Props = {
 	entry?: ConfigEntry

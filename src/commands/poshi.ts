@@ -1,5 +1,5 @@
-import { getConfigEntry } from 'config'
-import { runCommand } from 'tools'
+import { getConfigEntry } from '@config'
+import { runCommand } from '@tools'
 
 type Props = {
 	test: string

@@ -1,11 +1,17 @@
 import { Confirm } from 'cliffy/prompt'
 import { blue, bold, dim, red, white, yellow } from 'std/colors'
 
-import { getConfigEntry } from 'config'
-import { Info } from 'exceptions'
-import { getCurrentBranch } from 'git'
-import { getChangedModules, getModuleType, selectModule } from 'liferay'
-import { checkFzf, getBaseName, log, runAsyncFunction, runCommand } from 'tools'
+import { getConfigEntry } from '@config'
+import { Info } from '@exceptions'
+import { getCurrentBranch } from '@git'
+import { getChangedModules, getModuleType, selectModule } from '@liferay'
+import {
+	checkFzf,
+	getBaseName,
+	log,
+	runAsyncFunction,
+	runCommand,
+} from '@tools'
 
 type Props = {
 	currentBranch?: boolean

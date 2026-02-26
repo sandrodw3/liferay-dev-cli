@@ -1,10 +1,10 @@
 import { Input, Toggle } from 'cliffy/prompt'
 import { blue, bold, dim, italic, red, white, yellow } from 'std/colors'
 
-import { getConfigEntry } from 'config'
-import { Failure, Warning } from 'exceptions'
-import { getBranchCommits, getCurrentBranch, handleRebaseConflict } from 'git'
-import { count, join, log, runAsyncFunction, runCommand } from 'tools'
+import { getConfigEntry } from '@config'
+import { Failure, Warning } from '@exceptions'
+import { getBranchCommits, getCurrentBranch, handleRebaseConflict } from '@git'
+import { count, join, log, runAsyncFunction, runCommand } from '@tools'
 
 type Entry = {
 	key: string

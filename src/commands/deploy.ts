@@ -1,10 +1,10 @@
 import { Confirm } from 'cliffy/prompt'
 import { blue, bold, dim, green, red, white, yellow } from 'std/colors'
 
-import { getConfigEntry } from 'config'
-import { Failure } from 'exceptions'
-import { getCurrentBranch } from 'git'
-import { getChangedModules, getModuleType, selectModule } from 'liferay'
+import { getConfigEntry } from '@config'
+import { Failure } from '@exceptions'
+import { getCurrentBranch } from '@git'
+import { getChangedModules, getModuleType, selectModule } from '@liferay'
 import {
 	checkFzf,
 	getBaseName,
@@ -12,7 +12,7 @@ import {
 	log,
 	runAsyncFunction,
 	runCommand,
-} from 'tools'
+} from '@tools'
 
 type Options = {
 	clean?: boolean

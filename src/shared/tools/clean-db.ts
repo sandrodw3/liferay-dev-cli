@@ -2,8 +2,8 @@ import { Client as MySQLClient, configLogger } from 'mysql'
 import { Client as PostgreSQLClient } from 'postgres'
 import { bold, red, white } from 'std/colors'
 
-import { DBData } from 'liferay'
-import { processDbError } from 'tools'
+import { DBData } from '@liferay'
+import { processDbError } from '@tools'
 
 /**
  * Clean (delete and create) the given database
