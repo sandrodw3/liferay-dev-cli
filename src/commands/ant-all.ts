@@ -2,7 +2,7 @@ import { blue, bold, dim, red, white, yellow } from 'std/colors'
 
 import { getConfigEntry } from '@config'
 import { Failure } from '@exceptions'
-import { getBundlesPath, getPortalProcessPid, Profile } from '@liferay'
+import { Profile, getBundlesPath, getPortalProcessPid } from '@liferay'
 import {
 	folderExists,
 	getBaseName,
