@@ -1,6 +1,6 @@
 <div align="center">
 
-<img width="150px" alt="Liferay Dev CLI logo" src="images/logo.png">
+<img width="150px" alt="Liferay Dev CLI logo" src="images/logo.svg">
 
 <a name="readme-top"></a>
 
