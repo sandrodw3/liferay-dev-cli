@@ -1,8 +1,8 @@
 import { blue, bold, dim, red, white, yellow } from 'std/colors'
 
-import { getConfigEntry } from '@config'
-import { Failure } from '@exceptions'
-import { Profile, getBundlesPath, getPortalProcessPid } from '@liferay'
+import { getConfigEntry } from '@lib/config'
+import { Failure } from '@lib/exceptions'
+import { Profile, getBundlesPath, getPortalProcessPid } from '@lib/liferay'
 import {
 	folderExists,
 	getBaseName,
@@ -11,7 +11,7 @@ import {
 	log,
 	runAsyncFunction,
 	runCommand,
-} from '@utils'
+} from '@lib/utils'
 
 type Props = {
 	clean?: boolean

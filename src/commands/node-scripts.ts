@@ -1,8 +1,8 @@
 import { blue, bold, white } from 'std/colors'
 
-import { getConfigEntry } from '@config'
-import { getModuleType } from '@liferay'
-import { getBaseName, log, runCommand } from '@utils'
+import { getConfigEntry } from '@lib/config'
+import { getModuleType } from '@lib/liferay'
+import { getBaseName, log, runCommand } from '@lib/utils'
 
 const GLOBAL_CMDS = ['help', 'check:ci', 'generate:tsconfig']
 

@@ -1,5 +1,5 @@
-import { selectModule } from '@liferay'
-import { log } from '@utils'
+import { selectModule } from '@lib/liferay'
+import { log } from '@lib/utils'
 
 /**
  * Allow finding a module and getting its path

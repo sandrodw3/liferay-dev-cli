@@ -1,7 +1,7 @@
 import { blue, bold, white } from 'std/colors'
 
-import { getPortalProcessPid } from '@liferay'
-import { log } from '@utils'
+import { getPortalProcessPid } from '@lib/liferay'
+import { log } from '@lib/utils'
 
 /**
  * Stop portal instance that is currently running

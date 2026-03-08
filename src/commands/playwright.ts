@@ -1,7 +1,7 @@
 import { blue, bold, white, yellow } from 'std/colors'
 import { walkSync } from 'std/walk'
 
-import { getConfigEntry } from '@config'
+import { getConfigEntry } from '@lib/config'
 import {
 	checkFzf,
 	folderExists,
@@ -10,7 +10,7 @@ import {
 	join,
 	log,
 	runCommand,
-} from '@utils'
+} from '@lib/utils'
 
 type Props = {
 	module?: boolean

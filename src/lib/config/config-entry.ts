@@ -1,8 +1,8 @@
 import { bold, red } from 'std/colors'
 import { existsSync } from 'std/exists'
 
-import { readConfig, writeConfig } from '@config'
-import { join, log } from '@utils'
+import { readConfig, writeConfig } from '@lib/config'
+import { join, log } from '@lib/utils'
 
 export const CONFIG_ENTRY_KEYS = ['portal.path', 'base.branch'] as const
 

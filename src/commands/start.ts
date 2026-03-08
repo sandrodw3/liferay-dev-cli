@@ -2,14 +2,14 @@ import { Confirm } from 'cliffy/prompt'
 import { blue, bold, dim, white, yellow } from 'std/colors'
 import { existsSync } from 'std/exists'
 
-import { getConfigEntry } from '@config'
+import { getConfigEntry } from '@lib/config'
 import {
 	DBData,
 	getBundlesPath,
 	getDBData,
 	getLatestTomcatPath,
 	getPortalProcessPid,
-} from '@liferay'
+} from '@lib/liferay'
 import {
 	checkDbExists,
 	cleanDb,
@@ -20,7 +20,7 @@ import {
 	log,
 	runAsyncFunction,
 	runCommand,
-} from '@utils'
+} from '@lib/utils'
 
 type Props = {
 	clean?: boolean

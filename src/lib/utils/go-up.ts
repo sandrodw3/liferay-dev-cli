@@ -1,4 +1,4 @@
-import { join } from '@utils'
+import { join } from '@lib/utils'
 
 /**
  * Go up from the given path by removing the last item and

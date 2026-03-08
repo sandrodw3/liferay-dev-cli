@@ -1,6 +1,6 @@
 import { assertEquals } from 'std/assert'
 
-import { getBaseName } from '@utils'
+import { getBaseName } from '@lib/utils'
 
 Deno.test('extracts filename from full path', () => {
 	assertEquals(getBaseName('/path/to/file.txt'), 'file.txt')

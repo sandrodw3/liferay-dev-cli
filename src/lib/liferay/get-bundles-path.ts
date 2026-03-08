@@ -1,6 +1,6 @@
-import { getConfigEntry } from '@config'
-import { findProperty } from '@liferay'
-import { folderExists, goUp, join, runCommand } from '@utils'
+import { getConfigEntry } from '@lib/config'
+import { findProperty } from '@lib/liferay'
+import { folderExists, goUp, join, runCommand } from '@lib/utils'
 
 /**
  * Return the path of the bundles folder

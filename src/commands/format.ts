@@ -1,9 +1,9 @@
 import { blue, bold, dim, magenta, red, white, yellow } from 'std/colors'
 
-import { getConfigEntry } from '@config'
-import { Failure } from '@exceptions'
-import { getChangedFiles, getCurrentBranch } from '@git'
-import { getModuleType, selectModule } from '@liferay'
+import { getConfigEntry } from '@lib/config'
+import { Failure } from '@lib/exceptions'
+import { getChangedFiles, getCurrentBranch } from '@lib/git'
+import { getModuleType, selectModule } from '@lib/liferay'
 import {
 	checkFzf,
 	getBaseName,
@@ -11,7 +11,7 @@ import {
 	log,
 	runAsyncFunction,
 	runCommand,
-} from '@utils'
+} from '@lib/utils'
 
 type Props = {
 	currentBranch?: boolean

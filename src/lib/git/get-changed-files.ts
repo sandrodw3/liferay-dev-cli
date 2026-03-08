@@ -1,5 +1,5 @@
-import { getConfigEntry } from '@config'
-import { join, runCommand } from '@utils'
+import { getConfigEntry } from '@lib/config'
+import { join, runCommand } from '@lib/utils'
 
 /**
  * Return the list of files changed comparing to base branch.

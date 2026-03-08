@@ -1,7 +1,7 @@
 import { bold, cyan, dim, red, white } from 'std/colors'
 
-import { log, runCommand } from '@utils'
-import { getLatestVersion } from '@version'
+import { log, runCommand } from '@lib/utils'
+import { getLatestVersion } from '@lib/version'
 
 /**
  * Upgrade lfr to latest version

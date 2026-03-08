@@ -1,8 +1,8 @@
 import { bold, cyan, green, magenta } from 'std/colors'
 import { greaterThan, parse } from 'std/semver'
 
-import { log } from '@utils'
-import { getLatestVersion, setLastCheckDate } from '@version'
+import { log } from '@lib/utils'
+import { getLatestVersion, setLastCheckDate } from '@lib/version'
 
 /**
  * Check if some update is available for the app

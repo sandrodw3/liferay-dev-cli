@@ -1,4 +1,4 @@
-import { join } from '@utils'
+import { join } from '@lib/utils'
 
 const LAST_UPDATE_CHECK_PATH = join(
 	Deno.env.get('HOME')!,

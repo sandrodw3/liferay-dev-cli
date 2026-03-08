@@ -13,11 +13,11 @@
 		"std/walk": "jsr:@std/fs@1.0.13/walk",
 
 		"@commands": "./src/commands/index.ts",
-		"@config": "./src/lib/config/index.ts",
-		"@exceptions": "./src/lib/exceptions.ts",
-		"@git": "./src/lib/git/index.ts",
-		"@liferay": "./src/lib/liferay/index.ts",
-		"@utils": "./src/lib/utils/index.ts",
-		"@version": "./src/lib/version/index.ts"
+		"@lib/config": "./src/lib/config/index.ts",
+		"@lib/exceptions": "./src/lib/exceptions.ts",
+		"@lib/git": "./src/lib/git/index.ts",
+		"@lib/liferay": "./src/lib/liferay/index.ts",
+		"@lib/utils": "./src/lib/utils/index.ts",
+		"@lib/version": "./src/lib/version/index.ts"
 	}
 }

@@ -1,6 +1,6 @@
 import { existsSync } from 'std/exists'
 
-import { goUp, join } from '@utils'
+import { goUp, join } from '@lib/utils'
 
 /**
  * Look up to find a folder that contains the given subpath

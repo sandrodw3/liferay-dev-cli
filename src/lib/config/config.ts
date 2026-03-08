@@ -1,5 +1,5 @@
-import { ConfigEntry } from '@config'
-import { join } from '@utils'
+import { ConfigEntry } from '@lib/config'
+import { join } from '@lib/utils'
 
 export const CONFIG_PATH = join(Deno.env.get('HOME')!, '.lfr', 'config.json')
 

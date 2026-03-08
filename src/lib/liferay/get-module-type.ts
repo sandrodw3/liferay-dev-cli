@@ -1,8 +1,8 @@
 import { existsSync } from 'std/exists'
 
-import { getConfigEntry } from '@config'
-import { ROOT_MODULES } from '@liferay'
-import { getBaseName, join } from '@utils'
+import { getConfigEntry } from '@lib/config'
+import { ROOT_MODULES } from '@lib/liferay'
+import { getBaseName, join } from '@lib/utils'
 
 export type ModuleType =
 	| 'standard-module'

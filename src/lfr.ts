@@ -19,10 +19,10 @@ import {
 	stop,
 	upgrade,
 } from '@commands'
-import { CONFIG_ENTRY_KEYS, readConfig, setConfigValues } from '@config'
-import { PROFILES } from '@liferay'
-import { folderExists, join, log } from '@utils'
-import { checkUpdate, getLastCheckDate } from '@version'
+import { CONFIG_ENTRY_KEYS, readConfig, setConfigValues } from '@lib/config'
+import { PROFILES } from '@lib/liferay'
+import { folderExists, join, log } from '@lib/utils'
+import { checkUpdate, getLastCheckDate } from '@lib/version'
 
 // Create command
 
