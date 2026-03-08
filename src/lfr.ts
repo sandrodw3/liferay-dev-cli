@@ -21,7 +21,7 @@ import {
 } from '@commands'
 import { CONFIG_ENTRY_KEYS, readConfig, setConfigValues } from '@config'
 import { PROFILES } from '@liferay'
-import { folderExists, join, log } from '@tools'
+import { folderExists, join, log } from '@utils'
 import { checkUpdate, getLastCheckDate } from '@version'
 
 // Create command

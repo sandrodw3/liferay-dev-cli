@@ -4,7 +4,7 @@ import { blue, bold, dim, italic, red, white, yellow } from 'std/colors'
 import { getConfigEntry } from '@config'
 import { Failure, Warning } from '@exceptions'
 import { getBranchCommits, getCurrentBranch, handleRebaseConflict } from '@git'
-import { count, join, log, runAsyncFunction, runCommand } from '@tools'
+import { count, join, log, runAsyncFunction, runCommand } from '@utils'
 
 type Entry = {
 	key: string

@@ -1,7 +1,7 @@
 import { blue, bold, dim, white } from 'std/colors'
 
 import { getConfigEntry } from '@config'
-import { getBaseName, join, log, runAsyncFunction, runCommand } from '@tools'
+import { getBaseName, join, log, runAsyncFunction, runCommand } from '@utils'
 
 /**
  * Execute buildLang in portal-language-lang module

@@ -2,7 +2,7 @@ import { walkSync } from 'std/walk'
 
 import { getConfigEntry } from '@config'
 import { ModuleType, ROOT_MODULES, getModuleType } from '@liferay'
-import { fuzzySearch, getBaseName, join } from '@tools'
+import { fuzzySearch, getBaseName, join } from '@utils'
 
 const WALK_OPTIONS = {
 	includeFiles: false,

@@ -1,6 +1,6 @@
 import { assertEquals } from 'std/assert'
 
-import { processCommand } from '@tools'
+import { processCommand } from '@utils'
 
 Deno.test('simple command', () => {
 	const result = processCommand('git status')

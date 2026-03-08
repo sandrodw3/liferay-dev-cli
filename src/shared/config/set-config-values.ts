@@ -3,7 +3,7 @@ import { bold, red, white, yellow } from 'std/colors'
 import { existsSync } from 'std/exists'
 
 import { CONFIG_PATH, ConfigEntry, readConfig, writeConfig } from '@config'
-import { join, log } from '@tools'
+import { join, log } from '@utils'
 
 /**
  * Ask user for config and store it in .lfr/config file

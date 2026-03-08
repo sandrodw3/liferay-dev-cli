@@ -1,5 +1,5 @@
 import { findProperty, getBundlesPath } from '@liferay'
-import { join } from '@tools'
+import { join } from '@utils'
 
 export type DBData = {
 	database: string

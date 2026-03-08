@@ -1,4 +1,4 @@
-import { processCommand } from '@tools'
+import { processCommand } from '@utils'
 
 /**
  * Execute a bash command and return a promise with the result

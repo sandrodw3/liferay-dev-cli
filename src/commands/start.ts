@@ -20,7 +20,7 @@ import {
 	log,
 	runAsyncFunction,
 	runCommand,
-} from '@tools'
+} from '@utils'
 
 type Props = {
 	clean?: boolean

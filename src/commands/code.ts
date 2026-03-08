@@ -1,7 +1,7 @@
 import { blue, bold, yellow } from 'std/colors'
 
 import { selectModule } from '@liferay'
-import { log, runCommand } from '@tools'
+import { log, runCommand } from '@utils'
 
 /**
  * Open a specific module with VS Code if it's installed

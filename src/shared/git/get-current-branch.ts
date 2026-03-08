@@ -1,4 +1,4 @@
-import { runCommand } from '@tools'
+import { runCommand } from '@utils'
 
 /**
  * Return the name of the current branch

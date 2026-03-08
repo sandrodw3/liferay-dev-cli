@@ -17,7 +17,7 @@
 		"@exceptions": "./src/shared/exceptions.ts",
 		"@git": "./src/shared/git/index.ts",
 		"@liferay": "./src/shared/liferay/index.ts",
-		"@tools": "./src/shared/tools/index.ts",
+		"@utils": "./src/shared/utils/index.ts",
 		"@version": "./src/shared/version/index.ts"
 	}
 }

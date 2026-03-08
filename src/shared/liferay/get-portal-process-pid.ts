@@ -1,4 +1,4 @@
-import { runCommand } from '@tools'
+import { runCommand } from '@utils'
 
 /**
  * Returns the pid of the Liferay portal process or null if it does not exist

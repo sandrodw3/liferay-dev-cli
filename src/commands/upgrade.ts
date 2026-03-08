@@ -1,6 +1,6 @@
 import { bold, cyan, dim, red, white } from 'std/colors'
 
-import { log, runCommand } from '@tools'
+import { log, runCommand } from '@utils'
 import { getLatestVersion } from '@version'
 
 /**

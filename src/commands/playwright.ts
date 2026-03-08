@@ -10,7 +10,7 @@ import {
 	join,
 	log,
 	runCommand,
-} from '@tools'
+} from '@utils'
 
 type Props = {
 	module?: boolean

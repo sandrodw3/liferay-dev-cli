@@ -1,5 +1,5 @@
 import { getConfigEntry } from '@config'
-import { runCommand } from '@tools'
+import { runCommand } from '@utils'
 
 type Commit = {
 	sha: string

@@ -3,7 +3,7 @@ import { Client as PostgreSQLClient } from 'postgres'
 import { bold, red, white } from 'std/colors'
 
 import { DBData } from '@liferay'
-import { log, processDbError } from '@tools'
+import { log, processDbError } from '@utils'
 
 /**
  * Creates a database with the given name

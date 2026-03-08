@@ -2,7 +2,7 @@ import { bold, yellow } from 'std/colors'
 import { walkSync } from 'std/walk'
 
 import { getBundlesPath } from '@liferay'
-import { folderExists, log } from '@tools'
+import { folderExists, log } from '@utils'
 
 /**
  * Return the path of the latest tomcat

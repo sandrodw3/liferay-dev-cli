@@ -3,7 +3,7 @@ import { Client as PostgreSQLClient } from 'postgres'
 import { bold, red, white } from 'std/colors'
 
 import { DBData } from '@liferay'
-import { processDbError } from '@tools'
+import { processDbError } from '@utils'
 
 /**
  * Clean (delete and create) the given database

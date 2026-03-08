@@ -1,7 +1,7 @@
 import { bold, cyan, green, magenta } from 'std/colors'
 import { greaterThan, parse } from 'std/semver'
 
-import { log } from '@tools'
+import { log } from '@utils'
 import { getLatestVersion, setLastCheckDate } from '@version'
 
 /**
