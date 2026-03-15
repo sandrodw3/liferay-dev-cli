@@ -129,7 +129,7 @@ export async function antAll({ clean, defaultOutput, profile }: Props) {
 
 		await runCommand('ant all', { spawn: true })
 
-		log('')
+		log()
 	} else {
 		await runAsyncFunction({
 			fn: async () => {

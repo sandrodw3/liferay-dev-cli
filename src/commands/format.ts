@@ -147,7 +147,7 @@ async function formatCurrentBranch(defaultOutput: Props['defaultOutput']) {
 		onError: () => {
 			error = true
 
-			log('')
+			log()
 		},
 		text: `portal-impl ${dim('ant format-source-current-branch')}`,
 	})
@@ -176,7 +176,7 @@ async function formatCurrentBranch(defaultOutput: Props['defaultOutput']) {
 		onError: () => {
 			error = true
 
-			log('')
+			log()
 		},
 		text: `modules ${dim('npx node-scripts check:tsc --current-branch')}`,
 	})
@@ -232,7 +232,7 @@ async function formatSelectedModule(defaultOutput: Props['defaultOutput']) {
 		Deno.exit(0)
 	}
 
-	log('')
+	log()
 
 	await formatModule(module, defaultOutput)
 }

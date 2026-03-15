@@ -84,14 +84,14 @@ export async function start({ clean }: Props) {
 				prefix: `${yellow('→')} `,
 			})
 		) {
-			log('')
+			log()
 
 			await runAsyncFunction({
 				fn: async () => await createDb(dbData),
 				text: `${portalName} ${dim('Create database')}`,
 			})
 
-			log('')
+			log()
 		} else {
 			Deno.exit(0)
 		}
@@ -116,11 +116,11 @@ export async function start({ clean }: Props) {
 	if (clean) {
 		await cleanLiferayDb({ username, password, database, type })
 
-		log('')
+		log()
 
 		await cleanDataFolders()
 
-		log('')
+		log()
 	}
 
 	// Start

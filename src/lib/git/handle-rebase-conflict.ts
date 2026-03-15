@@ -12,7 +12,7 @@ export async function handleRebaseConflict({
 }: {
 	onAbort: () => Promise<void>
 }) {
-	log('')
+	log()
 
 	const selection: string = await Select.prompt({
 		prefix: `${yellow('→')} `,
@@ -41,7 +41,7 @@ export async function handleRebaseConflict({
 		try {
 			await runCommand('git rebase --continue')
 
-			log('')
+			log()
 		} catch {
 			await handleRebaseConflict({ onAbort })
 		}

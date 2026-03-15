@@ -362,7 +362,7 @@ async function lfr() {
 	} catch {
 		await setConfigValues(['portal.path', 'base.branch'])
 
-		log('')
+		log()
 	}
 
 	// Parse args

@@ -113,7 +113,7 @@ async function deployBranchModules(options: Options) {
 			Deno.exit(0)
 		}
 
-		log('')
+		log()
 	}
 
 	// Exit if no changes
@@ -155,7 +155,7 @@ async function deployBranchModules(options: Options) {
 
 	for (const [i, module] of modules.entries()) {
 		if (i > 0 && result[i - 1].status === 'failed') {
-			log('')
+			log()
 		}
 
 		let failed = false
@@ -170,7 +170,7 @@ async function deployBranchModules(options: Options) {
 		})
 
 		if (options.defaultOutput && i < modules.length - 1) {
-			log('')
+			log()
 		}
 
 		result.push({ module, status: failed ? 'failed' : 'passed' })
@@ -216,7 +216,7 @@ async function deploySelectedModule(options: Options) {
 		Deno.exit(0)
 	}
 
-	log('')
+	log()
 
 	await deployModule({ module, options })
 }

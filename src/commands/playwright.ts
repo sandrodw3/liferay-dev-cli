@@ -84,7 +84,7 @@ async function runTestsInSelectedFile(ui: Props['ui']) {
 
 	const file = await fuzzySearch(list, formatPreview)
 
-	log('')
+	log()
 
 	// If file is selected, run its tests
 

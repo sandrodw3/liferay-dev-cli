@@ -94,7 +94,7 @@ async function buildServiceBranchModules(defaultOutput?: boolean) {
 			Deno.exit(0)
 		}
 
-		log('')
+		log()
 	}
 
 	// Exit if no changes
@@ -126,7 +126,7 @@ async function buildServiceBranchModules(defaultOutput?: boolean) {
 
 	for (const [i, module] of modules.entries()) {
 		if (i > 0 && result[i - 1].status === 'failed') {
-			log('')
+			log()
 		}
 
 		let failed = false
@@ -141,7 +141,7 @@ async function buildServiceBranchModules(defaultOutput?: boolean) {
 		})
 
 		if (defaultOutput && i < modules.length - 1) {
-			log('')
+			log()
 		}
 
 		result.push({ module, status: failed ? 'failed' : 'passed' })
@@ -187,7 +187,7 @@ async function buildServiceSelectedModule(defaultOutput?: boolean) {
 		Deno.exit(0)
 	}
 
-	log('')
+	log()
 
 	await buildServiceModule({ module, defaultOutput })
 }

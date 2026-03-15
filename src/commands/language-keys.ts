@@ -42,7 +42,7 @@ export async function languageKeys(props: Props) {
 
 	await saveEntry(first, entries)
 
-	log('')
+	log()
 
 	let next: string = await Input.prompt({
 		message: `Introduce another phrase ${dim(`(or press Enter if finished)`)}`,
@@ -52,7 +52,7 @@ export async function languageKeys(props: Props) {
 	while (next) {
 		await saveEntry(next, entries)
 
-		log('')
+		log()
 
 		next = await Input.prompt({
 			message: `Introduce another phrase ${dim(`(or press Enter if finished)`)}`,
@@ -68,7 +68,7 @@ export async function languageKeys(props: Props) {
 		Deno.exit(0)
 	}
 
-	log('')
+	log()
 
 	// Get current changes
 
@@ -146,7 +146,7 @@ export async function languageKeys(props: Props) {
 	let conflict = false
 
 	if (props.commitChanges) {
-		log('')
+		log()
 
 		await commitChanges({
 			buildLang: props.buildLang,

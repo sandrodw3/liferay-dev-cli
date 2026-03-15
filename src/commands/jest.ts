@@ -92,7 +92,7 @@ async function runTestsInBranch(defaultOutput: Props['defaultOutput']) {
 			Deno.exit(0)
 		}
 
-		log('')
+		log()
 	}
 
 	// Exit if no changes
@@ -133,7 +133,7 @@ async function runTestsInBranch(defaultOutput: Props['defaultOutput']) {
 		})
 
 		if (defaultOutput && i < modules.length - 1) {
-			log('')
+			log()
 		}
 	}
 
@@ -169,7 +169,7 @@ async function runTestsInSelectedModule(defaultOutput: Props['defaultOutput']) {
 		Deno.exit(0)
 	}
 
-	log('')
+	log()
 
 	await runTests({ module, defaultOutput })
 }
