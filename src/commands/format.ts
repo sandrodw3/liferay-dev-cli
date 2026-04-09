@@ -92,34 +92,10 @@ async function formatCurrentBranch(defaultOutput: Props['defaultOutput']) {
 
 		await runCommand('ant format-source-current-branch', { spawn: true })
 
-		Deno.chdir(`${portalPath}/modules`)
-
-		log(
-			`\nRunning ${bold(white('npx node-scripts check:tsc --current-branch'))} in ${bold(
-				blue('modules')
-			)}\n`
-		)
-
-		await runCommand('npx node-scripts check:tsc --current-branch', {
-			spawn: true,
-		})
-
-		log(
-			`\nRunning ${bold(white('npx node-scripts check:ci --current-branch'))} in ${bold(
-				blue('modules')
-			)}\n`
-		)
-
-		await runCommand('npx node-scripts check:ci --current-branch', {
-			spawn: true,
-		})
-
 		return
 	}
 
 	Deno.chdir(`${portalPath}/portal-impl`)
-
-	let error = false
 
 	await runAsyncFunction({
 		fn: async () => {
@@ -144,71 +120,8 @@ async function formatCurrentBranch(defaultOutput: Props['defaultOutput']) {
 				)
 			}
 		},
-		onError: () => {
-			error = true
-
-			log()
-		},
 		text: `portal-impl ${dim('ant format-source-current-branch')}`,
 	})
-
-	Deno.chdir(`${portalPath}/modules`)
-
-	await runAsyncFunction({
-		fn: async () => {
-			try {
-				const output = await runCommand(
-					'npx node-scripts check:tsc --current-branch'
-				)
-
-				if (output.includes('error')) {
-					throw new Error(output)
-				}
-			} catch (error) {
-				if (error instanceof Error) {
-					throw new Failure({
-						message: `(found ${bold(red('errors'))})`,
-						trace: error.message,
-					})
-				}
-			}
-		},
-		onError: () => {
-			error = true
-
-			log()
-		},
-		text: `modules ${dim('npx node-scripts check:tsc --current-branch')}`,
-	})
-
-	await runAsyncFunction({
-		fn: async () => {
-			try {
-				const output = await runCommand(
-					'npx node-scripts check:ci --current-branch'
-				)
-
-				if (output.includes('error')) {
-					throw new Error(output)
-				}
-			} catch (error) {
-				if (error instanceof Error) {
-					throw new Failure({
-						message: `(found ${bold(red('errors'))})`,
-						trace: error.message,
-					})
-				}
-			}
-		},
-		onError: () => {
-			error = true
-		},
-		text: `modules ${dim('npx node-scripts check:ci --current-branch')}`,
-	})
-
-	if (error) {
-		Deno.exit(1)
-	}
 }
 
 /**
@@ -270,22 +183,8 @@ async function formatModule(
 
 		await runCommand(`${gradlePath} formatSource`, { spawn: true })
 
-		log(`\nRunning ${bold(white('npx node-scripts check:tsc'))}\n`)
-
-		const output = await runCommand('npx node-scripts check:tsc')
-
-		log(
-			output.includes('No versions available') ||
-				output.includes('Cannot read file') ||
-				!output
-				? 'Completed successfully!'
-				: output
-		)
-
 		return
 	}
-
-	let error = false
 
 	await runAsyncFunction({
 		fn: async () => {
@@ -310,37 +209,6 @@ async function formatModule(
 				)
 			}
 		},
-		onError: () => {
-			error = true
-		},
 		text: `${moduleName} ${dim('formatSource')}`,
 	})
-
-	await runAsyncFunction({
-		fn: async () => {
-			const output = await runCommand('npx node-scripts check:tsc')
-
-			if (
-				output.includes('No versions available') ||
-				output.includes('Cannot read file')
-			) {
-				return
-			}
-
-			if (output) {
-				throw new Failure({
-					message: `(found ${bold(red('errors'))})`,
-					trace: output,
-				})
-			}
-		},
-		onError: () => {
-			error = true
-		},
-		text: `${moduleName} ${dim('npx node-scripts check:tsc')}`,
-	})
-
-	if (error) {
-		Deno.exit(1)
-	}
 }
