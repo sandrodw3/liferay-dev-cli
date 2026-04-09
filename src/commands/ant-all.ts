@@ -147,15 +147,6 @@ export async function antAll({ clean, defaultOutput, profile }: Props) {
 			text: `${portalName} ${dim('ant all')}`,
 		})
 	}
-
-	Deno.chdir(`${portalPath}/modules/test/playwright`)
-
-	await runAsyncFunction({
-		fn: async () => {
-			await runCommand('npm install', { ignoreError: true })
-		},
-		text: `${portalName} ${dim('Install playwright')}`,
-	})
 }
 
 /**
