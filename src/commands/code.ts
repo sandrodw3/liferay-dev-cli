@@ -7,7 +7,13 @@ import { log, runCommand } from '@lib/utils'
  * Open a specific module with VS Code if it's installed
  */
 
-export async function code({ newWindow }: { newWindow?: boolean }) {
+export async function code({
+	newWindow,
+	profile,
+}: {
+	newWindow?: boolean
+	profile?: string
+}) {
 	const output = await runCommand('which code')
 
 	if (!output) {
@@ -26,5 +32,7 @@ export async function code({ newWindow }: { newWindow?: boolean }) {
 		Deno.exit(0)
 	}
 
-	await runCommand(`code ${module} ${newWindow ? '' : '-r'}`)
+	await runCommand(
+		`code ${module} ${newWindow ? '' : '-r'} ${profile ? `--profile "${profile}"` : ''}`
+	)
 }

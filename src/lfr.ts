@@ -113,7 +113,11 @@ const command = new Command()
 	// Open the selected resource with VS Code
 	.command('code', 'Open a specific module with VS Code if it is installed')
 	.option('-n, --new-window', 'Open module in a new window')
-	.action(({ newWindow }) => code({ newWindow }))
+	.option(
+		'-p, --profile <profile>',
+		'Open module with the given VS Code profile'
+	)
+	.action(({ newWindow, profile }) => code({ newWindow, profile }))
 
 	// Config command
 	.command(

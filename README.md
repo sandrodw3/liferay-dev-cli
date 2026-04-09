@@ -118,9 +118,10 @@ Open the selected module with VS Code if it is installed.
 lfr code [options...]
 ```
 
-| Option                 | Description                                                   |
-| ---------------------- | ------------------------------------------------------------- |
-| `-n, --new-window`     | Open module in a new VS Code window                           |
+| Option                    | Description                                                   |
+| ------------------------- | ------------------------------------------------------------- |
+| `-n, --new-window`        | Open module in a new VS Code window                           |
+| `-p, --profile <profile>` | Open module using a specific VS Code profile                  |
 
 ---
 
