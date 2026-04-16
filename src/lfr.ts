@@ -3,7 +3,9 @@ import { blue, bold, cyan, green, red, white } from 'std/colors'
 
 import {
 	antAll,
+	baseline,
 	buildLang,
+	buildRest,
 	buildService,
 	code,
 	config,
@@ -78,9 +80,65 @@ const command = new Command()
 		antAll({ clean, defaultOutput, profile })
 	)
 
+	// Baseline command
+	.command(
+		'baseline',
+		'Run baseline on a module or a bunch of them, depending on options. If no passing options, run it on current module'
+	)
+	.option(
+		'-b, --current-branch',
+		'Run baseline on all modules modified in current branch',
+		{
+			conflicts: ['module'],
+		}
+	)
+	.option('-d, --default-output', 'Log the default gradle output')
+	.option(
+		'-m, --module',
+		'Allow selecting a specific module to run baseline on it',
+		{
+			conflicts: ['current-branch'],
+		}
+	)
+	.action(({ currentBranch, defaultOutput, module }) =>
+		baseline({
+			currentBranch,
+			defaultOutput,
+			module,
+		})
+	)
+
 	// Build Lang command
 	.command('build-lang', 'Execute buildLang in portal-language-lang module')
 	.action(() => buildLang())
+
+	// Build Rest command
+	.command(
+		'build-rest',
+		'Run buildRest on a module or a bunch of them, depending on options. If no passing options, run it on current module'
+	)
+	.option(
+		'-b, --current-branch',
+		'Run buildRest on all modules modified in current branch',
+		{
+			conflicts: ['module'],
+		}
+	)
+	.option('-d, --default-output', 'Log the default gradle output')
+	.option(
+		'-m, --module',
+		'Allow selecting a specific module to run buildRest on it',
+		{
+			conflicts: ['current-branch'],
+		}
+	)
+	.action(({ currentBranch, defaultOutput, module }) =>
+		buildRest({
+			currentBranch,
+			defaultOutput,
+			module,
+		})
+	)
 
 	// Build Service command
 	.command(

@@ -52,7 +52,9 @@ There's also available an `lfr upgrade` command to update the CLI to its latest 
 Explanation and description of how each of the commands and their available options work.
 
 - [`ant-all`](#ant-all)
+- [`baseline`](#baseline)
 - [`build-lang`](#build-lang)
+- [`build-rest`](#build-rest)
 - [`build-service`](#build-service)
 - [`code`](#code)
 - [`config`](#config)
@@ -84,6 +86,22 @@ lfr ant-all [options...]
 
 ---
 
+### `baseline`
+
+Execute `baseline` on a module or a bunch of them, depending on options. If no passing `-m` or `-b` options, run it on the current module.
+
+```
+lfr baseline [options...]
+```
+
+| Option                    | Description                                                                  |
+| ------------------------- | ---------------------------------------------------------------------------- |
+| `-b, --current-branch`    | Run `baseline` on all modules modified in current branch                     |
+| `-d, --default-output`    | Log the default gradle output                                                |
+| `-m, --module`            | Allow selecting a specific module to run `baseline`                          |
+
+---
+
 ### `build-lang`
 
 Execute `buildLang` in `portal-language-lang` module.
@@ -91,6 +109,22 @@ Execute `buildLang` in `portal-language-lang` module.
 ```
 lfr build-lang
 ```
+
+---
+
+### `build-rest`
+
+Execute `buildRest` on a module or a bunch of them, depending on options. If no passing `-m` or `-b` options, run it on the current module.
+
+```
+lfr build-rest [options...]
+```
+
+| Option                    | Description                                                                  |
+| ------------------------- | ---------------------------------------------------------------------------- |
+| `-b, --current-branch`    | Run `buildRest` on all modules modified in current branch                    |
+| `-d, --default-output`    | Log the default gradle output                                                |
+| `-m, --module`            | Allow selecting a specific module to run `buildRest`                         |
 
 ---
 
