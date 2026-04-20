@@ -7,30 +7,34 @@ const ACCENT_COLOR = '#3B919B'
 type ListItem = {
 	id: string
 	name: string
+	preview?: string
 }
 
 /**
  * Allow user to find an item in a list with a fuzzy search.
- * A bash string to format the preview of each line can also be passed
+ * Each item can include a preview string to display above the list
  */
 
-export async function fuzzySearch(items: ListItem[], formatPreview?: string) {
+export async function fuzzySearch(items: ListItem[]) {
 	// Create fzf command with desired options
 
 	const args = [
 		`--color=bg:-1,bg+:-1,gutter:-1,pointer:${ACCENT_COLOR},preview-fg:${ACCENT_COLOR},prompt:-1`,
+		'--delimiter=\t',
 		'--height=12',
 		'--no-info',
 		'--reverse',
 		'--with-nth=2',
 	]
 
-	if (formatPreview) {
+	const hasPreview = items.some((item) => item.preview !== undefined)
+
+	if (hasPreview) {
 		args.push(
 			'--preview-window',
 			'top:10%:noborder:wrap',
 			'--preview',
-			formatPreview
+			'echo {3}'
 		)
 	}
 
@@ -52,7 +56,9 @@ export async function fuzzySearch(items: ListItem[], formatPreview?: string) {
 
 	// Prepare list
 
-	const list = items.map((line) => `${line.id} ${line.name}`).join('\n')
+	const list = items
+		.map((line) => `${line.id}\t${line.name}\t${line.preview ?? ''}`)
+		.join('\n')
 
 	// Write the list to stdin
 
@@ -66,7 +72,7 @@ export async function fuzzySearch(items: ListItem[], formatPreview?: string) {
 
 	const output = decoder.decode(stdout).trim()
 
-	const [item] = output.split(' ')
+	const [item] = output.split('\t')
 
 	return item
 }
