@@ -244,7 +244,9 @@ async function buildRestModule({
 	// Show description
 
 	if (showDescription) {
-		log(`Running ${bold(white('buildRest'))} on ${bold(blue(moduleName))}\n`)
+		log(
+			`Running ${bold(white('buildRest'))} on ${bold(blue(moduleName))}\n`
+		)
 	}
 
 	// Run buildRest on the module
