@@ -138,7 +138,7 @@ async function formatSelectedModule(defaultOutput: Props['defaultOutput']) {
 	)
 
 	const module = await selectModule({
-		exclude: ['root', 'root-module', 'parent-module', 'playwright'],
+		exclude: ['root', 'root-module', 'parent-module'],
 	})
 
 	if (!module) {
@@ -161,7 +161,7 @@ async function formatModule(
 	const moduleName = getBaseName(module)
 	const moduleType = await getModuleType(module)
 
-	if (moduleType !== 'standard-module') {
+	if (moduleType !== 'standard-module' && moduleType !== 'playwright') {
 		log(
 			`${bold(blue(moduleName))} is ${bold(yellow('not formattable'))}, please run ${bold(
 				magenta('lfr format -b')
@@ -179,6 +179,14 @@ async function formatModule(
 	Deno.chdir(module)
 
 	if (defaultOutput) {
+		if (moduleType === 'playwright') {
+			log(`Running ${bold(white('yarn format'))}\n`)
+
+			await runCommand('yarn format', { spawn: true })
+
+			return
+		}
+
 		log(`Running ${bold(white('formatSource'))}\n`)
 
 		await runCommand(`${gradlePath} formatSource`, { spawn: true })
@@ -191,7 +199,11 @@ async function formatModule(
 			const previousDiff = await runCommand('git diff')
 
 			try {
-				await runCommand(`${gradlePath} formatSource`)
+				if (moduleType === 'playwright') {
+					await runCommand('yarn format')
+				} else {
+					await runCommand(`${gradlePath} formatSource`)
+				}
 			} catch (error) {
 				if (error instanceof Error) {
 					throw new Failure({
@@ -209,6 +221,6 @@ async function formatModule(
 				)
 			}
 		},
-		text: `${moduleName} ${dim('formatSource')}`,
+		text: `${moduleName} ${dim(moduleType === 'playwright' ? 'yarn format' : 'formatSource')}`,
 	})
 }
