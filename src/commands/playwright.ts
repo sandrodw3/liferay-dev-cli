@@ -72,9 +72,8 @@ async function runTestsInSelectedFile(ui: Props['ui']) {
 	const list = files.map((file) => ({
 		id: file.path,
 		name: file.name,
+		preview: file.path.split('playwright/tests/').pop() ?? file.path,
 	}))
-
-	const formatPreview = `echo "{}" | sed 's|.*/tests/||; s| .*||'`
 
 	log(
 		`Please ${bold(white('select a file'))} and press ${bold(
@@ -82,7 +81,7 @@ async function runTestsInSelectedFile(ui: Props['ui']) {
 		)} to run all tests on it`
 	)
 
-	const file = await fuzzySearch(list, formatPreview)
+	const file = await fuzzySearch(list)
 
 	log()
 

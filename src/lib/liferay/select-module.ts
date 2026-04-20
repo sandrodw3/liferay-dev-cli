@@ -88,12 +88,10 @@ export async function selectModule({ exclude, include }: Props = {}): Promise<
 	const list = modules.map((module) => ({
 		id: module,
 		name: getBaseName(module),
+		preview: module.split('/modules/').pop() ?? module,
 	}))
 
-	const formatPreview =
-		'echo "{}" | sed "s|.*/\\([^/]*\\)/\\([^/]*\\)/\\([^/]*\\) .*|\\1/\\2/\\3|"'
-
-	const module = await fuzzySearch(list, formatPreview)
+	const module = await fuzzySearch(list)
 
 	// Return the module or null if no module was selected
 
