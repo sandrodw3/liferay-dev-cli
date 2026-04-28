@@ -1,4 +1,6 @@
 import { Confirm } from 'cliffy/prompt'
+import { runAsyncFunction, runCommand } from 'sdw3/lab/exec'
+import { getBaseName } from 'sdw3/lab/path'
 import { blue, bold, dim, white, yellow } from 'std/colors'
 import { existsSync } from 'std/exists'
 
@@ -15,11 +17,8 @@ import {
 	cleanDb,
 	createDb,
 	folderExists,
-	getBaseName,
 	join,
 	log,
-	runAsyncFunction,
-	runCommand,
 } from '@lib/utils'
 
 type Props = {

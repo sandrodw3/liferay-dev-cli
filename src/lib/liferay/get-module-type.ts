@@ -1,8 +1,9 @@
+import { getBaseName } from 'sdw3/lab/path'
 import { existsSync } from 'std/exists'
 
 import { getConfigEntry } from '@lib/config'
 import { ROOT_MODULES } from '@lib/liferay'
-import { getBaseName, join } from '@lib/utils'
+import { join } from '@lib/utils'
 
 export type ModuleType =
 	| 'standard-module'

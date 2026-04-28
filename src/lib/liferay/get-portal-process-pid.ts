@@ -1,4 +1,4 @@
-import { runCommand } from '@lib/utils'
+import { runCommand } from 'sdw3/lab/exec'
 
 /**
  * Returns the pid of the Liferay portal process or null if it does not exist

@@ -1,18 +1,13 @@
 import { Confirm } from 'cliffy/prompt'
+import { Failure, runAsyncFunction, runCommand } from 'sdw3/lab/exec'
+import { checkFzf } from 'sdw3/lab/fzf'
+import { getBaseName } from 'sdw3/lab/path'
 import { blue, bold, dim, green, red, white, yellow } from 'std/colors'
 
 import { getConfigEntry } from '@lib/config'
-import { Failure } from '@lib/exceptions'
 import { getCurrentBranch } from '@lib/git'
 import { getChangedModules, getModuleType, selectModule } from '@lib/liferay'
-import {
-	checkFzf,
-	getBaseName,
-	join,
-	log,
-	runAsyncFunction,
-	runCommand,
-} from '@lib/utils'
+import { join, log } from '@lib/utils'
 
 type Options = {
 	clean?: boolean
@@ -158,14 +153,9 @@ async function deployBranchModules(options: Options) {
 			log()
 		}
 
-		let failed = false
-
-		await deployModule({
+		const passed = await deployModule({
 			module,
 			options,
-			onError: () => {
-				failed = true
-			},
 			showDescription: !!options.defaultOutput,
 		})
 
@@ -173,7 +163,7 @@ async function deployBranchModules(options: Options) {
 			log()
 		}
 
-		result.push({ module, status: failed ? 'failed' : 'passed' })
+		result.push({ module, status: passed ? 'passed' : 'failed' })
 	}
 
 	if (result.some(({ status }) => status === 'failed')) {
@@ -228,12 +218,10 @@ async function deploySelectedModule(options: Options) {
 async function deployModule({
 	module,
 	options,
-	onError,
 	showDescription = true,
 }: {
 	module: string
 	options: Options
-	onError?: () => void
 	showDescription?: boolean
 }) {
 	const moduleName = getBaseName(module)
@@ -278,10 +266,10 @@ async function deployModule({
 	if (defaultOutput) {
 		await runCommand(command, { spawn: true })
 
-		return
+		return true
 	}
 
-	await runAsyncFunction({
+	return await runAsyncFunction({
 		fn: async () => {
 			try {
 				await runCommand(command)
@@ -296,7 +284,6 @@ async function deployModule({
 				}
 			}
 		},
-		onError,
 		text: `${moduleName} ${dim(deployCommand)}`,
 	})
 }

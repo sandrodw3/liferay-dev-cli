@@ -1,18 +1,13 @@
 import { Confirm } from 'cliffy/prompt'
+import { Failure, Info, runAsyncFunction, runCommand } from 'sdw3/lab/exec'
+import { checkFzf } from 'sdw3/lab/fzf'
+import { getBaseName } from 'sdw3/lab/path'
 import { blue, bold, dim, green, red, white, yellow } from 'std/colors'
 
 import { getConfigEntry } from '@lib/config'
-import { Failure, Info } from '@lib/exceptions'
 import { getCurrentBranch } from '@lib/git'
 import { getChangedModules, getModuleType, selectModule } from '@lib/liferay'
-import {
-	checkFzf,
-	getBaseName,
-	join,
-	log,
-	runAsyncFunction,
-	runCommand,
-} from '@lib/utils'
+import { join, log } from '@lib/utils'
 
 type Options = {
 	defaultOutput?: boolean
@@ -150,14 +145,9 @@ async function buildRestBranchModules(options: Options) {
 			log()
 		}
 
-		let failed = false
-
-		await buildRestModule({
+		const passed = await buildRestModule({
 			module,
 			options,
-			onError: () => {
-				failed = true
-			},
 			showDescription: !!options.defaultOutput,
 		})
 
@@ -165,7 +155,7 @@ async function buildRestBranchModules(options: Options) {
 			log()
 		}
 
-		result.push({ module, status: failed ? 'failed' : 'passed' })
+		result.push({ module, status: passed ? 'passed' : 'failed' })
 	}
 
 	if (result.some(({ status }) => status === 'failed')) {
@@ -226,12 +216,10 @@ async function buildRestSelectedModule(options: Options) {
 async function buildRestModule({
 	module,
 	options,
-	onError,
 	showDescription = true,
 }: {
 	module: string
 	options: Options
-	onError?: () => void
 	showDescription?: boolean
 }) {
 	const moduleName = getBaseName(module)
@@ -258,10 +246,10 @@ async function buildRestModule({
 	if (defaultOutput) {
 		await runCommand(command, { spawn: true })
 
-		return
+		return true
 	}
 
-	await runAsyncFunction({
+	return await runAsyncFunction({
 		fn: async () => {
 			try {
 				if (!supportsBuildRest(module)) {
@@ -284,7 +272,6 @@ async function buildRestModule({
 				throw error
 			}
 		},
-		onError,
 		text: `${moduleName} ${dim('buildRest')}`,
 	})
 }

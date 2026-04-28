@@ -1,17 +1,13 @@
 import { Confirm } from 'cliffy/prompt'
+import { runAsyncFunction, runCommand } from 'sdw3/lab/exec'
+import { checkFzf } from 'sdw3/lab/fzf'
+import { getBaseName } from 'sdw3/lab/path'
 import { blue, bold, dim, green, red, white, yellow } from 'std/colors'
 
 import { getConfigEntry } from '@lib/config'
 import { getCurrentBranch } from '@lib/git'
 import { getChangedModules, getModuleType, selectModule } from '@lib/liferay'
-import {
-	checkFzf,
-	getBaseName,
-	join,
-	log,
-	runAsyncFunction,
-	runCommand,
-} from '@lib/utils'
+import { join, log } from '@lib/utils'
 
 type Props = {
 	currentBranch?: boolean
@@ -129,14 +125,9 @@ async function buildServiceBranchModules(defaultOutput?: boolean) {
 			log()
 		}
 
-		let failed = false
-
-		await buildServiceModule({
+		const passed = await buildServiceModule({
 			module,
 			defaultOutput,
-			onError: () => {
-				failed = true
-			},
 			showDescription: !!defaultOutput,
 		})
 
@@ -144,7 +135,7 @@ async function buildServiceBranchModules(defaultOutput?: boolean) {
 			log()
 		}
 
-		result.push({ module, status: failed ? 'failed' : 'passed' })
+		result.push({ module, status: passed ? 'passed' : 'failed' })
 	}
 
 	if (result.some(({ status }) => status === 'failed')) {
@@ -199,12 +190,10 @@ async function buildServiceSelectedModule(defaultOutput?: boolean) {
 async function buildServiceModule({
 	module,
 	defaultOutput,
-	onError,
 	showDescription = true,
 }: {
 	module: string
 	defaultOutput?: boolean
-	onError?: () => void
 	showDescription?: boolean
 }) {
 	const moduleName = getBaseName(module)
@@ -227,14 +216,13 @@ async function buildServiceModule({
 	if (defaultOutput) {
 		await runCommand(`${gradlePath} buildService`, { spawn: true })
 
-		return
+		return true
 	}
 
-	await runAsyncFunction({
+	return await runAsyncFunction({
 		fn: async () => {
 			await runCommand(`${gradlePath} buildService`)
 		},
-		onError,
 		text: `${moduleName} ${dim('buildService')}`,
 	})
 }

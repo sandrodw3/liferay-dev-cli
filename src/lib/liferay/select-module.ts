@@ -1,8 +1,10 @@
+import { fuzzySearch } from 'sdw3/lab/fzf'
+import { getBaseName } from 'sdw3/lab/path'
 import { walkSync } from 'std/walk'
 
 import { getConfigEntry } from '@lib/config'
 import { ModuleType, ROOT_MODULES, getModuleType } from '@lib/liferay'
-import { fuzzySearch, getBaseName, join } from '@lib/utils'
+import { join } from '@lib/utils'
 
 const WALK_OPTIONS = {
 	includeFiles: false,

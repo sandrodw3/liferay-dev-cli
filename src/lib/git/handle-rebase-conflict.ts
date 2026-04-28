@@ -1,7 +1,8 @@
 import { Select } from 'cliffy/prompt'
+import { runCommand } from 'sdw3/lab/exec'
 import { bold, yellow } from 'std/colors'
 
-import { log, runCommand } from '@lib/utils'
+import { log } from '@lib/utils'
 
 /**
  * Handle a rebase conflict by prompting the user to abort or continue

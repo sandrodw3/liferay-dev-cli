@@ -1,14 +1,14 @@
 import { Input, Toggle } from 'cliffy/prompt'
+import { Failure, Warning, runAsyncFunction, runCommand } from 'sdw3/lab/exec'
 import { blue, bold, dim, italic, red, white, yellow } from 'std/colors'
 
 import { getConfigEntry } from '@lib/config'
-import { Failure, Warning } from '@lib/exceptions'
 import {
 	getBranchCommits,
 	getCurrentBranch,
 	handleRebaseConflict,
 } from '@lib/git'
-import { count, join, log, runAsyncFunction, runCommand } from '@lib/utils'
+import { count, join, log } from '@lib/utils'
 
 type Entry = {
 	key: string
@@ -470,9 +470,7 @@ async function sortFile({ onFail }: { onFail?: () => Promise<void> } = {}) {
 
 	Deno.chdir(modulePath)
 
-	let fail = false
-
-	await runAsyncFunction({
+	const passed = await runAsyncFunction({
 		fn: async () => {
 			try {
 				await runCommand(`${gradlePath} formatSource`)
@@ -482,13 +480,10 @@ async function sortFile({ onFail }: { onFail?: () => Promise<void> } = {}) {
 				})
 			}
 		},
-		onError: () => {
-			fail = true
-		},
 		text: `portal-language-lang ${dim('Run formatSource to sort Language.properties')}`,
 	})
 
-	if (fail) {
+	if (!passed) {
 		if (onFail) {
 			await onFail()
 		}
