@@ -1,5 +1,6 @@
+import { runCommand } from 'sdw3/lab/exec'
+
 import { getConfigEntry } from '@lib/config'
-import { runCommand } from '@lib/utils'
 
 type Props = {
 	test: string

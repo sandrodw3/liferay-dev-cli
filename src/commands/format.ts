@@ -1,17 +1,12 @@
+import { Failure, runAsyncFunction, runCommand } from 'sdw3/lab/exec'
+import { checkFzf } from 'sdw3/lab/fzf'
+import { getBaseName } from 'sdw3/lab/path'
 import { blue, bold, dim, magenta, red, white, yellow } from 'std/colors'
 
 import { getConfigEntry } from '@lib/config'
-import { Failure } from '@lib/exceptions'
 import { getChangedFiles, getCurrentBranch } from '@lib/git'
 import { getModuleType, selectModule } from '@lib/liferay'
-import {
-	checkFzf,
-	getBaseName,
-	join,
-	log,
-	runAsyncFunction,
-	runCommand,
-} from '@lib/utils'
+import { join, log } from '@lib/utils'
 
 type Props = {
 	currentBranch?: boolean
@@ -106,6 +101,7 @@ async function formatCurrentBranch(defaultOutput: Props['defaultOutput']) {
 			} catch (error) {
 				if (error instanceof Error) {
 					throw new Failure({
+						exit: true,
 						message: `(found ${bold(red('errors'))})`,
 						trace: error.message,
 					})
@@ -207,6 +203,7 @@ async function formatModule(
 			} catch (error) {
 				if (error instanceof Error) {
 					throw new Failure({
+						exit: true,
 						message: `(found ${bold(red('errors'))})`,
 						trace: error.message,
 					})

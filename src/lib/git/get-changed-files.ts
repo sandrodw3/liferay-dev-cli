@@ -1,5 +1,7 @@
+import { runCommand } from 'sdw3/lab/exec'
+
 import { getConfigEntry } from '@lib/config'
-import { join, runCommand } from '@lib/utils'
+import { join } from '@lib/utils'
 
 /**
  * Return the list of files changed comparing to base branch.

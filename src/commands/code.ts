@@ -1,7 +1,8 @@
+import { runCommand } from 'sdw3/lab/exec'
 import { blue, bold, yellow } from 'std/colors'
 
 import { selectModule } from '@lib/liferay'
-import { log, runCommand } from '@lib/utils'
+import { log } from '@lib/utils'
 
 /**
  * Open a specific module with VS Code if it's installed

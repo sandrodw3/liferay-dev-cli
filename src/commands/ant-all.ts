@@ -1,17 +1,10 @@
+import { Failure, runAsyncFunction, runCommand } from 'sdw3/lab/exec'
+import { getBaseName } from 'sdw3/lab/path'
 import { blue, bold, dim, red, white, yellow } from 'std/colors'
 
 import { getConfigEntry } from '@lib/config'
-import { Failure } from '@lib/exceptions'
 import { Profile, getBundlesPath, getPortalProcessPid } from '@lib/liferay'
-import {
-	folderExists,
-	getBaseName,
-	goUp,
-	join,
-	log,
-	runAsyncFunction,
-	runCommand,
-} from '@lib/utils'
+import { folderExists, goUp, join, log } from '@lib/utils'
 
 type Props = {
 	clean?: boolean
@@ -138,6 +131,7 @@ export async function antAll({ clean, defaultOutput, profile }: Props) {
 				} catch (error) {
 					if (error instanceof Error) {
 						throw new Failure({
+							exit: true,
 							message: `(build ${bold(red('failed'))})`,
 							trace: processError(error),
 						})

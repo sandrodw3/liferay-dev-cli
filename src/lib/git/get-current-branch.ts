@@ -1,4 +1,4 @@
-import { runCommand } from '@lib/utils'
+import { runCommand } from 'sdw3/lab/exec'
 
 /**
  * Return the name of the current branch

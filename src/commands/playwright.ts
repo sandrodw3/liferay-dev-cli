@@ -1,16 +1,11 @@
+import { runCommand } from 'sdw3/lab/exec'
+import { checkFzf, fuzzySearch } from 'sdw3/lab/fzf'
+import { getBaseName } from 'sdw3/lab/path'
 import { blue, bold, white, yellow } from 'std/colors'
 import { walkSync } from 'std/walk'
 
 import { getConfigEntry } from '@lib/config'
-import {
-	checkFzf,
-	folderExists,
-	fuzzySearch,
-	getBaseName,
-	join,
-	log,
-	runCommand,
-} from '@lib/utils'
+import { folderExists, join, log } from '@lib/utils'
 
 type Props = {
 	module?: boolean

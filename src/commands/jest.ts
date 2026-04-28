@@ -1,17 +1,13 @@
 import { Confirm } from 'cliffy/prompt'
+import { Failure, Info, runAsyncFunction, runCommand } from 'sdw3/lab/exec'
+import { checkFzf } from 'sdw3/lab/fzf'
+import { getBaseName } from 'sdw3/lab/path'
 import { blue, bold, dim, red, white, yellow } from 'std/colors'
 
 import { getConfigEntry } from '@lib/config'
-import { Info } from '@lib/exceptions'
 import { getCurrentBranch } from '@lib/git'
 import { getChangedModules, getModuleType, selectModule } from '@lib/liferay'
-import {
-	checkFzf,
-	getBaseName,
-	log,
-	runAsyncFunction,
-	runCommand,
-} from '@lib/utils'
+import { log } from '@lib/utils'
 
 type Props = {
 	currentBranch?: boolean
@@ -123,14 +119,15 @@ async function runTestsInBranch(defaultOutput: Props['defaultOutput']) {
 	let error = false
 
 	for (const [i, module] of modules.entries()) {
-		await runTests({
+		const passed = await runTests({
 			module,
 			defaultOutput,
-			onError: () => {
-				error = true
-			},
 			showDescription: !!defaultOutput,
 		})
+
+		if (!passed) {
+			error = true
+		}
 
 		if (defaultOutput && i < modules.length - 1) {
 			log()
@@ -181,12 +178,10 @@ async function runTestsInSelectedModule(defaultOutput: Props['defaultOutput']) {
 async function runTests({
 	module,
 	defaultOutput,
-	onError,
 	showDescription = true,
 }: {
 	module: string
 	defaultOutput: Props['defaultOutput']
-	onError?: () => void
 	showDescription?: boolean
 }) {
 	const moduleName = getBaseName(module)
@@ -206,17 +201,17 @@ async function runTests({
 	if (defaultOutput) {
 		await runCommand('npx node-scripts test', { spawn: true })
 
-		return
+		return true
 	}
 
-	await runAsyncFunction({
+	return await runAsyncFunction({
 		fn: async () => {
 			let result = ''
 
 			result = await runCommand('npx node-scripts test')
 
 			if (result.includes('failed')) {
-				throw new Error(`(${bold(red('failed'))})`)
+				throw new Failure({ message: `(${bold(red('failed'))})` })
 			}
 
 			// No tests in module
@@ -228,7 +223,6 @@ async function runTests({
 				throw new Info(`(no tests, ${bold(blue(`skipped`))})`)
 			}
 		},
-		onError,
 		text: `${moduleName} ${dim('npx node-scripts test')}`,
 	})
 }

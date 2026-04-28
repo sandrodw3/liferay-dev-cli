@@ -1,6 +1,8 @@
+import { runCommand } from 'sdw3/lab/exec'
+
 import { getConfigEntry } from '@lib/config'
 import { findProperty } from '@lib/liferay'
-import { folderExists, goUp, join, runCommand } from '@lib/utils'
+import { folderExists, goUp, join } from '@lib/utils'
 
 /**
  * Return the path of the bundles folder
