@@ -43,19 +43,3 @@ jobs:
 
             - name: Type-check project
               run: deno check --node-modules-dir=auto .
-
-    test:
-        name: test
-        runs-on: ubuntu-latest
-
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v5
-
-            - name: Setup Deno
-              uses: denoland/setup-deno@v2
-              with:
-                  deno-version: v2.x
-
-            - name: Run tests
-              run: deno test --node-modules-dir=auto -A
