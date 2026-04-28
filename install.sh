@@ -1,5 +1,15 @@
 #!/bin/bash
 
+set -e
+
+TMP=$(mktemp -d)
+trap "rm -rf $TMP" EXIT
+
+curl -fsSL https://codeload.github.com/sandrodw3/liferay-dev-cli/tar.gz/refs/heads/main \
+	| tar xz -C "$TMP" --strip-components=1
+
+cd "$TMP"
+
 deno install \
 	--allow-env \
 	--allow-net \
@@ -7,6 +17,5 @@ deno install \
 	--allow-run \
 	--allow-write \
 	--compile \
-	--import-map https://raw.githubusercontent.com/sandrodw3/liferay-dev-cli/main/deno.json \
-	https://raw.githubusercontent.com/sandrodw3/liferay-dev-cli/main/src/lfr.ts \
+	src/lfr.ts \
 	-f -g -r
