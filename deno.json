@@ -10,12 +10,10 @@
 		"std/colors": "jsr:@std/fmt@1.0.8/colors",
 		"std/exists": "jsr:@std/fs@1.0.13/exists",
 		"std/semver": "jsr:@std/semver@1.0.7",
-		"std/unstable-spinner": "jsr:@std/cli@1.0.13/unstable-spinner",
 		"std/walk": "jsr:@std/fs@1.0.13/walk",
 
 		"@commands": "./src/commands/index.ts",
 		"@lib/config": "./src/lib/config/index.ts",
-		"@lib/exceptions": "./src/lib/exceptions.ts",
 		"@lib/git": "./src/lib/git/index.ts",
 		"@lib/liferay": "./src/lib/liferay/index.ts",
 		"@lib/utils": "./src/lib/utils/index.ts",
