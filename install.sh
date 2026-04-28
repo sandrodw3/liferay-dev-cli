@@ -17,5 +17,6 @@ deno install \
 	--allow-run \
 	--allow-write \
 	--compile \
+	--config deno.json \
 	src/lfr.ts \
 	-f -g -r
