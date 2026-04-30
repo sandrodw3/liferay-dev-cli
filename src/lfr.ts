@@ -292,10 +292,6 @@ const command = new Command()
 		)} to see available commands`
 	)
 	.option(
-		'-a, --all',
-		'Executes the command for everything (may take long to run for some tasks)'
-	)
-	.option(
 		'-b, --current-branch',
 		'Executes the command considering the changes in current branch'
 	)
@@ -305,9 +301,8 @@ const command = new Command()
 		'Executes the command considering only the uncommited changes'
 	)
 	.arguments('<command:string>')
-	.action(({ all, currentBranch, global, localChanges }, command) => {
+	.action(({ currentBranch, global, localChanges }, command) => {
 		nodeScripts({
-			all,
 			currentBranch,
 			command,
 			global,
