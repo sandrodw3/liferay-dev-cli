@@ -25,6 +25,8 @@ export async function getModuleType(
 
 	if (module === portalPath) {
 		return 'root'
+	} else if (module === join(portalPath, 'modules')) {
+		return null
 	} else if (isRootModule(module)) {
 		return 'root-module'
 	} else if (module.endsWith('test/playwright')) {
