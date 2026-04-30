@@ -6,10 +6,7 @@ import { getConfigEntry } from '@lib/config'
 import { getModuleType } from '@lib/liferay'
 import { log } from '@lib/utils'
 
-const GLOBAL_CMDS = ['help', 'check:ci', 'generate:tsconfig']
-
 type Props = {
-	all?: boolean
 	command: string
 	currentBranch?: boolean
 	global?: boolean
@@ -17,11 +14,11 @@ type Props = {
 }
 
 /**
- * Allow regenerating outdated tsconfig.json files
+ * Run a node-scripts command, either globally (from modules) or in the current
+ * project
  */
 
 export async function nodeScripts({
-	all,
 	command,
 	currentBranch,
 	global,
@@ -33,9 +30,7 @@ export async function nodeScripts({
 	const moduleName = getBaseName(module)
 	const moduleType = await getModuleType(module)
 
-	const isGlobalCommand = global || GLOBAL_CMDS.includes(command)
-
-	if (!moduleType && !isGlobalCommand) {
+	if (!moduleType && !global) {
 		log(
 			`You must either move to a ${bold(white('Liferay module'))} or run the command with ${bold(white('--global'))}`
 		)
@@ -43,15 +38,15 @@ export async function nodeScripts({
 		Deno.exit(1)
 	}
 
-	if (isGlobalCommand) {
+	if (global) {
 		Deno.chdir(`${portalPath}/modules`)
 	}
 
-	const cmd = `npx node-scripts ${command}${all ? ' --all' : ''}${currentBranch ? ' --current-branch' : ''}${localChanges ? ' --local-changes' : ''}`
+	const cmd = `npx node-scripts ${command}${currentBranch ? ' --current-branch' : ''}${localChanges ? ' --local-changes' : ''}`
 
 	let description = `Running ${bold(white(cmd))} command`
 
-	if (isGlobalCommand) {
+	if (global) {
 		description = description.concat(
 			` globally in ${bold(blue('modules'))}\n`
 		)
