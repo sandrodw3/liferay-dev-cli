@@ -126,7 +126,10 @@ export async function start({ clean }: Props) {
 
 	Deno.chdir(join(tomcatPath, 'bin'))
 
-	await runCommand('./catalina.sh jpda run', { spawn: true })
+	await runCommand('./catalina.sh jpda run', {
+		ignoreError: true,
+		spawn: true,
+	})
 }
 
 /**
