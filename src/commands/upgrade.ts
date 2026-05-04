@@ -39,11 +39,46 @@ export async function upgrade(current: string) {
 
 	log(dim(`Installing it...\n`))
 
-	const repo = `https://raw.githubusercontent.com/sandrodw3/liferay-dev-cli/${latest}`
+	const tmp = await Deno.makeTempDir()
 
-	const cmd = `deno install ${repo}/src/lfr.ts --import-map ${repo}/deno.json --allow-env --allow-net --allow-read --allow-run --allow-write -f -g -r`
+	let failed = false
 
-	await runCommand(cmd, { spawn: true })
+	try {
+		// Download the source tarball and extract it into the temp dir
+
+		const tarball = `https://codeload.github.com/sandrodw3/liferay-dev-cli/tar.gz/refs/tags/${latest}`
+
+		const response = await fetch(tarball)
+
+		const archive = `${tmp}/source.tar.gz`
+
+		await Deno.writeFile(archive, response.body!)
+
+		await runCommand(`tar xzf ${archive} -C ${tmp} --strip-components=1`, {
+			spawn: true,
+		})
+
+		// Compile and install lfr from the downloaded source
+
+		Deno.chdir(tmp)
+
+		const cmd =
+			'deno install --allow-env --allow-net --allow-read --allow-run --allow-write --compile --config deno.json src/lfr.ts -f -g -r'
+
+		await runCommand(cmd, { spawn: true })
+	} catch {
+		failed = true
+	} finally {
+		await Deno.remove(tmp, { recursive: true })
+	}
+
+	if (failed) {
+		log(
+			`\nAn ${bold(red('error'))} occurred while ${bold(white('installing'))} version ${bold(cyan(latest))}`
+		)
+
+		Deno.exit(1)
+	}
 
 	log(`\nUpgraded successfully to lfr ${bold(cyan(latest))}`)
 }
