@@ -1,9 +1,7 @@
-import { runAsyncFunction, runCommand } from 'sdw3/lab/exec'
-import { getBaseName } from 'sdw3/lab/path'
-import { blue, bold, dim, white } from 'std/colors'
+import { blue, bold, white } from 'std/colors'
 
-import { getConfigEntry } from '@lib/config'
-import { join, log } from '@lib/utils'
+import { runBuildLang } from '@lib/liferay'
+import { log } from '@lib/utils'
 
 /**
  * Execute buildLang in portal-language-lang module
@@ -16,21 +14,5 @@ export async function buildLang() {
 		)}\n`
 	)
 
-	const portalPath = await getConfigEntry('portal.path')
-	const gradlePath = join(portalPath, 'gradlew')
-
-	const modulePath = join(
-		portalPath,
-		'/modules/apps/portal-language/portal-language-lang'
-	)
-	const moduleName = getBaseName(modulePath)
-
-	Deno.chdir(modulePath)
-
-	await runAsyncFunction({
-		fn: async () => {
-			await runCommand(`${gradlePath} buildLang`)
-		},
-		text: `${moduleName} ${dim('buildLang')}`,
-	})
+	await runBuildLang()
 }

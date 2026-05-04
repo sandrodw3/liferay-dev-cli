@@ -8,6 +8,7 @@ import {
 	getCurrentBranch,
 	handleRebaseConflict,
 } from '@lib/git'
+import { runBuildLang } from '@lib/liferay'
 import { count, join, log } from '@lib/utils'
 
 type Entry = {
@@ -136,7 +137,7 @@ export async function languageKeys(props: Props) {
 	// Run buildLang if specified, otherwise sort Language.properties by running formatSource
 
 	if (props.buildLang) {
-		await buildLang()
+		await runBuildLang()
 	} else {
 		await sortFile({ onFail: cleanup })
 	}
@@ -171,29 +172,6 @@ export async function languageKeys(props: Props) {
 	for (const entry of entries) {
 		log(`${bold(white('•'))} ${entry.key}`)
 	}
-}
-
-/**
- * Execute buildLang in portal-language-lang module
- */
-
-async function buildLang() {
-	const portalPath = await getConfigEntry('portal.path')
-	const gradlePath = join(portalPath, 'gradlew')
-
-	const modulePath = join(
-		portalPath,
-		'modules/apps/portal-language/portal-language-lang'
-	)
-
-	Deno.chdir(modulePath)
-
-	await runAsyncFunction({
-		fn: async () => {
-			await runCommand(`${gradlePath} buildLang`)
-		},
-		text: `portal-language-lang ${dim('buildLang')}`,
-	})
 }
 
 /**
