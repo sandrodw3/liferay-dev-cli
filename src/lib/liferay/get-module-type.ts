@@ -27,7 +27,7 @@ export async function getModuleType(
 		return 'root'
 	} else if (module === join(portalPath, 'modules')) {
 		return null
-	} else if (isRootModule(module)) {
+	} else if (isRootModule(module, portalPath)) {
 		return 'root-module'
 	} else if (module.endsWith('test/playwright')) {
 		return 'playwright'
@@ -70,6 +70,8 @@ function isParentModule(module: string) {
  * Check whether a module is a root module or not
  */
 
-function isRootModule(module: string) {
-	return ROOT_MODULES.some((rootModule) => module.includes(rootModule))
+function isRootModule(module: string, portalPath: string) {
+	return ROOT_MODULES.some(
+		(rootModule) => module === join(portalPath, rootModule)
+	)
 }
