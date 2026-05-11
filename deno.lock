@@ -9,7 +9,7 @@
     "jsr:@cliffy/prompt@1.0.0-rc.7": "1.0.0-rc.7",
     "jsr:@cliffy/table@1.0.0-rc.7": "1.0.0-rc.7",
     "jsr:@db/postgres@0.19.5": "0.19.5",
-    "jsr:@sdw3/lab@~0.4.1": "0.4.1",
+    "jsr:@sdw3/lab@0.5.0": "0.5.0",
     "jsr:@std/assert@~1.0.6": "1.0.19",
     "jsr:@std/bytes@^1.0.5": "1.0.6",
     "jsr:@std/cli@^1.0.13": "1.0.29",
@@ -91,8 +91,8 @@
         "jsr:@std/path@^1.0.8"
       ]
     },
-    "@sdw3/lab@0.4.1": {
-      "integrity": "a8551a60fa8ff6f222967dc792e167bba9a050a1dc33fc9bc355ac8c06a36f31",
+    "@sdw3/lab@0.5.0": {
+      "integrity": "088cb419cad0f18e8d1a7bdff80abfcaac712ceaf1fd53619bb431cbcd674dfa",
       "dependencies": [
         "jsr:@std/cli",
         "jsr:@std/fmt@^1.0.8"
@@ -576,7 +576,7 @@
       "jsr:@cliffy/command@1.0.0-rc.7",
       "jsr:@cliffy/prompt@1.0.0-rc.7",
       "jsr:@db/postgres@0.19.5",
-      "jsr:@sdw3/lab@~0.4.1",
+      "jsr:@sdw3/lab@0.5.0",
       "jsr:@std/assert@1.0.12",
       "jsr:@std/fmt@1.0.8",
       "jsr:@std/fs@1.0.13",
