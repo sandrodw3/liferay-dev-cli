@@ -74,6 +74,8 @@ async function runTestsInSelectedFile(ui: Props['ui']) {
 	// If file is selected, run its tests
 
 	if (file) {
+		log()
+
 		await runTestsInPath(file, ui)
 	}
 }
@@ -108,6 +110,8 @@ async function runTestsInSelectedModule(ui: Props['ui']) {
 	// If file is selected, run its tests
 
 	if (module) {
+		log()
+
 		await runTestsInPath(module, ui)
 	}
 }
@@ -147,6 +151,8 @@ async function runTestsInSelectedProject(ui: Props['ui']) {
 	})
 
 	if (project) {
+		log()
+
 		await runTestsInProject(project, ui)
 	}
 }
