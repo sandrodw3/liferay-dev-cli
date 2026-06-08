@@ -1,6 +1,5 @@
 import { Confirm } from 'cliffy/prompt'
 import { Failure, runAsyncFunction, runCommand } from 'sdw3/lab/exec'
-import { checkFzf } from 'sdw3/lab/fzf'
 import { getBaseName } from 'sdw3/lab/path'
 import { blue, bold, dim, green, red, white, yellow } from 'std/colors'
 
@@ -190,16 +189,9 @@ async function deployBranchModules(options: Options) {
  */
 
 async function deploySelectedModule(options: Options) {
-	await checkFzf()
-
-	log(
-		`Please ${bold(white('select a module'))} and press ${bold(
-			blue('ENTER')
-		)} to deploy it`
-	)
-
 	const module = await selectModule({
 		exclude: ['playwright', 'parent-module', 'test-module', 'root'],
+		message: 'Select a module to deploy',
 	})
 
 	if (!module) {

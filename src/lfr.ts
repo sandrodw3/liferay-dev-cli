@@ -240,10 +240,7 @@ const command = new Command()
 	)
 
 	// Find command
-	.command(
-		'find',
-		'Allow finding a module and getting its path. fzf needs to be installed for this command to work'
-	)
+	.command('find', 'Allow finding a module and getting its path')
 	.action(() => find())
 
 	// Format command

@@ -1,6 +1,5 @@
 import { Confirm } from 'cliffy/prompt'
 import { Failure, Info, runAsyncFunction, runCommand } from 'sdw3/lab/exec'
-import { checkFzf } from 'sdw3/lab/fzf'
 import { getBaseName } from 'sdw3/lab/path'
 import { blue, bold, dim, green, red, white, yellow } from 'std/colors'
 
@@ -182,14 +181,6 @@ async function buildRestBranchModules(options: Options) {
  */
 
 async function buildRestSelectedModule(options: Options) {
-	await checkFzf()
-
-	log(
-		`Please ${bold(white('select a module'))} and press ${bold(
-			blue('ENTER')
-		)} to run buildRest on it`
-	)
-
 	const module = await selectModule({
 		exclude: [
 			'playwright',
@@ -198,6 +189,7 @@ async function buildRestSelectedModule(options: Options) {
 			'root',
 			'root-module',
 		],
+		message: 'Select a module to run buildRest',
 	})
 
 	if (!module) {
