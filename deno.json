@@ -2,8 +2,8 @@
 	"imports": {
 		"mysql": "https://deno.land/x/mysql@v2.12.1/mod.ts",
 
-		"cliffy/command": "jsr:@cliffy/command@1.0.0-rc.7",
-		"cliffy/prompt": "jsr:@cliffy/prompt@1.0.0-rc.7",
+		"cliffy/command": "jsr:@cliffy/command@1.2.1",
+		"cliffy/prompt": "jsr:@cliffy/prompt@1.2.1",
 		"postgres": "jsr:@db/postgres@0.19.5",
 		"sdw3/lab": "jsr:@sdw3/lab@0.9.1",
 		"std/assert": "jsr:@std/assert@1.0.12",
