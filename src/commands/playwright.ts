@@ -1,11 +1,11 @@
 import { runCommand } from 'sdw3/lab/exec'
-import { checkFzf, fuzzySearch } from 'sdw3/lab/fzf'
 import { getBaseName } from 'sdw3/lab/path'
+import { fuzzySelect } from 'sdw3/lab/prompt'
 import { blue, bold, white, yellow } from 'std/colors'
 import { walkSync } from 'std/walk'
 
 import { getConfigEntry } from '@lib/config'
-import { folderExists, join, log } from '@lib/utils'
+import { folderExists, goUp, join, log } from '@lib/utils'
 
 type Props = {
 	module?: boolean
@@ -18,8 +18,6 @@ type Props = {
  */
 
 export async function playwright({ module, project, ui }: Props) {
-	await checkFzf()
-
 	if (module) {
 		await runTestsInSelectedModule(ui)
 	} else if (project) {
@@ -64,21 +62,14 @@ async function runTestsInSelectedFile(ui: Props['ui']) {
 
 	files.sort((a, b) => a.name.localeCompare(b.name))
 
-	const list = files.map((file) => ({
-		id: file.path,
-		name: file.name,
-		preview: file.path.split('playwright/tests/').pop() ?? file.path,
-	}))
-
-	log(
-		`Please ${bold(white('select a file'))} and press ${bold(
-			blue('ENTER')
-		)} to run all tests on it`
-	)
-
-	const file = await fuzzySearch(list)
-
-	log()
+	const file = await fuzzySelect({
+		message: 'Select a file to test',
+		options: files.map((file) => ({
+			value: file.path,
+			label: file.name,
+			description: goUp(file.path).split('playwright/tests/').pop(),
+		})),
+	})
 
 	// If file is selected, run its tests
 
@@ -106,18 +97,13 @@ async function runTestsInSelectedModule(ui: Props['ui']) {
 
 	modules.sort((a, b) => a.name.localeCompare(b.name))
 
-	const list = modules.map((module) => ({
-		id: module.path,
-		name: module.name,
-	}))
-
-	log(
-		`Please ${bold(white('select a module'))} and press ${bold(
-			blue('ENTER')
-		)} to run all tests on it\n`
-	)
-
-	const module = await fuzzySearch(list)
+	const module = await fuzzySelect({
+		message: 'Select a module to test',
+		options: modules.map((module) => ({
+			value: module.path,
+			label: module.name,
+		})),
+	})
 
 	// If file is selected, run its tests
 
@@ -150,20 +136,15 @@ async function runTestsInSelectedProject(ui: Props['ui']) {
 		})
 		.filter((name): name is string => Boolean(name))
 
-	const list = [...new Set(projects)]
-		.sort((a, b) => a.localeCompare(b))
-		.map((name) => ({
-			id: name,
-			name,
-		}))
-
-	log(
-		`Please ${bold(white('select a project'))} and press ${bold(
-			blue('ENTER')
-		)} to run all tests on it\n`
-	)
-
-	const project = await fuzzySearch(list)
+	const project = await fuzzySelect({
+		message: 'Select a project to test',
+		options: [...new Set(projects)]
+			.sort((a, b) => a.localeCompare(b))
+			.map((name) => ({
+				value: name,
+				label: name,
+			})),
+	})
 
 	if (project) {
 		await runTestsInProject(project, ui)

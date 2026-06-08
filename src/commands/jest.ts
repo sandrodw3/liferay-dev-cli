@@ -1,6 +1,5 @@
 import { Confirm } from 'cliffy/prompt'
 import { Failure, Info, runAsyncFunction, runCommand } from 'sdw3/lab/exec'
-import { checkFzf } from 'sdw3/lab/fzf'
 import { getBaseName } from 'sdw3/lab/path'
 import { blue, bold, dim, red, white, yellow } from 'std/colors'
 
@@ -144,14 +143,6 @@ async function runTestsInBranch(defaultOutput: Props['defaultOutput']) {
  */
 
 async function runTestsInSelectedModule(defaultOutput: Props['defaultOutput']) {
-	await checkFzf()
-
-	log(
-		`Please ${bold(white('select a module'))} and press ${bold(
-			blue('ENTER')
-		)} to run tests`
-	)
-
 	const module = await selectModule({
 		exclude: [
 			'playwright',
@@ -160,6 +151,7 @@ async function runTestsInSelectedModule(defaultOutput: Props['defaultOutput']) {
 			'root-module',
 			'root',
 		],
+		message: 'Select a module to run jest tests',
 	})
 
 	if (!module) {

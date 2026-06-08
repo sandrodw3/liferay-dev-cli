@@ -30,7 +30,6 @@
 ### 1) Install prerequisites
 
 - [`deno`][deno_installation_url] (**v2.2.8** or higher required)
-- [`fzf`][fzf_installation_url]
 
 ### 2) Install Liferay Dev CLI
 
@@ -200,7 +199,7 @@ lfr deploy [options...]
 
 ### `find`
 
-Allow finding a module and getting its path. Requires [fzf](https://github.com/junegunn/fzf) to be used. This command is useful to use the result for another thing. For example, you could do a bash script like `module=$(lfr find); cd module`, and it would allow you to select a module and then change to its directory.
+Allow finding a module and getting its path. This command is useful to use the result for another thing. For example, you could do a bash script like `module=$(lfr find); cd module`, and it would allow you to select a module and then change to its directory.
 
 ```
 lfr find
@@ -335,8 +334,6 @@ lfr upgrade
 [deno_badge_url]: https://img.shields.io/badge/Deno-464647?style=for-the-badge&logo=deno&logoColor=white
 [deno_installation_url]: https://github.com/denoland/deno/?tab=readme-ov-file#installation
 [deno_url]: https://deno.com/
-
-[fzf_installation_url]: https://github.com/junegunn/fzf?tab=readme-ov-file#installation
 
 [typescript_badge_url]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
 [typescript_url]: https://www.typescriptlang.org/

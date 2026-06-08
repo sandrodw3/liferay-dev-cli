@@ -1,10 +1,10 @@
-import { fuzzySearch } from 'sdw3/lab/fzf'
 import { getBaseName } from 'sdw3/lab/path'
+import { fuzzySelect } from 'sdw3/lab/prompt'
 import { walkSync } from 'std/walk'
 
 import { getConfigEntry } from '@lib/config'
 import { ModuleType, ROOT_MODULES, getModuleType } from '@lib/liferay'
-import { join } from '@lib/utils'
+import { goUp, join } from '@lib/utils'
 
 const WALK_OPTIONS = {
 	includeFiles: false,
@@ -14,6 +14,7 @@ const WALK_OPTIONS = {
 type Props = {
 	exclude?: ModuleType[]
 	include?: ModuleType[]
+	message?: string
 }
 
 /**
@@ -21,21 +22,27 @@ type Props = {
  * Module types can be excluded from the list
  */
 
-export async function selectModule(): Promise<string | null>
+export async function selectModule(props?: {
+	message?: string
+}): Promise<string | null>
 
 export async function selectModule(props: {
 	exclude: ModuleType[]
 	include?: never
+	message?: string
 }): Promise<string | null>
 
 export async function selectModule(props: {
 	include: ModuleType[]
 	exclude?: never
+	message?: string
 }): Promise<string | null>
 
-export async function selectModule({ exclude, include }: Props = {}): Promise<
-	string | null
-> {
+export async function selectModule({
+	exclude,
+	include,
+	message = 'Select a module',
+}: Props = {}): Promise<string | null> {
 	const portalPath = await getConfigEntry('portal.path')
 
 	// Add needed modules and sort the list
@@ -84,18 +91,16 @@ export async function selectModule({ exclude, include }: Props = {}): Promise<
 
 	modules.sort()
 
-	// Build the list for the fuzzy search and execute it
-	// We are also storing modules with repeated names
+	// Search by base name, show the parent path to disambiguate repeated names
 
-	const list = modules.map((module) => ({
-		id: module,
-		name: getBaseName(module),
-		preview: module.split('/modules/').pop() ?? module,
+	const options = modules.map((module) => ({
+		value: module,
+		label: getBaseName(module),
+		description: goUp(module).split('/modules/').pop(),
 	}))
 
-	const module = await fuzzySearch(list)
-
-	// Return the module or null if no module was selected
-
-	return module || null
+	return fuzzySelect({
+		message,
+		options,
+	})
 }
