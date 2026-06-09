@@ -12,7 +12,5 @@ export async function find() {
 		Deno.exit(0)
 	}
 
-	log()
-
 	log(module)
 }
