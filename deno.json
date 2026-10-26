@@ -13,6 +13,7 @@
 		"std/walk": "jsr:@std/fs@1.0.13/walk",
 
 		"@commands": "./src/commands/index.ts",
+		"@lib/claude": "./src/lib/claude/index.ts",
 		"@lib/config": "./src/lib/config/index.ts",
 		"@lib/git": "./src/lib/git/index.ts",
 		"@lib/liferay": "./src/lib/liferay/index.ts",
