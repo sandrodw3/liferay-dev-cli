@@ -67,6 +67,7 @@ Explanation and description of how each of the commands and their available opti
 - [`poshi`](#poshi)
 - [`start`](#start)
 - [`stop`](#stop)
+- [`transfer-claude-chat`](#transfer-claude-chat)
 - [`upgrade`](#upgrade)
 
 ### `ant-all`
@@ -317,6 +318,18 @@ Stop the currently running portal instance.
 
 ```
 lfr stop
+```
+
+---
+
+### `transfer-claude-chat`
+
+Move a [Claude Code](https://claude.com/claude-code) chat to the selected module so it can be resumed there with its full history. It can be run from anywhere: first select the chat, then the target module. Chats are listed from the most recent one, showing their title, date, module and whether they are open. Only chats from the portal are listed.
+
+Open chats can't be transferred, close them first. If a chat was moved while open and Claude kept writing to it in the old directory, transferring it again merges both parts.
+
+```
+lfr transfer-claude-chat
 ```
 
 ---

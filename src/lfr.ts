@@ -19,6 +19,7 @@ import {
 	poshi,
 	start,
 	stop,
+	transferClaudeChat,
 	upgrade,
 } from '@commands'
 import { CONFIG_ENTRY_KEYS, readConfig, setConfigValues } from '@lib/config'
@@ -373,6 +374,13 @@ const command = new Command()
 	// Stop command
 	.command('stop', 'Stop portal instance that is currently running')
 	.action(() => stop())
+
+	// Transfer Claude Chat command
+	.command(
+		'transfer-claude-chat',
+		'Move a Claude Code chat to the selected module to resume it there'
+	)
+	.action(() => transferClaudeChat())
 
 	// Upgrade command
 	.command('upgrade', 'Upgrade lfr to latest version')
