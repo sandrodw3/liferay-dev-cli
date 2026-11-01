@@ -1,7 +1,7 @@
-import { runAsyncFunction, runCommand } from 'sdw3/lab/exec'
 import { dim } from 'std/colors'
 
 import { getConfigEntry } from '@lib/config'
+import { runAsyncFunction, runCommand } from '@lib/exec'
 import { join } from '@lib/utils'
 
 /**

@@ -1,6 +1,6 @@
-import { runCommand } from 'sdw3/lab/exec'
 import { bold, cyan, dim, red, white } from 'std/colors'
 
+import { runCommand } from '@lib/exec'
 import { log } from '@lib/utils'
 import { getLatestVersion } from '@lib/version'
 

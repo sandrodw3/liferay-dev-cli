@@ -1,6 +1,6 @@
-import { runCommand } from 'sdw3/lab/exec'
 import { blue, bold, yellow } from 'std/colors'
 
+import { runCommand } from '@lib/exec'
 import { selectModule } from '@lib/liferay'
 import { log } from '@lib/utils'
 

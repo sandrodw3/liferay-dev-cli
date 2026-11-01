@@ -1,7 +1,7 @@
 import { Select } from 'cliffy/prompt'
-import { runCommand } from 'sdw3/lab/exec'
 import { bold, yellow } from 'std/colors'
 
+import { runCommand } from '@lib/exec'
 import { log } from '@lib/utils'
 
 /**

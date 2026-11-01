@@ -1,10 +1,10 @@
-import { runCommand } from 'sdw3/lab/exec'
-import { getBaseName } from 'sdw3/lab/path'
-import { fuzzySelect } from 'sdw3/lab/prompt'
 import { blue, bold, white, yellow } from 'std/colors'
 import { walkSync } from 'std/walk'
 
 import { getConfigEntry } from '@lib/config'
+import { runCommand } from '@lib/exec'
+import { getBaseName } from '@lib/path'
+import { fuzzySelect } from '@lib/prompt'
 import { folderExists, goUp, join, log } from '@lib/utils'
 
 type Props = {

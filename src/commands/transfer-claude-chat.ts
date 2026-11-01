@@ -1,7 +1,4 @@
 import { Confirm } from 'cliffy/prompt'
-import { runAsyncFunction } from 'sdw3/lab/exec'
-import { getBaseName } from 'sdw3/lab/path'
-import { fuzzySelect } from 'sdw3/lab/prompt'
 import { blue, bold, red, white, yellow } from 'std/colors'
 import { existsSync } from 'std/exists'
 
@@ -13,7 +10,10 @@ import {
 	getSessions,
 } from '@lib/claude'
 import { getConfigEntry } from '@lib/config'
+import { runAsyncFunction } from '@lib/exec'
 import { selectModule } from '@lib/liferay'
+import { getBaseName } from '@lib/path'
+import { fuzzySelect } from '@lib/prompt'
 import { join, log } from '@lib/utils'
 
 /**

@@ -1,9 +1,9 @@
-import { getBaseName } from 'sdw3/lab/path'
-import { fuzzySelect } from 'sdw3/lab/prompt'
 import { walkSync } from 'std/walk'
 
 import { getConfigEntry } from '@lib/config'
 import { ModuleType, ROOT_MODULES, getModuleType } from '@lib/liferay'
+import { getBaseName } from '@lib/path'
+import { fuzzySelect } from '@lib/prompt'
 import { goUp, join } from '@lib/utils'
 
 const WALK_OPTIONS = {

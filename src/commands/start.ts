@@ -1,10 +1,9 @@
 import { Confirm } from 'cliffy/prompt'
-import { runAsyncFunction, runCommand } from 'sdw3/lab/exec'
-import { getBaseName } from 'sdw3/lab/path'
 import { blue, bold, dim, white, yellow } from 'std/colors'
 import { existsSync } from 'std/exists'
 
 import { getConfigEntry } from '@lib/config'
+import { runAsyncFunction, runCommand } from '@lib/exec'
 import {
 	DBData,
 	getBundlesPath,
@@ -12,6 +11,7 @@ import {
 	getLatestTomcatPath,
 	getPortalProcessPid,
 } from '@lib/liferay'
+import { getBaseName } from '@lib/path'
 import {
 	checkDbExists,
 	cleanDb,

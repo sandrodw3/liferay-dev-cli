@@ -1,6 +1,5 @@
-import { runCommand } from 'sdw3/lab/exec'
-
 import { SESSIONS_PATH } from '@lib/claude'
+import { runCommand } from '@lib/exec'
 import { folderExists, join } from '@lib/utils'
 
 export type SessionProcess = {

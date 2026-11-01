@@ -1,9 +1,9 @@
-import { runCommand } from 'sdw3/lab/exec'
-import { getBaseName } from 'sdw3/lab/path'
 import { blue, bold, white } from 'std/colors'
 
 import { getConfigEntry } from '@lib/config'
+import { runCommand } from '@lib/exec'
 import { getModuleType } from '@lib/liferay'
+import { getBaseName } from '@lib/path'
 import { log } from '@lib/utils'
 
 type Props = {
