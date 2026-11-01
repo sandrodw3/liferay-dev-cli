@@ -1,9 +1,9 @@
-import { Failure, runAsyncFunction, runCommand } from 'sdw3/lab/exec'
-import { getBaseName } from 'sdw3/lab/path'
 import { blue, bold, dim, red, white, yellow } from 'std/colors'
 
 import { getConfigEntry } from '@lib/config'
+import { Failure, runAsyncFunction, runCommand } from '@lib/exec'
 import { Profile, getBundlesPath, getPortalProcessPid } from '@lib/liferay'
+import { getBaseName } from '@lib/path'
 import { folderExists, goUp, join, log } from '@lib/utils'
 
 type Props = {

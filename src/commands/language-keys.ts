@@ -1,8 +1,8 @@
 import { Input, Toggle } from 'cliffy/prompt'
-import { Failure, Warning, runAsyncFunction, runCommand } from 'sdw3/lab/exec'
 import { blue, bold, dim, italic, red, white, yellow } from 'std/colors'
 
 import { getConfigEntry } from '@lib/config'
+import { Failure, Warning, runAsyncFunction, runCommand } from '@lib/exec'
 import {
 	getBranchCommits,
 	getCurrentBranch,

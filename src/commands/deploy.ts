@@ -1,11 +1,11 @@
 import { Confirm } from 'cliffy/prompt'
-import { Failure, runAsyncFunction, runCommand } from 'sdw3/lab/exec'
-import { getBaseName } from 'sdw3/lab/path'
 import { blue, bold, dim, green, red, white, yellow } from 'std/colors'
 
 import { getConfigEntry } from '@lib/config'
+import { Failure, runAsyncFunction, runCommand } from '@lib/exec'
 import { getCurrentBranch } from '@lib/git'
 import { getChangedModules, getModuleType, selectModule } from '@lib/liferay'
+import { getBaseName } from '@lib/path'
 import { join, log } from '@lib/utils'
 
 type Options = {
